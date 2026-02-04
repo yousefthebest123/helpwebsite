@@ -16,33 +16,39 @@
           </span>
           <div class="dropdown-menu">
             <div class="dropdown-section">
-              <h4>📊 Daily Workflow</h4>
+              <h4>📊 Productivity</h4>
               <NuxtLink to="/tools/converter" class="dropdown-item">Unit Converter</NuxtLink>
-              <NuxtLink to="/tools/pdf" class="dropdown-item">PDF Tools</NuxtLink>
-              <NuxtLink to="/tools/format" class="dropdown-item">Format Shifter</NuxtLink>
-            </div>
-            <div class="dropdown-section">
-              <h4>🧠 Brain De-Clutter</h4>
               <NuxtLink to="/tools/timer" class="dropdown-item">Focus Timer</NuxtLink>
               <NuxtLink to="/tools/notes" class="dropdown-item">Quick Notes</NuxtLink>
               <NuxtLink to="/tools/matrix" class="dropdown-item">Priority Matrix</NuxtLink>
             </div>
             <div class="dropdown-section">
-              <h4>🎨 Content Creator</h4>
-              <NuxtLink to="/tools/caption" class="dropdown-item">Caption Generator</NuxtLink>
-              <NuxtLink to="/tools/colors" class="dropdown-item">Color Palette</NuxtLink>
-              <NuxtLink to="/tools/background" class="dropdown-item">Remove Background</NuxtLink>
+              <h4>🔧 Developer</h4>
+              <NuxtLink to="/tools/json" class="dropdown-item">JSON Formatter</NuxtLink>
+              <NuxtLink to="/tools/hash-generator" class="dropdown-item">Hash Generator</NuxtLink>
+              <NuxtLink to="/tools/uuid-generator" class="dropdown-item">UUID Generator</NuxtLink>
+              <NuxtLink to="/tools/base64-image" class="dropdown-item">Image to Base64</NuxtLink>
             </div>
             <div class="dropdown-section">
-              <h4>⚙️ Technical</h4>
-              <NuxtLink to="/tools/text" class="dropdown-item">Text Cleaner</NuxtLink>
-              <NuxtLink to="/tools/password" class="dropdown-item">Password Generator</NuxtLink>
+              <h4>🎨 Creative</h4>
+              <NuxtLink to="/tools/colors" class="dropdown-item">Color Palette</NuxtLink>
               <NuxtLink to="/tools/qr" class="dropdown-item">QR Code Maker</NuxtLink>
+              <NuxtLink to="/tools/lorem-ipsum" class="dropdown-item">Lorem Ipsum</NuxtLink>
+              <NuxtLink to="/tools/text-cleaner" class="dropdown-item">Text Cleaner</NuxtLink>
+            </div>
+            <div class="dropdown-section">
+              <h4>🔐 Security & Utils</h4>
+              <NuxtLink to="/tools/password" class="dropdown-item">Password Generator</NuxtLink>
+              <NuxtLink to="/tools/link-shortener" class="dropdown-item">Link Shortener</NuxtLink>
+              <NuxtLink to="/tools/word-counter" class="dropdown-item">Word Counter</NuxtLink>
+              <NuxtLink to="/tools/age-calculator" class="dropdown-item">Age Calculator</NuxtLink>
+              <NuxtLink to="/tools/tip-calculator" class="dropdown-item">Tip Calculator</NuxtLink>
             </div>
           </div>
         </div>
         <NuxtLink to="/mental-health" class="nav-link">Mental Health</NuxtLink>
         <NuxtLink to="/learning" class="nav-link">Learning Hub</NuxtLink>
+        <NuxtLink to="/support" class="nav-link">Support</NuxtLink>
         <NuxtLink to="/about" class="nav-link">About</NuxtLink>
       </div>
 
@@ -54,10 +60,24 @@
             <path d="m21 21-4.35-4.35"></path>
           </svg>
         </button>
-        <button class="btn btn-primary btn-sm">
+        <NuxtLink v-if="!isAuthenticated" to="/auth/login" class="btn btn-secondary btn-sm">
+          Login
+        </NuxtLink>
+        <div v-else class="user-menu">
+          <button @click="showUserMenu = !showUserMenu" class="user-avatar">
+            {{ user?.username?.charAt(0).toUpperCase() || '?' }}
+          </button>
+          <div v-if="showUserMenu" class="user-dropdown">
+            <p class="user-name">{{ user?.username }}</p>
+            <p class="user-email">{{ user?.email }}</p>
+            <div class="divider"></div>
+            <button @click="handleLogout" class="logout-btn">🚪 Logout</button>
+          </div>
+        </div>
+        <NuxtLink to="/support" class="btn btn-primary btn-sm">
           <span>Get Help</span>
           <span class="btn-arrow">→</span>
-        </button>
+        </NuxtLink>
       </div>
 
       <!-- Mobile Menu Toggle -->
@@ -132,29 +152,35 @@
 </template>
 
 <script setup>
+import { useAuth } from '~/composables/useAuth'
+
+const { user, isAuthenticated, logout, initAuth } = useAuth()
+
 const isScrolled = ref(false)
 const menuOpen = ref(false)
 const searchOpen = ref(false)
 const searchQuery = ref('')
 const searchInput = ref(null)
+const showUserMenu = ref(false)
 
 const tools = [
   { name: 'Unit Converter', icon: '🔄', path: '/tools/converter', desc: 'Convert units, currencies, time zones' },
-  { name: 'PDF Tools', icon: '📄', path: '/tools/pdf', desc: 'Merge, split, convert PDFs' },
-  { name: 'Format Shifter', icon: '🔀', path: '/tools/format', desc: 'Convert image and video formats' },
   { name: 'Focus Timer', icon: '⏱️', path: '/tools/timer', desc: 'Pomodoro timer with ambient sounds' },
   { name: 'Quick Notes', icon: '📝', path: '/tools/notes', desc: 'Auto-saving scratchpad' },
   { name: 'Priority Matrix', icon: '📊', path: '/tools/matrix', desc: 'Eisenhower decision matrix' },
-  { name: 'Caption Generator', icon: '✨', path: '/tools/caption', desc: 'AI-powered captions & bios' },
   { name: 'Color Palette', icon: '🎨', path: '/tools/colors', desc: 'Extract colors from images' },
-  { name: 'Remove Background', icon: '🖼️', path: '/tools/background', desc: 'Instant background removal' },
-  { name: 'Text Cleaner', icon: '🧹', path: '/tools/text', desc: 'Clean and format text' },
   { name: 'Password Generator', icon: '🔐', path: '/tools/password', desc: 'Generate secure passwords' },
   { name: 'QR Code Maker', icon: '📱', path: '/tools/qr', desc: 'Create QR codes instantly' },
-  { name: 'Calculator', icon: '🧮', path: '/tools/calculator', desc: 'Advanced scientific calculator' },
-  { name: 'Countdown Timer', icon: '⏳', path: '/tools/countdown', desc: 'Countdown to events' },
   { name: 'JSON Formatter', icon: '{ }', path: '/tools/json', desc: 'Format and validate JSON' },
-  { name: 'Markdown Editor', icon: '📑', path: '/tools/markdown', desc: 'Live markdown preview' },
+  { name: 'Hash Generator', icon: '🔐', path: '/tools/hash-generator', desc: 'Generate MD5, SHA hashes' },
+  { name: 'UUID Generator', icon: '🎲', path: '/tools/uuid-generator', desc: 'Generate unique identifiers' },
+  { name: 'Image to Base64', icon: '🖼️', path: '/tools/base64-image', desc: 'Convert images to base64' },
+  { name: 'Lorem Ipsum', icon: '📝', path: '/tools/lorem-ipsum', desc: 'Generate placeholder text' },
+  { name: 'Link Shortener', icon: '🔗', path: '/tools/link-shortener', desc: 'Shorten long URLs' },
+  { name: 'Word Counter', icon: '📊', path: '/tools/word-counter', desc: 'Count words and characters' },
+  { name: 'Age Calculator', icon: '📅', path: '/tools/age-calculator', desc: 'Calculate your exact age' },
+  { name: 'Tip Calculator', icon: '💰', path: '/tools/tip-calculator', desc: 'Calculate tips and split bills' },
+  { name: 'Text Cleaner', icon: '🧹', path: '/tools/text-cleaner', desc: 'Clean and format text' },
 ]
 
 const filteredTools = computed(() => {
@@ -173,14 +199,23 @@ const openSearch = () => {
   })
 }
 
+const handleLogout = () => {
+  logout()
+  showUserMenu.value = false
+}
+
 onMounted(() => {
+  initAuth()
   window.addEventListener('scroll', handleScroll)
   window.addEventListener('keydown', handleKeydown)
+  // Close user menu when clicking outside
+  document.addEventListener('click', handleClickOutside)
 })
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
   window.removeEventListener('keydown', handleKeydown)
+  document.removeEventListener('click', handleClickOutside)
 })
 
 const handleScroll = () => {
@@ -191,6 +226,12 @@ const handleKeydown = (e) => {
   if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
     e.preventDefault()
     openSearch()
+  }
+}
+
+const handleClickOutside = (e) => {
+  if (!e.target.closest('.user-menu')) {
+    showUserMenu.value = false
   }
 }
 </script>
@@ -349,6 +390,96 @@ const handleKeydown = (e) => {
   background: rgba(255, 255, 255, 0.05);
   color: white;
   border-color: var(--primary);
+}
+
+/* User Menu */
+.user-menu {
+  position: relative;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+.user-avatar:hover {
+  transform: scale(1.05);
+  border-color: var(--primary);
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+}
+
+.user-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background: var(--surface);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 16px;
+  min-width: 200px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  animation: slideDown 0.2s ease;
+  z-index: 150;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.user-name {
+  font-weight: 600;
+  color: white;
+  margin: 0;
+  font-size: 15px;
+}
+
+.user-email {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 4px 0 0;
+}
+
+.user-dropdown .divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 12px 0;
+}
+
+.logout-btn {
+  width: 100%;
+  padding: 10px 14px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 10px;
+  color: #f87171;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.logout-btn:hover {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: #f87171;
 }
 
 .btn-sm {

@@ -1,41 +1,50 @@
 <template>
   <div class="home">
+    <!-- Particles Background -->
+    <div class="particles-container">
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+    </div>
+
     <!-- Hero Section -->
     <section class="hero">
       <div class="container">
         <div class="hero-content">
-          <div class="hero-badge animate-fade-in">
+          <div class="hero-badge animate-bounce-in">
             <span class="badge-dot"></span>
             <span>Your all-in-one help hub</span>
           </div>
-          <h1 class="hero-title animate-fade-in-up">
-            Get <span class="gradient-text">Quick Help</span><br>
+          <h1 class="hero-title animate-slide-up">
+            Get <span class="text-gradient-animated">Quick Help</span><br>
             With Anything
           </h1>
-          <p class="hero-subtitle animate-fade-in-up" style="animation-delay: 0.1s">
+          <p class="hero-subtitle animate-slide-up stagger-1">
             From mental health support to productivity tools, math homework to creative projects — 
             we've got everything you need in one beautiful place. No sign-ups, no ads, just help.
           </p>
-          <div class="hero-actions animate-fade-in-up" style="animation-delay: 0.2s">
-            <NuxtLink to="/tools" class="btn btn-primary btn-lg">
+          <div class="hero-actions animate-slide-up stagger-2">
+            <NuxtLink to="/tools" class="btn btn-primary btn-lg magnetic-btn hover-neon">
               <span>Explore All Tools</span>
               <span class="btn-arrow">→</span>
             </NuxtLink>
-            <NuxtLink to="/mental-health" class="btn btn-secondary btn-lg">
+            <NuxtLink to="/mental-health" class="btn btn-secondary btn-lg hover-lift">
               <span>💜</span>
               <span>Mental Health Support</span>
             </NuxtLink>
           </div>
-          <div class="hero-stats animate-fade-in-up" style="animation-delay: 0.3s">
-            <div class="stat">
+          <div class="hero-stats animate-slide-up stagger-3">
+            <div class="stat hover-3d">
               <span class="stat-value">50+</span>
               <span class="stat-label">Free Tools</span>
             </div>
-            <div class="stat">
+            <div class="stat hover-3d">
               <span class="stat-value">24/7</span>
               <span class="stat-label">Available</span>
             </div>
-            <div class="stat">
+            <div class="stat hover-3d">
               <span class="stat-value">0</span>
               <span class="stat-label">Ads</span>
             </div>
@@ -43,23 +52,23 @@
         </div>
         <div class="hero-visual">
           <div class="hero-cards stagger">
-            <div class="floating-card card-1">
+            <div class="floating-card card-1 hover-scale-rotate">
               <span class="card-icon">🧮</span>
               <span>Calculator</span>
             </div>
-            <div class="floating-card card-2">
+            <div class="floating-card card-2 hover-scale-rotate">
               <span class="card-icon">⏱️</span>
               <span>Focus Timer</span>
             </div>
-            <div class="floating-card card-3">
+            <div class="floating-card card-3 hover-scale-rotate">
               <span class="card-icon">🔐</span>
               <span>Password Gen</span>
             </div>
-            <div class="floating-card card-4">
+            <div class="floating-card card-4 hover-scale-rotate">
               <span class="card-icon">💜</span>
               <span>Mental Health</span>
             </div>
-            <div class="floating-card card-5">
+            <div class="floating-card card-5 hover-scale-rotate">
               <span class="card-icon">📄</span>
               <span>PDF Tools</span>
             </div>
@@ -128,7 +137,7 @@
         </div>
         
         <div class="tools-grid grid-3">
-          <div class="card card-gradient tool-card">
+          <div class="card card-gradient tool-card glass-card-animated">
             <div class="tool-icon purple">🔄</div>
             <h3>Smart Unit Converter</h3>
             <p>Convert currencies, time zones, kitchen measurements, data sizes, and more with real-time rates.</p>
@@ -136,19 +145,19 @@
               Try it now <span>→</span>
             </NuxtLink>
           </div>
-          <div class="card card-gradient tool-card">
-            <div class="tool-icon pink">📄</div>
-            <h3>PDF Swiss Army Knife</h3>
-            <p>Merge, split, compress PDFs or convert them to Word, images, and more. All in your browser.</p>
-            <NuxtLink to="/tools/pdf" class="tool-link">
+          <div class="card card-gradient tool-card glass-card-animated">
+            <div class="tool-icon pink">🔐</div>
+            <h3>Hash Generator</h3>
+            <p>Generate MD5, SHA-1, SHA-256, SHA-512 hashes. Perfect for checksums and verification.</p>
+            <NuxtLink to="/tools/hash-generator" class="tool-link">
               Try it now <span>→</span>
             </NuxtLink>
           </div>
-          <div class="card card-gradient tool-card">
-            <div class="tool-icon teal">🔀</div>
-            <h3>Format Shifter</h3>
-            <p>Convert images (PNG, WebP, JPG), videos to GIFs, and audio formats with zero quality loss.</p>
-            <NuxtLink to="/tools/format" class="tool-link">
+          <div class="card card-gradient tool-card glass-card-animated">
+            <div class="tool-icon teal">🎲</div>
+            <h3>UUID Generator</h3>
+            <p>Generate unique identifiers (v1/v4) for databases, APIs, and more. Copy instantly.</p>
+            <NuxtLink to="/tools/uuid-generator" class="tool-link">
               Try it now <span>→</span>
             </NuxtLink>
           </div>
@@ -168,7 +177,7 @@
         </div>
         
         <div class="tools-grid grid-3">
-          <div class="card card-gradient tool-card">
+          <div class="card card-gradient tool-card glass-card-animated">
             <div class="tool-icon orange">⏱️</div>
             <h3>Focus Timer</h3>
             <p>Built-in Pomodoro timer with lo-fi beats, rain sounds, café ambience, and more.</p>
@@ -176,7 +185,7 @@
               Start focusing <span>→</span>
             </NuxtLink>
           </div>
-          <div class="card card-gradient tool-card">
+          <div class="card card-gradient tool-card glass-card-animated">
             <div class="tool-icon blue">📝</div>
             <h3>Minimalist Notes</h3>
             <p>A quick scratchpad that auto-saves to your browser. No login needed, ever.</p>
@@ -184,7 +193,7 @@
               Start writing <span>→</span>
             </NuxtLink>
           </div>
-          <div class="card card-gradient tool-card">
+          <div class="card card-gradient tool-card glass-card-animated">
             <div class="tool-icon green">📊</div>
             <h3>Priority Matrix</h3>
             <p>Drag-and-drop Eisenhower Matrix to decide what's urgent, important, or can wait.</p>
@@ -208,15 +217,15 @@
         </div>
         
         <div class="tools-grid grid-3">
-          <div class="card card-gradient tool-card">
-            <div class="tool-icon pink">✨</div>
-            <h3>Caption Generator</h3>
-            <p>AI-powered prompts to help you write catchy captions, bios, and hooks.</p>
-            <NuxtLink to="/tools/caption" class="tool-link">
-              Generate captions <span>→</span>
+          <div class="card card-gradient tool-card glass-card-animated">
+            <div class="tool-icon pink">📝</div>
+            <h3>Lorem Ipsum Generator</h3>
+            <p>Generate professional placeholder text for mockups, designs, and presentations.</p>
+            <NuxtLink to="/tools/lorem-ipsum" class="tool-link">
+              Generate text <span>→</span>
             </NuxtLink>
           </div>
-          <div class="card card-gradient tool-card">
+          <div class="card card-gradient tool-card glass-card-animated">
             <div class="tool-icon purple">🎨</div>
             <h3>Color Palette Picker</h3>
             <p>Upload any image and extract a beautiful, matching color palette instantly.</p>
@@ -224,12 +233,12 @@
               Pick colors <span>→</span>
             </NuxtLink>
           </div>
-          <div class="card card-gradient tool-card">
+          <div class="card card-gradient tool-card glass-card-animated">
             <div class="tool-icon teal">🖼️</div>
-            <h3>Remove Background</h3>
-            <p>Strip backgrounds from photos instantly. Perfect for product shots and portraits.</p>
-            <NuxtLink to="/tools/background" class="tool-link">
-              Remove now <span>→</span>
+            <h3>Image to Base64</h3>
+            <p>Convert images to Base64 for embedding in CSS, HTML, and web apps.</p>
+            <NuxtLink to="/tools/base64-image" class="tool-link">
+              Convert now <span>→</span>
             </NuxtLink>
           </div>
         </div>
@@ -248,15 +257,15 @@
         </div>
         
         <div class="tools-grid grid-4">
-          <div class="card card-gradient tool-card">
-            <div class="tool-icon blue">🧹</div>
-            <h3>Text Cleaner</h3>
-            <p>Remove extra spaces, fix quotes, change case — one click.</p>
-            <NuxtLink to="/tools/text" class="tool-link">
-              Clean text <span>→</span>
+          <div class="card card-gradient tool-card glass-card-animated">
+            <div class="tool-icon blue">📊</div>
+            <h3>Word Counter</h3>
+            <p>Count words, characters, sentences, and reading time instantly.</p>
+            <NuxtLink to="/tools/word-counter" class="tool-link">
+              Count words <span>→</span>
             </NuxtLink>
           </div>
-          <div class="card card-gradient tool-card">
+          <div class="card card-gradient tool-card glass-card-animated">
             <div class="tool-icon green">🔐</div>
             <h3>Password Generator</h3>
             <p>Generate strong, random passwords and masked emails.</p>
@@ -264,7 +273,7 @@
               Generate <span>→</span>
             </NuxtLink>
           </div>
-          <div class="card card-gradient tool-card">
+          <div class="card card-gradient tool-card glass-card-animated">
             <div class="tool-icon orange">📱</div>
             <h3>QR Code Maker</h3>
             <p>Turn any URL into a QR code for flyers, menus, and more.</p>
@@ -272,7 +281,7 @@
               Create QR <span>→</span>
             </NuxtLink>
           </div>
-          <div class="card card-gradient tool-card">
+          <div class="card card-gradient tool-card glass-card-animated">
             <div class="tool-icon purple">{ }</div>
             <h3>JSON Formatter</h3>
             <p>Format, validate, and beautify JSON data instantly.</p>
@@ -341,22 +350,22 @@
         </div>
         
         <div class="learning-grid grid-4">
-          <NuxtLink to="/learning/math" class="learning-card">
+          <NuxtLink to="/learning" class="learning-card">
             <span class="learning-icon">🧮</span>
             <h3>Math Help</h3>
             <p>Calculators, formulas, step-by-step solutions</p>
           </NuxtLink>
-          <NuxtLink to="/learning/writing" class="learning-card">
+          <NuxtLink to="/learning" class="learning-card">
             <span class="learning-icon">✍️</span>
             <h3>Writing Help</h3>
             <p>Grammar tips, essay structure, citations</p>
           </NuxtLink>
-          <NuxtLink to="/learning/study" class="learning-card">
+          <NuxtLink to="/learning" class="learning-card">
             <span class="learning-icon">📖</span>
             <h3>Study Techniques</h3>
             <p>Flashcards, memory tricks, focus tips</p>
           </NuxtLink>
-          <NuxtLink to="/learning/science" class="learning-card">
+          <NuxtLink to="/learning" class="learning-card">
             <span class="learning-icon">🔬</span>
             <h3>Science Help</h3>
             <p>Physics, chemistry, biology resources</p>
@@ -377,53 +386,53 @@
         </div>
         
         <div class="more-grid">
-          <NuxtLink to="/tools/calculator" class="more-item">
-            <span>🧮</span>
-            <span>Scientific Calculator</span>
+          <NuxtLink to="/tools/converter" class="more-item">
+            <span>🔄</span>
+            <span>Unit Converter</span>
           </NuxtLink>
-          <NuxtLink to="/tools/countdown" class="more-item">
-            <span>⏳</span>
-            <span>Countdown Timer</span>
+          <NuxtLink to="/tools/timer" class="more-item">
+            <span>⏱️</span>
+            <span>Focus Timer</span>
           </NuxtLink>
-          <NuxtLink to="/tools/markdown" class="more-item">
-            <span>📑</span>
-            <span>Markdown Editor</span>
+          <NuxtLink to="/tools/colors" class="more-item">
+            <span>🎨</span>
+            <span>Color Palette</span>
           </NuxtLink>
-          <NuxtLink to="/tools/lorem" class="more-item">
+          <NuxtLink to="/tools/lorem-ipsum" class="more-item">
             <span>📝</span>
             <span>Lorem Ipsum Generator</span>
           </NuxtLink>
-          <NuxtLink to="/tools/hash" class="more-item">
+          <NuxtLink to="/tools/hash-generator" class="more-item">
             <span>🔒</span>
             <span>Hash Generator</span>
           </NuxtLink>
-          <NuxtLink to="/tools/base64" class="more-item">
+          <NuxtLink to="/tools/base64-image" class="more-item">
             <span>🔄</span>
             <span>Base64 Encoder</span>
           </NuxtLink>
-          <NuxtLink to="/tools/regex" class="more-item">
-            <span>🔍</span>
-            <span>Regex Tester</span>
+          <NuxtLink to="/tools/link-shortener" class="more-item">
+            <span>🔗</span>
+            <span>Link Shortener</span>
           </NuxtLink>
-          <NuxtLink to="/tools/diff" class="more-item">
-            <span>📊</span>
-            <span>Text Diff Checker</span>
+          <NuxtLink to="/tools/age-calculator" class="more-item">
+            <span>📅</span>
+            <span>Age Calculator</span>
           </NuxtLink>
-          <NuxtLink to="/tools/timestamp" class="more-item">
-            <span>🕐</span>
-            <span>Timestamp Converter</span>
+          <NuxtLink to="/tools/tip-calculator" class="more-item">
+            <span>💰</span>
+            <span>Tip Calculator</span>
           </NuxtLink>
-          <NuxtLink to="/tools/aspect" class="more-item">
-            <span>📐</span>
-            <span>Aspect Ratio Calculator</span>
+          <NuxtLink to="/tools/uuid-generator" class="more-item">
+            <span>🎲</span>
+            <span>UUID Generator</span>
           </NuxtLink>
-          <NuxtLink to="/tools/case" class="more-item">
-            <span>Aa</span>
-            <span>Case Converter</span>
-          </NuxtLink>
-          <NuxtLink to="/tools/wordcount" class="more-item">
+          <NuxtLink to="/tools/word-counter" class="more-item">
             <span>📊</span>
             <span>Word Counter</span>
+          </NuxtLink>
+          <NuxtLink to="/support" class="more-item">
+            <span>💬</span>
+            <span>Support Center</span>
           </NuxtLink>
         </div>
         

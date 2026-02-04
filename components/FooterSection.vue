@@ -34,22 +34,32 @@
           <div class="footer-section">
             <h4>Tools</h4>
             <NuxtLink to="/tools/converter">Unit Converter</NuxtLink>
-            <NuxtLink to="/tools/pdf">PDF Tools</NuxtLink>
             <NuxtLink to="/tools/timer">Focus Timer</NuxtLink>
             <NuxtLink to="/tools/password">Password Generator</NuxtLink>
             <NuxtLink to="/tools/qr">QR Code Maker</NuxtLink>
+            <NuxtLink to="/tools/json">JSON Formatter</NuxtLink>
+            <NuxtLink to="/tools/hash-generator">Hash Generator</NuxtLink>
+          </div>
+          <div class="footer-section">
+            <h4>More Tools</h4>
+            <NuxtLink to="/tools/uuid-generator">UUID Generator</NuxtLink>
+            <NuxtLink to="/tools/base64-image">Image to Base64</NuxtLink>
+            <NuxtLink to="/tools/lorem-ipsum">Lorem Ipsum</NuxtLink>
+            <NuxtLink to="/tools/link-shortener">Link Shortener</NuxtLink>
+            <NuxtLink to="/tools/word-counter">Word Counter</NuxtLink>
+            <NuxtLink to="/tools/tip-calculator">Tip Calculator</NuxtLink>
           </div>
           <div class="footer-section">
             <h4>Resources</h4>
             <NuxtLink to="/mental-health">Mental Health</NuxtLink>
             <NuxtLink to="/learning">Learning Hub</NuxtLink>
-            <NuxtLink to="/learning/math">Math Help</NuxtLink>
-            <NuxtLink to="/learning/writing">Writing Help</NuxtLink>
+            <NuxtLink to="/support">Support Center</NuxtLink>
+            <NuxtLink to="/about">About Us</NuxtLink>
           </div>
           <div class="footer-section">
-            <h4>Company</h4>
-            <NuxtLink to="/about">About Us</NuxtLink>
-            <NuxtLink to="/contact">Contact</NuxtLink>
+            <h4>Account</h4>
+            <NuxtLink to="/auth/login">Login / Signup</NuxtLink>
+            <NuxtLink to="/staff/login">Staff Portal</NuxtLink>
             <NuxtLink to="/privacy">Privacy Policy</NuxtLink>
             <NuxtLink to="/terms">Terms of Service</NuxtLink>
           </div>
@@ -128,11 +138,12 @@
   background: var(--primary);
   color: white;
   transform: translateY(-3px);
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
 }
 
 .footer-links-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 40px;
 }
 
