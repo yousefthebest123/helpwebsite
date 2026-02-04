@@ -75,7 +75,7 @@
               </button>
               <span class="divider"></span>
               <button @click="formatText('code')" title="Code">
-                {'</>'}
+                &lt;/&gt;
               </button>
             </div>
 
