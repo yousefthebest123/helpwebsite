@@ -1,6 +1,5 @@
 <template>
   <div class="tool-page">
-    <NavBar />
     <div class="page-bg">
       <div class="gradient-orb orb-1"></div>
       <div class="gradient-orb orb-2"></div>
@@ -153,8 +152,6 @@
         </div>
       </div>
     </main>
-
-    <FooterSection />
   </div>
 </template>
 

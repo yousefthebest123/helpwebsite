@@ -1,6 +1,5 @@
 <template>
   <div class="tool-page">
-    <NavBar />
     
     <!-- Animated Background -->
     <div class="page-bg">
@@ -236,8 +235,6 @@
         </div>
       </section>
     </main>
-
-    <FooterSection />
   </div>
 </template>
 

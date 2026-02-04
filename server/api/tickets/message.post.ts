@@ -45,7 +45,7 @@ export default defineEventHandler(async (event) => {
   await db.collection('tickets').updateOne(
     { ticketId },
     {
-      $push: { messages: newMessage },
+      $push: { messages: newMessage } as any,
       $set: { updatedAt: new Date() }
     }
   )

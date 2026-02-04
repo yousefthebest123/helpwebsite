@@ -5,7 +5,7 @@
       <div class="page-header">
         <h1 class="page-title">All <span class="gradient-text">Tools</span></h1>
         <p class="page-subtitle">
-          30+ free tools to help you with daily tasks, productivity, creativity, and more.
+          35+ free tools to help you with daily tasks, productivity, creativity, and more.
         </p>
         
         <!-- Search & Filter -->
@@ -84,18 +84,24 @@ const tools = [
   { name: 'Age Calculator', icon: '🎂', path: '/tools/age-calculator', desc: 'Calculate your exact age in years, months, days', color: 'pink', category: 'daily' },
   { name: 'Tip Calculator', icon: '💵', path: '/tools/tip-calculator', desc: 'Calculate tips and split bills easily', color: 'teal', category: 'daily' },
   { name: 'Link Shortener', icon: '🔗', path: '/tools/link-shortener', desc: 'Create short, shareable links', color: 'blue', category: 'daily' },
+  { name: 'IP Address Lookup', icon: '📍', path: '/tools/ip-lookup', desc: 'Get geolocation info for any IP', color: 'sky', category: 'daily', badge: 'New' },
   
   // Brain De-Clutter
   { name: 'Focus Timer', icon: '⏱️', path: '/tools/timer', desc: 'Pomodoro timer with ambient sounds', color: 'orange', category: 'brain', badge: 'Popular' },
+  { name: 'Pomodoro Timer', icon: '🍅', path: '/tools/pomodoro', desc: 'Boost productivity with timed focus', color: 'violet', category: 'brain', badge: 'New' },
   { name: 'Quick Notes', icon: '📝', path: '/tools/notes', desc: 'Auto-saving scratchpad', color: 'blue', category: 'brain' },
   { name: 'Priority Matrix', icon: '📊', path: '/tools/matrix', desc: 'Eisenhower decision matrix', color: 'green', category: 'brain' },
   { name: 'Countdown Timer', icon: '⏳', path: '/tools/countdown', desc: 'Countdown to important events', color: 'purple', category: 'brain' },
+  { name: 'Random Picker', icon: '🎲', path: '/tools/random-picker', desc: 'Pick random items, flip coins, roll dice', color: 'amber', category: 'brain', badge: 'New' },
   
   // Content Creator
   { name: 'Color Palette', icon: '🎨', path: '/tools/colors', desc: 'Generate beautiful color palettes', color: 'purple', category: 'creator' },
+  { name: 'Color Picker', icon: '🖌️', path: '/tools/color-picker', desc: 'Advanced color picker with conversions', color: 'fuchsia', category: 'creator', badge: 'New' },
   { name: 'Lorem Ipsum', icon: '📄', path: '/tools/lorem-ipsum', desc: 'Generate placeholder text instantly', color: 'pink', category: 'creator' },
   { name: 'QR Code Maker', icon: '📱', path: '/tools/qr', desc: 'Create QR codes instantly', color: 'orange', category: 'creator', badge: 'Popular' },
+  { name: 'QR Code Generator', icon: '📲', path: '/tools/qr-generator', desc: 'Advanced QR codes with customization', color: 'emerald', category: 'creator', badge: 'New' },
   { name: 'Base64 Image', icon: '🖼️', path: '/tools/base64-image', desc: 'Convert images to Base64', color: 'teal', category: 'creator' },
+  { name: 'Image Compressor', icon: '🗜️', path: '/tools/image-compressor', desc: 'Compress images without quality loss', color: 'cyan', category: 'creator', badge: 'New' },
   
   // Technical
   { name: 'Text Cleaner', icon: '🧹', path: '/tools/text-cleaner', desc: 'Clean and format text', color: 'blue', category: 'tech' },

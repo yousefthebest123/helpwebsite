@@ -1,9 +1,7 @@
 <template>
   <div class="min-h-screen">
-    <NavBar />
-    <div class="animated-bg"></div>
     
-    <main class="container mx-auto px-6 pt-24 pb-16">
+    <main class="container mx-auto px-6 pt-20 pb-16">
       <!-- Header -->
       <div class="text-center mb-12">
         <div class="inline-flex items-center gap-2 px-4 py-2 bg-cyan-500/10 border border-cyan-500/30 rounded-full text-cyan-400 text-sm mb-6">
@@ -77,8 +75,6 @@
         </div>
       </div>
     </main>
-
-    <FooterSection />
   </div>
 </template>
 

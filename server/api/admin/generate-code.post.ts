@@ -16,20 +16,29 @@ export default defineEventHandler(async (event) => {
   }
 
   const body = await readBody(event)
-  const { name, role } = body
+  const { username, role } = body
 
-  if (!name || !role || !['support', 'admin'].includes(role)) {
+  if (!username || !role || !['support', 'admin'].includes(role)) {
     throw createError({
       statusCode: 400,
-      message: 'Name and valid role (support/admin) required'
+      message: 'Username and valid role (support/admin) required'
     })
   }
 
   const db = await getDb()
   const code = generateCode(10)
 
+  // Check if username already exists
+  const existing = await db.collection('support_members').findOne({ username })
+  if (existing) {
+    throw createError({
+      statusCode: 400,
+      message: 'Username already exists'
+    })
+  }
+
   const member = {
-    name,
+    username,
     role,
     code,
     active: true,
@@ -43,7 +52,7 @@ export default defineEventHandler(async (event) => {
   return {
     success: true,
     member: {
-      name,
+      username,
       role,
       code
     }

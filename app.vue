@@ -1,21 +1,7 @@
 <template>
-  <div class="app">
-    <div class="animated-bg"></div>
-    
-    <!-- Navigation -->
-    <NavBar />
-    
-    <!-- Main Content -->
-    <main>
-      <NuxtPage />
-    </main>
-    
-    <!-- Footer -->
-    <FooterSection />
-    
-    <!-- Global Toast Notifications -->
-    <ToastNotifications />
-  </div>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
 </template>
 
 <script setup>
@@ -26,15 +12,3 @@ useHead({
   }
 })
 </script>
-
-<style>
-.app {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-main {
-  flex: 1;
-}
-</style>

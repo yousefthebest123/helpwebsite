@@ -1,159 +1,179 @@
 <template>
-  <div class="min-h-screen">
-    <div class="animated-bg"></div>
-    <div class="cyber-grid"></div>
-
+  <div class="admin-dashboard">
     <!-- Admin Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 glass border-b border-cyan-500/20">
-      <div class="container mx-auto px-6 py-4">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-6">
-            <NuxtLink to="/" class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-xl shadow-lg shadow-cyan-500/30">
-                ⚡
-              </div>
-              <span class="text-xl font-bold">
-                <span class="gradient-text">Quick</span><span class="text-white">Help</span>
-              </span>
-            </NuxtLink>
-            <div class="h-6 w-px bg-slate-700"></div>
-            <span class="text-slate-400">Admin Panel</span>
-          </div>
-
-          <div class="flex items-center gap-4">
-            <div class="flex items-center gap-2 px-4 py-2 bg-slate-800/50 rounded-xl">
-              <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-              <span class="text-sm text-slate-300">{{ staffUser?.username }}</span>
-              <span :class="[
-                'px-2 py-0.5 rounded-full text-xs font-semibold',
-                staffUser?.role === 'owner' ? 'bg-purple-500/20 text-purple-400' :
-                staffUser?.role === 'admin' ? 'bg-cyan-500/20 text-cyan-400' :
-                'bg-green-500/20 text-green-400'
-              ]">
-                {{ staffUser?.role }}
-              </span>
+    <nav class="admin-nav">
+      <div class="nav-content">
+        <div class="nav-left">
+          <NuxtLink to="/" class="brand-logo">
+            <div class="logo-icon">
+              <span>⚡</span>
             </div>
-            <button @click="handleLogout" class="btn btn-ghost text-slate-400 hover:text-red-400">
-              🚪 Logout
-            </button>
+            <span class="logo-text">
+              <span class="text-gradient">Quick</span>Help
+            </span>
+          </NuxtLink>
+          <div class="nav-divider"></div>
+          <span class="nav-title">Admin Panel</span>
+        </div>
+
+        <div class="nav-right">
+          <div class="user-info">
+            <div class="status-dot"></div>
+            <span class="username">{{ staffUser?.username }}</span>
+            <span :class="['role-badge', staffUser?.role]">
+              {{ staffUser?.role === 'owner' ? '👑' : staffUser?.role === 'admin' ? '👨‍💼' : '🎧' }}
+              {{ staffUser?.role }}
+            </span>
           </div>
+          <button @click="handleLogout" class="logout-btn">
+            🚪 Logout
+          </button>
         </div>
       </div>
     </nav>
 
-    <!-- Sidebar & Content -->
-    <div class="flex pt-20">
+    <!-- Main Layout -->
+    <div class="admin-layout">
       <!-- Sidebar -->
-      <aside class="fixed left-0 top-20 bottom-0 w-64 glass-light border-r border-cyan-500/10 p-4 overflow-y-auto">
-        <nav class="space-y-2">
+      <aside class="sidebar">
+        <nav class="sidebar-nav">
           <button
             v-for="item in menuItems"
             :key="item.id"
             @click="activeSection = item.id"
-            :class="[
-              'w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300',
-              activeSection === item.id
-                ? 'bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-400 border border-cyan-500/30'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
-            ]"
+            :class="['nav-item', { active: activeSection === item.id }]"
           >
-            <span class="text-xl">{{ item.icon }}</span>
-            <span class="font-medium">{{ item.label }}</span>
-            <span v-if="item.badge" class="ml-auto px-2 py-0.5 text-xs bg-red-500 text-white rounded-full">
-              {{ item.badge }}
-            </span>
+            <span class="nav-icon">{{ item.icon }}</span>
+            <span class="nav-label">{{ item.label }}</span>
+            <span v-if="item.badge" class="nav-badge">{{ item.badge }}</span>
           </button>
         </nav>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+          <h4>Quick Actions</h4>
+          <button v-if="isOwner" @click="showCodeModal = true" class="action-btn">
+            ➕ Generate Code
+          </button>
+          <NuxtLink to="/support" class="action-btn">
+            💬 View Support Page
+          </NuxtLink>
+        </div>
       </aside>
 
       <!-- Main Content -->
-      <main class="flex-1 ml-64 p-8">
+      <main class="main-content">
         <!-- Dashboard Section -->
-        <section v-if="activeSection === 'dashboard'" class="animate-fade-in-up">
-          <h1 class="text-3xl font-bold text-white mb-8">Dashboard Overview</h1>
+        <section v-if="activeSection === 'dashboard'" class="section animate-fade-in">
+          <div class="section-header">
+            <h1>Dashboard Overview</h1>
+            <p>Welcome back, {{ staffUser?.username }}! Here's what's happening.</p>
+          </div>
           
           <!-- Stats Grid -->
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <div class="glass-card p-6 hover-lift">
-              <div class="flex items-center justify-between mb-4">
-                <div class="w-12 h-12 rounded-xl bg-cyan-500/20 flex items-center justify-center text-2xl">
-                  👥
-                </div>
-                <span class="text-cyan-400 text-sm">+12%</span>
+          <div class="stats-grid">
+            <div class="stat-card cyan">
+              <div class="stat-icon">👥</div>
+              <div class="stat-info">
+                <span class="stat-value">{{ stats.totalUsers }}</span>
+                <span class="stat-label">Total Users</span>
               </div>
-              <p class="text-3xl font-bold text-white">{{ stats.totalUsers }}</p>
-              <p class="text-slate-400 text-sm">Total Users</p>
+              <div class="stat-trend up">+12%</div>
             </div>
 
-            <div class="glass-card p-6 hover-lift">
-              <div class="flex items-center justify-between mb-4">
-                <div class="w-12 h-12 rounded-xl bg-green-500/20 flex items-center justify-center text-2xl">
-                  🎫
-                </div>
-                <span class="text-green-400 text-sm">Active</span>
+            <div class="stat-card green">
+              <div class="stat-icon">🎫</div>
+              <div class="stat-info">
+                <span class="stat-value">{{ stats.openTickets }}</span>
+                <span class="stat-label">Open Tickets</span>
               </div>
-              <p class="text-3xl font-bold text-white">{{ stats.openTickets }}</p>
-              <p class="text-slate-400 text-sm">Open Tickets</p>
+              <div class="stat-trend">Active</div>
             </div>
 
-            <div class="glass-card p-6 hover-lift">
-              <div class="flex items-center justify-between mb-4">
-                <div class="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center text-2xl">
-                  ✅
-                </div>
+            <div class="stat-card purple">
+              <div class="stat-icon">✅</div>
+              <div class="stat-info">
+                <span class="stat-value">{{ stats.resolvedTickets }}</span>
+                <span class="stat-label">Resolved Today</span>
               </div>
-              <p class="text-3xl font-bold text-white">{{ stats.resolvedTickets }}</p>
-              <p class="text-slate-400 text-sm">Resolved Today</p>
             </div>
 
-            <div class="glass-card p-6 hover-lift">
-              <div class="flex items-center justify-between mb-4">
-                <div class="w-12 h-12 rounded-xl bg-orange-500/20 flex items-center justify-center text-2xl">
-                  👨‍💼
-                </div>
+            <div class="stat-card orange">
+              <div class="stat-icon">👨‍💼</div>
+              <div class="stat-info">
+                <span class="stat-value">{{ stats.activeStaff }}</span>
+                <span class="stat-label">Active Staff</span>
               </div>
-              <p class="text-3xl font-bold text-white">{{ stats.activeStaff }}</p>
-              <p class="text-slate-400 text-sm">Active Staff</p>
             </div>
           </div>
 
-          <!-- Recent Activity -->
-          <div class="glass-card p-6">
-            <h2 class="text-xl font-bold text-white mb-6">Recent Activity</h2>
-            <div class="space-y-4">
-              <div v-for="activity in stats.recentActivity" :key="activity._id" class="flex items-center gap-4 p-4 bg-slate-800/30 rounded-xl">
-                <div :class="[
-                  'w-10 h-10 rounded-xl flex items-center justify-center text-lg',
-                  activity.type === 'ticket' ? 'bg-cyan-500/20' :
-                  activity.type === 'user' ? 'bg-green-500/20' : 'bg-purple-500/20'
-                ]">
-                  {{ activity.type === 'ticket' ? '🎫' : activity.type === 'user' ? '👤' : '💬' }}
+          <!-- Charts Row -->
+          <div class="dashboard-grid">
+            <!-- Recent Activity -->
+            <div class="dashboard-card activity-card">
+              <div class="card-header">
+                <h3>📊 Recent Activity</h3>
+              </div>
+              <div class="activity-list">
+                <div v-for="activity in stats.recentActivity" :key="activity._id" class="activity-item">
+                  <div :class="['activity-icon', activity.type]">
+                    {{ activity.type === 'ticket' ? '🎫' : activity.type === 'user' ? '👤' : '💬' }}
+                  </div>
+                  <div class="activity-content">
+                    <p class="activity-text">{{ activity.description }}</p>
+                    <span class="activity-time">{{ formatDate(activity.createdAt) }}</span>
+                  </div>
                 </div>
-                <div class="flex-1">
-                  <p class="text-white">{{ activity.description }}</p>
-                  <p class="text-slate-500 text-sm">{{ formatDate(activity.createdAt) }}</p>
+                <div v-if="!stats.recentActivity?.length" class="empty-state">
+                  <span>📋</span>
+                  <p>No recent activity</p>
                 </div>
               </div>
-              <div v-if="!stats.recentActivity?.length" class="text-center py-8 text-slate-500">
-                No recent activity
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="dashboard-card">
+              <div class="card-header">
+                <h3>⚡ Quick Stats</h3>
+              </div>
+              <div class="quick-stats">
+                <div class="quick-stat-item">
+                  <span class="label">Response Time</span>
+                  <span class="value">~5 min</span>
+                </div>
+                <div class="quick-stat-item">
+                  <span class="label">Resolution Rate</span>
+                  <span class="value">94%</span>
+                </div>
+                <div class="quick-stat-item">
+                  <span class="label">User Satisfaction</span>
+                  <span class="value">4.8/5</span>
+                </div>
+                <div class="quick-stat-item">
+                  <span class="label">Active Sessions</span>
+                  <span class="value">{{ stats.totalUsers > 0 ? Math.floor(stats.totalUsers * 0.1) : 0 }}</span>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
         <!-- Tickets Section -->
-        <section v-if="activeSection === 'tickets'" class="animate-fade-in-up">
-          <div class="flex items-center justify-between mb-8">
-            <h1 class="text-3xl font-bold text-white">Support Tickets</h1>
-            <div class="flex items-center gap-4">
-              <select v-model="ticketFilter.status" class="input bg-slate-800/50 border-slate-700 w-40">
+        <section v-if="activeSection === 'tickets'" class="section animate-fade-in">
+          <div class="section-header">
+            <div>
+              <h1>Support Tickets</h1>
+              <p>Manage and respond to user support requests</p>
+            </div>
+            <div class="filter-row">
+              <select v-model="ticketFilter.status" class="filter-select">
                 <option value="">All Status</option>
                 <option value="open">Open</option>
                 <option value="in-progress">In Progress</option>
                 <option value="resolved">Resolved</option>
                 <option value="closed">Closed</option>
               </select>
-              <select v-model="ticketFilter.priority" class="input bg-slate-800/50 border-slate-700 w-40">
+              <select v-model="ticketFilter.priority" class="filter-select">
                 <option value="">All Priority</option>
                 <option value="low">Low</option>
                 <option value="medium">Medium</option>
@@ -163,133 +183,440 @@
             </div>
           </div>
 
-          <div class="space-y-4">
+          <div class="tickets-list">
             <div 
               v-for="ticket in tickets" 
               :key="ticket._id"
               @click="openTicketModal(ticket)"
-              class="glass-card p-6 cursor-pointer hover:border-cyan-500/50 transition-all"
+              class="ticket-card"
             >
-              <div class="flex items-start justify-between mb-4">
-                <div>
-                  <div class="flex items-center gap-3 mb-2">
-                    <span class="text-slate-500 font-mono text-sm">#{{ ticket.ticketId }}</span>
-                    <span :class="[
-                      'px-2 py-0.5 rounded-full text-xs font-semibold',
-                      ticket.status === 'open' ? 'bg-green-500/20 text-green-400' :
-                      ticket.status === 'in-progress' ? 'bg-cyan-500/20 text-cyan-400' :
-                      ticket.status === 'resolved' ? 'bg-purple-500/20 text-purple-400' :
-                      'bg-slate-500/20 text-slate-400'
-                    ]">
-                      {{ ticket.status }}
-                    </span>
-                    <span :class="[
-                      'px-2 py-0.5 rounded-full text-xs font-semibold',
-                      ticket.priority === 'urgent' ? 'bg-red-500/20 text-red-400' :
-                      ticket.priority === 'high' ? 'bg-orange-500/20 text-orange-400' :
-                      ticket.priority === 'medium' ? 'bg-yellow-500/20 text-yellow-400' :
-                      'bg-slate-500/20 text-slate-400'
-                    ]">
-                      {{ ticket.priority }}
-                    </span>
-                  </div>
-                  <h3 class="text-lg font-semibold text-white">{{ ticket.subject }}</h3>
-                  <p class="text-slate-400 text-sm mt-1 line-clamp-2">{{ ticket.description }}</p>
+              <div class="ticket-header">
+                <div class="ticket-info">
+                  <span class="ticket-id">#{{ ticket.ticketId }}</span>
+                  <span :class="['status-badge', ticket.status]">{{ ticket.status }}</span>
+                  <span :class="['priority-badge', ticket.priority]">{{ ticket.priority }}</span>
                 </div>
-                <span class="text-slate-500 text-sm">{{ formatDate(ticket.createdAt) }}</span>
+                <span class="ticket-date">{{ formatDate(ticket.createdAt) }}</span>
               </div>
-              <div class="flex items-center justify-between text-sm">
-                <span class="text-slate-500">
-                  From: {{ ticket.guestName || ticket.userId || 'Anonymous' }}
-                </span>
-                <span class="text-cyan-400">
-                  {{ ticket.messages?.length || 0 }} messages
-                </span>
+              <h3 class="ticket-subject">{{ ticket.subject }}</h3>
+              <p class="ticket-preview">{{ ticket.description }}</p>
+              <div class="ticket-footer">
+                <span class="ticket-from">From: {{ ticket.guestName || ticket.userId || 'Anonymous' }}</span>
+                <span class="ticket-messages">{{ ticket.messages?.length || 0 }} messages</span>
               </div>
             </div>
             
-            <div v-if="!tickets.length" class="text-center py-16 text-slate-500">
-              <span class="text-4xl mb-4 block">🎫</span>
-              No tickets found
+            <div v-if="!tickets.length" class="empty-state large">
+              <span>🎫</span>
+              <h3>No Tickets Found</h3>
+              <p>Tickets will appear here when users create support requests</p>
             </div>
           </div>
         </section>
 
         <!-- Team Section (Owner Only) -->
-        <section v-if="activeSection === 'team' && isOwner" class="animate-fade-in-up">
-          <div class="flex items-center justify-between mb-8">
-            <h1 class="text-3xl font-bold text-white">Team Management</h1>
-            <button @click="showCodeModal = true" class="btn btn-primary">
+        <section v-if="activeSection === 'team' && isOwner" class="section animate-fade-in">
+          <div class="section-header">
+            <div>
+              <h1>Team Management</h1>
+              <p>Manage your support staff and administrators</p>
+            </div>
+            <button @click="showCodeModal = true" class="primary-btn">
               ➕ Generate Access Code
             </button>
           </div>
 
-          <!-- Members Grid -->
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div 
-              v-for="member in members" 
-              :key="member._id"
-              class="glass-card p-6"
-            >
-              <div class="flex items-center gap-4 mb-4">
-                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-purple-500 flex items-center justify-center text-xl">
-                  {{ member.role === 'admin' ? '👨‍💼' : '🎧' }}
-                </div>
-                <div>
-                  <h3 class="font-semibold text-white">{{ member.username }}</h3>
-                  <span :class="[
-                    'text-xs px-2 py-0.5 rounded-full',
-                    member.role === 'admin' ? 'bg-cyan-500/20 text-cyan-400' : 'bg-green-500/20 text-green-400'
-                  ]">
-                    {{ member.role }}
-                  </span>
-                </div>
+          <div class="team-grid">
+            <div v-for="member in members" :key="member._id" class="member-card">
+              <div class="member-avatar">
+                {{ member.role === 'admin' ? '👨‍💼' : '🎧' }}
               </div>
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <div :class="['w-2 h-2 rounded-full', member.active ? 'bg-green-500' : 'bg-slate-500']"></div>
-                  <span class="text-sm text-slate-400">{{ member.active ? 'Active' : 'Inactive' }}</span>
-                </div>
+              <div class="member-info">
+                <h3>{{ member.username }}</h3>
+                <span :class="['role-tag', member.role]">{{ member.role }}</span>
+              </div>
+              <div class="member-status">
+                <div :class="['status-indicator', { active: member.active }]"></div>
+                <span>{{ member.active ? 'Active' : 'Inactive' }}</span>
+              </div>
+              <div class="member-actions">
                 <button 
                   @click="toggleMember(member._id, !member.active)"
-                  :class="[
-                    'btn btn-sm',
-                    member.active ? 'btn-ghost text-red-400' : 'btn-ghost text-green-400'
-                  ]"
+                  :class="['toggle-btn', { deactivate: member.active }]"
                 >
                   {{ member.active ? 'Deactivate' : 'Activate' }}
                 </button>
               </div>
             </div>
             
-            <div v-if="!members.length" class="col-span-full text-center py-16 text-slate-500">
-              <span class="text-4xl mb-4 block">👥</span>
-              No team members yet. Generate access codes to add staff.
+            <div v-if="!members.length" class="empty-state large">
+              <span>👥</span>
+              <h3>No Team Members Yet</h3>
+              <p>Generate access codes to add staff members</p>
+              <button @click="showCodeModal = true" class="primary-btn">
+                Generate First Code
+              </button>
             </div>
           </div>
         </section>
 
-        <!-- Settings Section -->
-        <section v-if="activeSection === 'settings'" class="animate-fade-in-up">
-          <h1 class="text-3xl font-bold text-white mb-8">Settings</h1>
+        <!-- Live Chat Section -->
+        <section v-if="activeSection === 'livechat'" class="section animate-fade-in">
+          <div class="section-header">
+            <div>
+              <h1>Live Chat</h1>
+              <p>Chat with users in real-time</p>
+            </div>
+          </div>
+
+          <div class="chat-container">
+            <div class="chat-sidebar">
+              <div class="chat-search">
+                <input type="text" placeholder="Search conversations..." v-model="chatSearch" />
+              </div>
+              <div class="chat-list">
+                <div 
+                  v-for="chat in filteredChats" 
+                  :key="chat.id"
+                  @click="selectChat(chat)"
+                  :class="['chat-item', { active: selectedChat?.id === chat.id }]"
+                >
+                  <div class="chat-avatar">{{ chat.userName?.charAt(0) || '?' }}</div>
+                  <div class="chat-preview">
+                    <span class="chat-name">{{ chat.userName || 'Anonymous' }}</span>
+                    <span class="chat-last">{{ chat.lastMessage || 'No messages yet' }}</span>
+                  </div>
+                  <div class="chat-meta">
+                    <span class="chat-time">{{ formatTime(chat.lastMessageTime) }}</span>
+                    <span v-if="chat.unread" class="unread-badge">{{ chat.unread }}</span>
+                  </div>
+                </div>
+                <div v-if="!filteredChats.length" class="empty-state">
+                  <span>💬</span>
+                  <p>No active chats</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="chat-main">
+              <div v-if="selectedChat" class="chat-active">
+                <div class="chat-header">
+                  <div class="chat-user-info">
+                    <div class="chat-avatar large">{{ selectedChat.userName?.charAt(0) || '?' }}</div>
+                    <div>
+                      <h3>{{ selectedChat.userName || 'Anonymous' }}</h3>
+                      <span class="online-status">Online</span>
+                    </div>
+                  </div>
+                  <button @click="selectedChat = null" class="close-chat">✕</button>
+                </div>
+
+                <div class="chat-messages" ref="chatMessagesRef">
+                  <div 
+                    v-for="msg in selectedChat.messages" 
+                    :key="msg.id"
+                    :class="['chat-message', msg.sender === 'staff' ? 'sent' : 'received']"
+                  >
+                    <p>{{ msg.content }}</p>
+                    <span class="message-time">{{ formatTime(msg.timestamp) }}</span>
+                  </div>
+                </div>
+
+                <div class="chat-input">
+                  <input 
+                    type="text" 
+                    v-model="chatMessage"
+                    placeholder="Type your message..."
+                    @keyup.enter="sendChatMessage"
+                  />
+                  <button @click="sendChatMessage" :disabled="!chatMessage.trim()">
+                    Send 📤
+                  </button>
+                </div>
+              </div>
+
+              <div v-else class="chat-empty">
+                <span>💬</span>
+                <h3>Select a Conversation</h3>
+                <p>Choose a chat from the sidebar to start messaging</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Analytics Section -->
+        <section v-if="activeSection === 'analytics'" class="section animate-fade-in">
+          <div class="section-header">
+            <h1>Analytics</h1>
+            <p>Track performance metrics and trends</p>
+          </div>
           
-          <div class="glass-card p-6">
-            <h2 class="text-xl font-semibold text-white mb-6">Notification Preferences</h2>
-            <div class="space-y-4">
-              <label class="flex items-center justify-between p-4 bg-slate-800/30 rounded-xl cursor-pointer">
-                <div>
-                  <p class="text-white">New Ticket Alerts</p>
-                  <p class="text-slate-500 text-sm">Get notified when new tickets are created</p>
+          <div class="analytics-grid">
+            <!-- Performance Overview -->
+            <div class="analytics-card full-width">
+              <div class="card-header">
+                <h3>📈 Weekly Overview</h3>
+                <div class="time-filter">
+                  <button :class="{ active: analyticsTimeframe === 'week' }" @click="analyticsTimeframe = 'week'">Week</button>
+                  <button :class="{ active: analyticsTimeframe === 'month' }" @click="analyticsTimeframe = 'month'">Month</button>
+                  <button :class="{ active: analyticsTimeframe === 'year' }" @click="analyticsTimeframe = 'year'">Year</button>
                 </div>
-                <div class="toggle active"></div>
-              </label>
-              <label class="flex items-center justify-between p-4 bg-slate-800/30 rounded-xl cursor-pointer">
-                <div>
-                  <p class="text-white">Urgent Priority Alerts</p>
-                  <p class="text-slate-500 text-sm">Instant notifications for urgent tickets</p>
+              </div>
+              <div class="chart-container">
+                <div class="mini-chart">
+                  <div v-for="(val, i) in weeklyData" :key="i" class="chart-bar" :style="{ height: (val / maxWeeklyValue * 100) + '%' }">
+                    <span class="bar-value">{{ val }}</span>
+                  </div>
                 </div>
-                <div class="toggle active"></div>
-              </label>
+                <div class="chart-labels">
+                  <span v-for="day in ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']" :key="day">{{ day }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Ticket Stats -->
+            <div class="analytics-card">
+              <div class="card-header">
+                <h3>🎫 Ticket Metrics</h3>
+              </div>
+              <div class="metric-list">
+                <div class="metric-item">
+                  <span class="metric-label">Avg Response Time</span>
+                  <span class="metric-value good">4.2 min</span>
+                </div>
+                <div class="metric-item">
+                  <span class="metric-label">Avg Resolution Time</span>
+                  <span class="metric-value">2.3 hours</span>
+                </div>
+                <div class="metric-item">
+                  <span class="metric-label">First Contact Resolution</span>
+                  <span class="metric-value good">78%</span>
+                </div>
+                <div class="metric-item">
+                  <span class="metric-label">Ticket Backlog</span>
+                  <span class="metric-value">{{ stats.openTickets }} tickets</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- User Satisfaction -->
+            <div class="analytics-card">
+              <div class="card-header">
+                <h3>⭐ User Satisfaction</h3>
+              </div>
+              <div class="satisfaction-display">
+                <div class="satisfaction-score">4.8</div>
+                <div class="satisfaction-stars">⭐⭐⭐⭐⭐</div>
+                <p>Based on {{ Math.floor(stats.resolvedTickets * 0.6) }} reviews</p>
+              </div>
+              <div class="rating-breakdown">
+                <div class="rating-row">
+                  <span>5 ⭐</span>
+                  <div class="rating-bar"><div class="rating-fill" style="width: 75%"></div></div>
+                  <span>75%</span>
+                </div>
+                <div class="rating-row">
+                  <span>4 ⭐</span>
+                  <div class="rating-bar"><div class="rating-fill" style="width: 18%"></div></div>
+                  <span>18%</span>
+                </div>
+                <div class="rating-row">
+                  <span>3 ⭐</span>
+                  <div class="rating-bar"><div class="rating-fill" style="width: 5%"></div></div>
+                  <span>5%</span>
+                </div>
+                <div class="rating-row">
+                  <span>2 ⭐</span>
+                  <div class="rating-bar"><div class="rating-fill" style="width: 1%"></div></div>
+                  <span>1%</span>
+                </div>
+                <div class="rating-row">
+                  <span>1 ⭐</span>
+                  <div class="rating-bar"><div class="rating-fill" style="width: 1%"></div></div>
+                  <span>1%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Team Performance -->
+            <div class="analytics-card">
+              <div class="card-header">
+                <h3>👥 Team Performance</h3>
+              </div>
+              <div class="team-leaderboard">
+                <div class="leaderboard-item">
+                  <span class="rank gold">🥇</span>
+                  <span class="name">{{ staffUser?.username }}</span>
+                  <span class="tickets-resolved">{{ Math.floor(stats.resolvedTickets * 0.4) }} resolved</span>
+                </div>
+                <div class="leaderboard-item">
+                  <span class="rank silver">🥈</span>
+                  <span class="name">Support Agent 2</span>
+                  <span class="tickets-resolved">{{ Math.floor(stats.resolvedTickets * 0.35) }} resolved</span>
+                </div>
+                <div class="leaderboard-item">
+                  <span class="rank bronze">🥉</span>
+                  <span class="name">Support Agent 3</span>
+                  <span class="tickets-resolved">{{ Math.floor(stats.resolvedTickets * 0.25) }} resolved</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Knowledge Base Section -->
+        <section v-if="activeSection === 'knowledgebase'" class="section animate-fade-in">
+          <div class="section-header">
+            <div>
+              <h1>Knowledge Base</h1>
+              <p>Manage help articles and FAQs</p>
+            </div>
+            <button @click="showArticleModal = true" class="primary-btn">
+              ➕ New Article
+            </button>
+          </div>
+          
+          <div class="kb-grid">
+            <div v-for="article in kbArticles" :key="article.id" class="kb-card">
+              <div class="kb-category">{{ article.category }}</div>
+              <h3>{{ article.title }}</h3>
+              <p>{{ article.excerpt }}</p>
+              <div class="kb-meta">
+                <span>📅 {{ formatDate(article.updatedAt) }}</span>
+                <span>👁️ {{ article.views }} views</span>
+              </div>
+              <div class="kb-actions">
+                <button class="edit-btn">✏️ Edit</button>
+                <button class="delete-btn">🗑️ Delete</button>
+              </div>
+            </div>
+            
+            <div class="kb-card add-new" @click="showArticleModal = true">
+              <span>➕</span>
+              <p>Add New Article</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- System Logs Section (Owner Only) -->
+        <section v-if="activeSection === 'logs' && isOwner" class="section animate-fade-in">
+          <div class="section-header">
+            <div>
+              <h1>System Logs</h1>
+              <p>View system activity and audit logs</p>
+            </div>
+            <div class="log-filters">
+              <select v-model="logFilter.type" class="filter-select">
+                <option value="">All Types</option>
+                <option value="auth">Authentication</option>
+                <option value="ticket">Tickets</option>
+                <option value="admin">Admin Actions</option>
+                <option value="system">System</option>
+              </select>
+              <select v-model="logFilter.level" class="filter-select">
+                <option value="">All Levels</option>
+                <option value="info">Info</option>
+                <option value="warning">Warning</option>
+                <option value="error">Error</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="logs-table">
+            <div class="logs-header">
+              <span>Timestamp</span>
+              <span>Type</span>
+              <span>Level</span>
+              <span>Message</span>
+              <span>User</span>
+            </div>
+            <div v-for="log in systemLogs" :key="log.id" :class="['log-row', log.level]">
+              <span class="log-time">{{ formatDate(log.timestamp) }}</span>
+              <span class="log-type">{{ log.type }}</span>
+              <span :class="['log-level', log.level]">{{ log.level }}</span>
+              <span class="log-message">{{ log.message }}</span>
+              <span class="log-user">{{ log.user || 'System' }}</span>
+            </div>
+            
+            <div v-if="!systemLogs.length" class="empty-state">
+              <span>📋</span>
+              <p>No logs found</p>
+            </div>
+          </div>
+          
+          <div class="logs-actions">
+            <button class="secondary-btn">📥 Export Logs</button>
+            <button class="danger-btn">🗑️ Clear Old Logs</button>
+          </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section v-if="activeSection === 'settings'" class="section animate-fade-in">
+          <div class="section-header">
+            <h1>Settings</h1>
+            <p>Configure your admin preferences</p>
+          </div>
+          
+          <div class="settings-grid">
+            <div class="settings-card">
+              <div class="settings-header">
+                <h3>🔔 Notification Preferences</h3>
+              </div>
+              <div class="settings-options">
+                <label class="setting-option">
+                  <div>
+                    <span class="option-title">New Ticket Alerts</span>
+                    <span class="option-desc">Get notified when new tickets are created</span>
+                  </div>
+                  <div class="toggle-switch active">
+                    <div class="toggle-slider"></div>
+                  </div>
+                </label>
+                <label class="setting-option">
+                  <div>
+                    <span class="option-title">Urgent Priority Alerts</span>
+                    <span class="option-desc">Instant notifications for urgent tickets</span>
+                  </div>
+                  <div class="toggle-switch active">
+                    <div class="toggle-slider"></div>
+                  </div>
+                </label>
+                <label class="setting-option">
+                  <div>
+                    <span class="option-title">Live Chat Notifications</span>
+                    <span class="option-desc">Sound alerts for new chat messages</span>
+                  </div>
+                  <div class="toggle-switch active">
+                    <div class="toggle-slider"></div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div class="settings-card">
+              <div class="settings-header">
+                <h3>🎨 Appearance</h3>
+              </div>
+              <div class="settings-options">
+                <label class="setting-option">
+                  <div>
+                    <span class="option-title">Dark Mode</span>
+                    <span class="option-desc">Enable dark theme</span>
+                  </div>
+                  <div class="toggle-switch active">
+                    <div class="toggle-slider"></div>
+                  </div>
+                </label>
+                <label class="setting-option">
+                  <div>
+                    <span class="option-title">Compact Mode</span>
+                    <span class="option-desc">Reduce spacing for more content</span>
+                  </div>
+                  <div class="toggle-switch">
+                    <div class="toggle-slider"></div>
+                  </div>
+                </label>
+              </div>
             </div>
           </div>
         </section>
@@ -298,45 +625,45 @@
 
     <!-- Generate Code Modal -->
     <div v-if="showCodeModal" class="modal-overlay" @click.self="showCodeModal = false">
-      <div class="glass-card p-8 w-full max-w-md animate-scale-in">
-        <h2 class="text-2xl font-bold text-white mb-6">Generate Access Code</h2>
+      <div class="modal-card">
+        <div class="modal-header">
+          <h2>➕ Generate Access Code</h2>
+          <button @click="showCodeModal = false; generatedCode = ''" class="modal-close">✕</button>
+        </div>
         
-        <form @submit.prevent="handleGenerateCode" class="space-y-6">
-          <div>
-            <label class="block text-sm font-medium text-slate-300 mb-2">Staff Username</label>
+        <form @submit.prevent="handleGenerateCode" class="modal-form">
+          <div class="form-group">
+            <label>Staff Username</label>
             <input
               v-model="codeForm.username"
               type="text"
-              placeholder="Enter username"
-              class="input"
+              placeholder="Enter username for this staff member"
               required
             />
           </div>
 
-          <div>
-            <label class="block text-sm font-medium text-slate-300 mb-2">Role</label>
-            <select v-model="codeForm.role" class="input">
-              <option value="support">Support Staff</option>
-              <option value="admin">Administrator</option>
+          <div class="form-group">
+            <label>Role</label>
+            <select v-model="codeForm.role">
+              <option value="support">🎧 Support Staff</option>
+              <option value="admin">👨‍💼 Administrator</option>
             </select>
           </div>
 
-          <div v-if="generatedCode" class="p-4 bg-green-500/10 border border-green-500/30 rounded-xl">
-            <p class="text-green-400 text-sm mb-2">Access code generated!</p>
-            <div class="flex items-center gap-2">
-              <code class="flex-1 bg-slate-800 px-4 py-2 rounded-lg text-cyan-400 font-mono text-lg tracking-widest">
-                {{ generatedCode }}
-              </code>
-              <button @click="copyCode" class="btn btn-sm btn-secondary">📋</button>
+          <div v-if="generatedCode" class="code-result">
+            <p class="result-label">✅ Access code generated!</p>
+            <div class="code-display">
+              <code>{{ generatedCode }}</code>
+              <button type="button" @click="copyCode" class="copy-btn">📋 Copy</button>
             </div>
-            <p class="text-slate-500 text-xs mt-2">Share this code with the staff member</p>
+            <p class="result-hint">Share this code with the staff member to grant access</p>
           </div>
 
-          <div class="flex gap-4">
-            <button type="button" @click="showCodeModal = false; generatedCode = ''" class="btn btn-secondary flex-1">
+          <div class="modal-actions">
+            <button type="button" @click="showCodeModal = false; generatedCode = ''" class="secondary-btn">
               Close
             </button>
-            <button type="submit" :disabled="isLoading" class="btn btn-primary flex-1">
+            <button type="submit" :disabled="isLoading" class="primary-btn">
               {{ isLoading ? 'Generating...' : 'Generate Code' }}
             </button>
           </div>
@@ -346,64 +673,50 @@
 
     <!-- Ticket Detail Modal -->
     <div v-if="selectedTicket" class="modal-overlay" @click.self="selectedTicket = null">
-      <div class="glass-card w-full max-w-3xl max-h-[90vh] overflow-hidden flex flex-col animate-scale-in">
-        <!-- Header -->
-        <div class="p-6 border-b border-slate-700/50 flex items-center justify-between">
+      <div class="modal-card large">
+        <div class="modal-header">
           <div>
-            <div class="flex items-center gap-3 mb-1">
-              <span class="text-slate-500 font-mono">#{{ selectedTicket.ticketId }}</span>
-              <span :class="[
-                'px-2 py-0.5 rounded-full text-xs font-semibold',
-                selectedTicket.status === 'open' ? 'bg-green-500/20 text-green-400' :
-                selectedTicket.status === 'in-progress' ? 'bg-cyan-500/20 text-cyan-400' :
-                selectedTicket.status === 'resolved' ? 'bg-purple-500/20 text-purple-400' :
-                'bg-slate-500/20 text-slate-400'
-              ]">
-                {{ selectedTicket.status }}
-              </span>
+            <div class="ticket-header-info">
+              <span class="ticket-id">#{{ selectedTicket.ticketId }}</span>
+              <span :class="['status-badge', selectedTicket.status]">{{ selectedTicket.status }}</span>
+              <span :class="['priority-badge', selectedTicket.priority]">{{ selectedTicket.priority }}</span>
             </div>
-            <h2 class="text-xl font-bold text-white">{{ selectedTicket.subject }}</h2>
+            <h2>{{ selectedTicket.subject }}</h2>
           </div>
-          <button @click="selectedTicket = null" class="text-slate-400 hover:text-white text-2xl">×</button>
+          <button @click="selectedTicket = null" class="modal-close">✕</button>
         </div>
 
-        <!-- Content -->
-        <div class="flex-1 overflow-y-auto p-6 space-y-4">
+        <div class="ticket-content">
           <!-- Original message -->
-          <div class="p-4 bg-slate-800/50 rounded-xl">
-            <p class="text-white">{{ selectedTicket.description }}</p>
-            <p class="text-slate-500 text-sm mt-2">
+          <div class="ticket-original">
+            <p>{{ selectedTicket.description }}</p>
+            <span class="ticket-meta">
               {{ selectedTicket.guestName || 'User' }} • {{ formatDate(selectedTicket.createdAt) }}
-            </p>
+            </span>
           </div>
 
           <!-- Messages -->
-          <div v-for="msg in selectedTicket.messages" :key="msg.id" 
-            :class="['chat-bubble', msg.sender === 'staff' ? 'sent' : 'received']">
-            <p>{{ msg.content }}</p>
-            <p class="text-xs opacity-70 mt-1">{{ msg.senderName }} • {{ formatDate(msg.timestamp) }}</p>
+          <div class="ticket-messages">
+            <div 
+              v-for="msg in selectedTicket.messages" 
+              :key="msg.id" 
+              :class="['message-bubble', msg.sender === 'staff' ? 'sent' : 'received']"
+            >
+              <p>{{ msg.content }}</p>
+              <span class="message-meta">{{ msg.senderName }} • {{ formatDate(msg.timestamp) }}</span>
+            </div>
           </div>
         </div>
 
-        <!-- Actions & Reply -->
-        <div class="p-6 border-t border-slate-700/50 space-y-4">
-          <!-- Status/Priority actions -->
-          <div class="flex items-center gap-4">
-            <select 
-              v-model="selectedTicket.status"
-              @change="updateTicketStatus"
-              class="input bg-slate-800/50 border-slate-700 w-40"
-            >
+        <div class="ticket-actions">
+          <div class="action-selects">
+            <select v-model="selectedTicket.status" @change="updateTicketStatus">
               <option value="open">Open</option>
               <option value="in-progress">In Progress</option>
               <option value="resolved">Resolved</option>
               <option value="closed">Closed</option>
             </select>
-            <select 
-              v-model="selectedTicket.priority"
-              @change="updateTicketPriority"
-              class="input bg-slate-800/50 border-slate-700 w-40"
-            >
+            <select v-model="selectedTicket.priority" @change="updateTicketPriority">
               <option value="low">Low Priority</option>
               <option value="medium">Medium Priority</option>
               <option value="high">High Priority</option>
@@ -411,16 +724,14 @@
             </select>
           </div>
 
-          <!-- Reply form -->
-          <div class="flex gap-3">
+          <div class="reply-input">
             <input
               v-model="replyMessage"
               type="text"
               placeholder="Type your reply..."
-              class="input flex-1"
               @keyup.enter="sendReply"
             />
-            <button @click="sendReply" class="btn btn-primary" :disabled="!replyMessage.trim()">
+            <button @click="sendReply" :disabled="!replyMessage.trim()">
               Send 📤
             </button>
           </div>
@@ -449,6 +760,57 @@ const stats = ref({
   recentActivity: [] as any[]
 })
 
+// Live Chat state
+const chatSearch = ref('')
+const selectedChat = ref<any>(null)
+const chatMessage = ref('')
+const chatMessagesRef = ref<HTMLElement | null>(null)
+
+// Analytics state
+const analyticsTimeframe = ref('week')
+const weeklyData = ref([23, 45, 38, 52, 41, 28, 35])
+const maxWeeklyValue = computed(() => Math.max(...weeklyData.value))
+
+// Knowledge Base state
+const showArticleModal = ref(false)
+const kbArticles = ref([
+  { id: '1', title: 'Getting Started Guide', category: 'General', excerpt: 'Learn how to use QuickHelp tools effectively...', views: 1247, updatedAt: new Date(Date.now() - 86400000) },
+  { id: '2', title: 'Password Generator FAQ', category: 'Tools', excerpt: 'Common questions about the password generator...', views: 856, updatedAt: new Date(Date.now() - 172800000) },
+  { id: '3', title: 'Troubleshooting Common Issues', category: 'Support', excerpt: 'Solutions for frequently encountered problems...', views: 623, updatedAt: new Date(Date.now() - 259200000) },
+  { id: '4', title: 'API Documentation', category: 'Technical', excerpt: 'Complete API reference for developers...', views: 412, updatedAt: new Date(Date.now() - 345600000) },
+])
+
+// System Logs state (Owner only)
+const logFilter = ref({ type: '', level: '' })
+const systemLogs = ref([
+  { id: '1', timestamp: new Date(), type: 'auth', level: 'info', message: 'Staff member logged in successfully', user: 'admin' },
+  { id: '2', timestamp: new Date(Date.now() - 300000), type: 'ticket', level: 'info', message: 'New ticket #1234 created', user: 'System' },
+  { id: '3', timestamp: new Date(Date.now() - 600000), type: 'admin', level: 'warning', message: 'Failed login attempt detected', user: 'unknown' },
+  { id: '4', timestamp: new Date(Date.now() - 900000), type: 'system', level: 'info', message: 'Automated backup completed', user: 'System' },
+  { id: '5', timestamp: new Date(Date.now() - 1200000), type: 'admin', level: 'info', message: 'Staff code generated for new member', user: 'owner' },
+  { id: '6', timestamp: new Date(Date.now() - 1500000), type: 'ticket', level: 'info', message: 'Ticket #1233 resolved', user: 'support_agent' },
+])
+
+const liveChats = ref<any[]>([
+  { id: '1', userName: 'John Doe', lastMessage: 'Thanks for the help!', lastMessageTime: new Date(), unread: 2, messages: [
+    { id: '1', content: 'Hi, I need help with the password generator', sender: 'user', timestamp: new Date(Date.now() - 300000) },
+    { id: '2', content: 'Of course! What seems to be the issue?', sender: 'staff', timestamp: new Date(Date.now() - 240000) },
+    { id: '3', content: 'It\'s not generating special characters', sender: 'user', timestamp: new Date(Date.now() - 180000) },
+    { id: '4', content: 'Thanks for the help!', sender: 'user', timestamp: new Date() },
+  ]},
+  { id: '2', userName: 'Jane Smith', lastMessage: 'How do I use the QR generator?', lastMessageTime: new Date(Date.now() - 600000), unread: 1, messages: [
+    { id: '1', content: 'How do I use the QR generator?', sender: 'user', timestamp: new Date(Date.now() - 600000) },
+  ]},
+])
+
+const filteredChats = computed(() => {
+  if (!chatSearch.value) return liveChats.value
+  return liveChats.value.filter(chat => 
+    chat.userName?.toLowerCase().includes(chatSearch.value.toLowerCase()) ||
+    chat.lastMessage?.toLowerCase().includes(chatSearch.value.toLowerCase())
+  )
+})
+
 const ticketFilter = ref({
   status: '',
   priority: ''
@@ -462,7 +824,11 @@ const codeForm = ref({
 const menuItems = computed(() => [
   { id: 'dashboard', label: 'Dashboard', icon: '📊' },
   { id: 'tickets', label: 'Tickets', icon: '🎫', badge: stats.value.openTickets || undefined },
+  { id: 'livechat', label: 'Live Chat', icon: '💬', badge: liveChats.value.reduce((acc, c) => acc + (c.unread || 0), 0) || undefined },
+  { id: 'analytics', label: 'Analytics', icon: '📈' },
+  { id: 'knowledgebase', label: 'Knowledge Base', icon: '📚' },
   ...(isOwner.value ? [{ id: 'team', label: 'Team', icon: '👥' }] : []),
+  ...(isOwner.value ? [{ id: 'logs', label: 'System Logs', icon: '📋' }] : []),
   { id: 'settings', label: 'Settings', icon: '⚙️' }
 ])
 
@@ -489,13 +855,13 @@ const loadData = async () => {
     fetchTickets()
   ])
 
-  if (statsResult.success && statsResult.stats) {
+  if (statsResult.success && 'stats' in statsResult) {
     stats.value = statsResult.stats
   }
 
   if (isOwner.value) {
     const membersResult = await getSupportMembers()
-    if (membersResult.success && membersResult.members) {
+    if (membersResult.success && 'members' in membersResult) {
       members.value = membersResult.members
     }
   }
@@ -508,7 +874,7 @@ const handleLogout = () => {
 
 const handleGenerateCode = async () => {
   const result = await generateStaffCode(codeForm.value.role, codeForm.value.username)
-  if (result.success && result.code) {
+  if (result.success && 'code' in result) {
     generatedCode.value = result.code
     codeForm.value = { username: '', role: 'support' }
     await loadData()
@@ -549,6 +915,32 @@ const sendReply = async () => {
   }
 }
 
+// Live Chat functions
+const selectChat = (chat: any) => {
+  selectedChat.value = chat
+  chat.unread = 0
+}
+
+const sendChatMessage = () => {
+  if (!selectedChat.value || !chatMessage.value.trim()) return
+  
+  selectedChat.value.messages.push({
+    id: Date.now().toString(),
+    content: chatMessage.value.trim(),
+    sender: 'staff',
+    timestamp: new Date()
+  })
+  selectedChat.value.lastMessage = chatMessage.value.trim()
+  selectedChat.value.lastMessageTime = new Date()
+  chatMessage.value = ''
+  
+  nextTick(() => {
+    if (chatMessagesRef.value) {
+      chatMessagesRef.value.scrollTop = chatMessagesRef.value.scrollHeight
+    }
+  })
+}
+
 const formatDate = (date: any) => {
   if (!date) return ''
   return new Date(date).toLocaleDateString('en-US', {
@@ -559,30 +951,846 @@ const formatDate = (date: any) => {
   })
 }
 
-// Page meta
+const formatTime = (date: any) => {
+  if (!date) return ''
+  const now = new Date()
+  const d = new Date(date)
+  const diff = now.getTime() - d.getTime()
+  
+  if (diff < 60000) return 'Just now'
+  if (diff < 3600000) return Math.floor(diff / 60000) + 'm ago'
+  if (diff < 86400000) return Math.floor(diff / 3600000) + 'h ago'
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+}
+
 useHead({
   title: 'Admin Dashboard - QuickHelp.lol'
 })
 
 definePageMeta({
-  layout: false
+  layout: 'admin'
 })
 </script>
 
 <style scoped>
-.gradient-text {
-  background: linear-gradient(135deg, #06b6d4, #3b82f6, #8b5cf6);
+.admin-dashboard {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #030712 0%, #0a1628 50%, #030712 100%);
+}
+
+.admin-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(6, 182, 212, 0.2);
+}
+
+.nav-content {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+}
+
+.logo-text {
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #06b6d4, #3b82f6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.glass-card {
-  background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.7));
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(6, 182, 212, 0.15);
-  border-radius: 20px;
+.nav-divider {
+  width: 1px;
+  height: 24px;
+  background: rgba(100, 116, 139, 0.3);
 }
+
+.nav-title {
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  background: rgba(30, 41, 59, 0.6);
+  border-radius: 12px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: #10b981;
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.username {
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.role-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.role-badge.owner { background: rgba(139, 92, 246, 0.2); color: #a78bfa; }
+.role-badge.admin { background: rgba(6, 182, 212, 0.2); color: #22d3ee; }
+.role-badge.support { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+
+.logout-btn {
+  padding: 8px 16px;
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 14px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.logout-btn:hover { color: #f87171; }
+
+.admin-layout {
+  display: flex;
+  padding-top: 72px;
+}
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 72px;
+  bottom: 0;
+  width: 260px;
+  background: rgba(15, 23, 42, 0.8);
+  border-right: 1px solid rgba(6, 182, 212, 0.1);
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: none;
+  border: none;
+  border-radius: 12px;
+  color: #94a3b8;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+  width: 100%;
+}
+
+.nav-item:hover {
+  background: rgba(30, 41, 59, 0.5);
+  color: white;
+}
+
+.nav-item.active {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(59, 130, 246, 0.2));
+  color: #22d3ee;
+  border: 1px solid rgba(6, 182, 212, 0.3);
+}
+
+.nav-icon { font-size: 20px; }
+.nav-label { flex: 1; }
+
+.nav-badge {
+  padding: 2px 8px;
+  background: #ef4444;
+  color: white;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.quick-actions {
+  margin-top: auto;
+  padding-top: 24px;
+  border-top: 1px solid rgba(6, 182, 212, 0.1);
+}
+
+.quick-actions h4 {
+  color: #64748b;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+
+.action-btn {
+  display: block;
+  width: 100%;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  background: rgba(30, 41, 59, 0.5);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+  border-radius: 10px;
+  color: #94a3b8;
+  font-size: 13px;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.action-btn:hover {
+  background: rgba(6, 182, 212, 0.1);
+  color: #22d3ee;
+  border-color: rgba(6, 182, 212, 0.3);
+}
+
+.main-content {
+  flex: 1;
+  margin-left: 260px;
+  padding: 32px;
+  min-height: calc(100vh - 72px);
+}
+
+.section { max-width: 1400px; }
+
+.section-header { margin-bottom: 32px; }
+
+.section-header h1 {
+  color: white;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.section-header p {
+  color: #94a3b8;
+  font-size: 15px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.stat-card {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(6, 182, 212, 0.15);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(6, 182, 212, 0.3);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.stat-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.stat-card.cyan .stat-icon { background: rgba(6, 182, 212, 0.2); }
+.stat-card.green .stat-icon { background: rgba(16, 185, 129, 0.2); }
+.stat-card.purple .stat-icon { background: rgba(139, 92, 246, 0.2); }
+.stat-card.orange .stat-icon { background: rgba(249, 115, 22, 0.2); }
+
+.stat-info { flex: 1; }
+.stat-value { display: block; color: white; font-size: 28px; font-weight: 700; }
+.stat-label { color: #94a3b8; font-size: 14px; }
+
+.stat-trend {
+  padding: 4px 10px;
+  background: rgba(6, 182, 212, 0.1);
+  color: #22d3ee;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.stat-trend.up { background: rgba(16, 185, 129, 0.1); color: #34d399; }
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 1024px) {
+  .dashboard-grid { grid-template-columns: 1fr; }
+}
+
+.dashboard-card {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(6, 182, 212, 0.15);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(6, 182, 212, 0.1);
+}
+
+.card-header h3 { color: white; font-size: 16px; font-weight: 600; }
+
+.activity-list {
+  padding: 16px 24px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.activity-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px;
+  background: rgba(30, 41, 59, 0.4);
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+.activity-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.activity-icon.ticket { background: rgba(6, 182, 212, 0.2); }
+.activity-icon.user { background: rgba(16, 185, 129, 0.2); }
+.activity-icon.message { background: rgba(139, 92, 246, 0.2); }
+
+.activity-content { flex: 1; min-width: 0; }
+.activity-text { color: white; font-size: 14px; margin-bottom: 4px; }
+.activity-time { color: #64748b; font-size: 12px; }
+
+.quick-stats { padding: 20px 24px; }
+
+.quick-stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(6, 182, 212, 0.1);
+}
+
+.quick-stat-item:last-child { border-bottom: none; }
+.quick-stat-item .label { color: #94a3b8; font-size: 14px; }
+.quick-stat-item .value { color: #22d3ee; font-size: 16px; font-weight: 600; }
+
+.filter-row { display: flex; gap: 12px; margin-top: 16px; }
+
+.filter-select {
+  padding: 10px 16px;
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+  border-radius: 10px;
+  color: white;
+  font-size: 14px;
+  outline: none;
+  cursor: pointer;
+}
+
+.filter-select:focus { border-color: #06b6d4; }
+
+.tickets-list { display: flex; flex-direction: column; gap: 16px; }
+
+.ticket-card {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(6, 182, 212, 0.15);
+  border-radius: 16px;
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.ticket-card:hover {
+  border-color: rgba(6, 182, 212, 0.4);
+  transform: translateY(-2px);
+}
+
+.ticket-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.ticket-info { display: flex; align-items: center; gap: 10px; }
+.ticket-id { color: #64748b; font-family: monospace; font-size: 13px; }
+
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.status-badge.open { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+.status-badge.in-progress { background: rgba(6, 182, 212, 0.2); color: #22d3ee; }
+.status-badge.resolved { background: rgba(139, 92, 246, 0.2); color: #a78bfa; }
+.status-badge.closed { background: rgba(100, 116, 139, 0.2); color: #94a3b8; }
+
+.priority-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.priority-badge.urgent { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+.priority-badge.high { background: rgba(249, 115, 22, 0.2); color: #fb923c; }
+.priority-badge.medium { background: rgba(234, 179, 8, 0.2); color: #facc15; }
+.priority-badge.low { background: rgba(100, 116, 139, 0.2); color: #94a3b8; }
+
+.ticket-date { color: #64748b; font-size: 13px; }
+.ticket-subject { color: white; font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+
+.ticket-preview {
+  color: #94a3b8;
+  font-size: 14px;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.ticket-footer { display: flex; justify-content: space-between; align-items: center; }
+.ticket-from { color: #64748b; font-size: 13px; }
+.ticket-messages { color: #22d3ee; font-size: 13px; }
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.member-card {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(6, 182, 212, 0.15);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.member-avatar {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+}
+
+.member-info h3 { color: white; font-size: 18px; font-weight: 600; margin-bottom: 6px; }
+
+.role-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.role-tag.admin { background: rgba(6, 182, 212, 0.2); color: #22d3ee; }
+.role-tag.support { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+
+.member-status { display: flex; align-items: center; gap: 8px; }
+
+.status-indicator {
+  width: 8px;
+  height: 8px;
+  background: #64748b;
+  border-radius: 50%;
+}
+
+.status-indicator.active {
+  background: #10b981;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+}
+
+.member-status span { color: #94a3b8; font-size: 13px; }
+.member-actions { margin-top: auto; }
+
+.toggle-btn {
+  width: 100%;
+  padding: 10px 16px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 10px;
+  color: #34d399;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.toggle-btn:hover { background: rgba(16, 185, 129, 0.2); }
+
+.toggle-btn.deactivate {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #f87171;
+}
+
+.toggle-btn.deactivate:hover { background: rgba(239, 68, 68, 0.2); }
+
+.chat-container {
+  display: flex;
+  height: calc(100vh - 240px);
+  min-height: 500px;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(6, 182, 212, 0.15);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.chat-sidebar {
+  width: 320px;
+  border-right: 1px solid rgba(6, 182, 212, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-search { padding: 16px; border-bottom: 1px solid rgba(6, 182, 212, 0.1); }
+
+.chat-search input {
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+  border-radius: 10px;
+  color: white;
+  font-size: 14px;
+  outline: none;
+}
+
+.chat-search input:focus { border-color: #06b6d4; }
+
+.chat-list { flex: 1; overflow-y: auto; }
+
+.chat-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+  border-bottom: 1px solid rgba(6, 182, 212, 0.05);
+}
+
+.chat-item:hover { background: rgba(30, 41, 59, 0.4); }
+.chat-item.active { background: rgba(6, 182, 212, 0.1); }
+
+.chat-avatar {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.chat-avatar.large { width: 48px; height: 48px; }
+
+.chat-preview { flex: 1; min-width: 0; }
+.chat-name { display: block; color: white; font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+
+.chat-last {
+  display: block;
+  color: #64748b;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chat-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.chat-time { color: #64748b; font-size: 12px; }
+
+.unread-badge {
+  padding: 2px 8px;
+  background: #06b6d4;
+  color: white;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.chat-main { flex: 1; display: flex; flex-direction: column; }
+.chat-active { display: flex; flex-direction: column; height: 100%; }
+
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid rgba(6, 182, 212, 0.1);
+}
+
+.chat-user-info { display: flex; align-items: center; gap: 14px; }
+.chat-user-info h3 { color: white; font-size: 16px; font-weight: 600; margin-bottom: 2px; }
+.online-status { color: #10b981; font-size: 13px; }
+
+.close-chat {
+  width: 36px;
+  height: 36px;
+  background: rgba(30, 41, 59, 0.6);
+  border: none;
+  border-radius: 10px;
+  color: #94a3b8;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.close-chat:hover { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+
+.chat-messages {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.chat-message { max-width: 70%; padding: 14px 18px; border-radius: 16px; }
+
+.chat-message.received {
+  align-self: flex-start;
+  background: rgba(30, 41, 59, 0.8);
+  color: white;
+  border-bottom-left-radius: 4px;
+}
+
+.chat-message.sent {
+  align-self: flex-end;
+  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.chat-message p { font-size: 14px; line-height: 1.5; margin-bottom: 6px; }
+.message-time { font-size: 11px; opacity: 0.7; }
+
+.chat-input {
+  display: flex;
+  gap: 12px;
+  padding: 16px 24px;
+  border-top: 1px solid rgba(6, 182, 212, 0.1);
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 14px 18px;
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+  border-radius: 12px;
+  color: white;
+  font-size: 14px;
+  outline: none;
+}
+
+.chat-input input:focus { border-color: #06b6d4; }
+
+.chat-input button {
+  padding: 14px 24px;
+  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.chat-input button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(6, 182, 212, 0.4);
+}
+
+.chat-input button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.chat-empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  text-align: center;
+}
+
+.chat-empty span { font-size: 48px; margin-bottom: 16px; }
+.chat-empty h3 { color: white; font-size: 18px; margin-bottom: 8px; }
+
+.settings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 24px;
+}
+
+.settings-card {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(6, 182, 212, 0.15);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.settings-header { padding: 20px 24px; border-bottom: 1px solid rgba(6, 182, 212, 0.1); }
+.settings-header h3 { color: white; font-size: 16px; font-weight: 600; }
+.settings-options { padding: 8px; }
+
+.setting-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background: rgba(30, 41, 59, 0.4);
+  border-radius: 12px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.setting-option:hover { background: rgba(30, 41, 59, 0.6); }
+.option-title { display: block; color: white; font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+.option-desc { display: block; color: #64748b; font-size: 13px; }
+
+.toggle-switch {
+  width: 48px;
+  height: 26px;
+  background: rgba(100, 116, 139, 0.3);
+  border-radius: 13px;
+  position: relative;
+  transition: background 0.3s;
+}
+
+.toggle-switch.active { background: #06b6d4; }
+
+.toggle-slider {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+
+.toggle-switch.active .toggle-slider { transform: translateX(22px); }
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  text-align: center;
+  color: #64748b;
+}
+
+.empty-state span { font-size: 32px; margin-bottom: 12px; }
+.empty-state.large { padding: 64px; }
+.empty-state.large span { font-size: 48px; }
+.empty-state h3 { color: white; font-size: 18px; margin-bottom: 8px; }
+.empty-state p { max-width: 300px; margin-bottom: 20px; }
 
 .modal-overlay {
   position: fixed;
@@ -596,47 +1804,529 @@ definePageMeta({
   padding: 24px;
 }
 
-.animate-fade-in-up {
-  animation: fadeInUp 0.4s ease;
+.modal-card {
+  width: 100%;
+  max-width: 480px;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(30, 41, 59, 0.95));
+  border: 1px solid rgba(6, 182, 212, 0.2);
+  border-radius: 20px;
+  overflow: hidden;
+  animation: modalIn 0.3s ease;
 }
 
-.animate-scale-in {
-  animation: scaleIn 0.3s ease;
+.modal-card.large {
+  max-width: 800px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
 }
 
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-@keyframes scaleIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px;
+  border-bottom: 1px solid rgba(6, 182, 212, 0.1);
 }
 
-.chat-bubble {
-  padding: 12px 16px;
-  border-radius: 16px;
-  max-width: 80%;
+.modal-header h2 { color: white; font-size: 20px; font-weight: 600; }
+
+.modal-close {
+  width: 36px;
+  height: 36px;
+  background: rgba(30, 41, 59, 0.6);
+  border: none;
+  border-radius: 10px;
+  color: #94a3b8;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
-.chat-bubble.sent {
+.modal-close:hover { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+
+.modal-form { padding: 24px; }
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; color: white; font-size: 14px; font-weight: 500; margin-bottom: 8px; }
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 14px 16px;
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+  border-radius: 12px;
+  color: white;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus { border-color: #06b6d4; }
+
+.code-result {
+  padding: 20px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.result-label { color: #34d399; font-size: 14px; font-weight: 500; margin-bottom: 12px; }
+.code-display { display: flex; gap: 12px; }
+
+.code-display code {
+  flex: 1;
+  padding: 14px 18px;
+  background: rgba(30, 41, 59, 0.8);
+  border-radius: 10px;
+  color: #22d3ee;
+  font-family: 'Space Grotesk', monospace;
+  font-size: 18px;
+  letter-spacing: 3px;
+  text-align: center;
+}
+
+.copy-btn {
+  padding: 14px 18px;
+  background: rgba(6, 182, 212, 0.2);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  border-radius: 10px;
+  color: #22d3ee;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.copy-btn:hover { background: rgba(6, 182, 212, 0.3); }
+.result-hint { color: #64748b; font-size: 12px; margin-top: 12px; }
+.modal-actions { display: flex; gap: 12px; }
+
+.primary-btn,
+.secondary-btn {
+  flex: 1;
+  padding: 14px 24px;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.primary-btn {
   background: linear-gradient(135deg, #06b6d4, #3b82f6);
   color: white;
-  margin-left: auto;
-  border-bottom-right-radius: 4px;
+  box-shadow: 0 4px 20px rgba(6, 182, 212, 0.3);
 }
 
-.chat-bubble.received {
+.primary-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(6, 182, 212, 0.4);
+}
+
+.primary-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.secondary-btn {
+  background: rgba(30, 41, 59, 0.6);
+  color: #94a3b8;
+  border: 1px solid rgba(6, 182, 212, 0.2);
+}
+
+.secondary-btn:hover { background: rgba(30, 41, 59, 0.8); color: white; }
+
+.ticket-header-info { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.ticket-content { flex: 1; overflow-y: auto; padding: 24px; }
+
+.ticket-original {
+  padding: 20px;
+  background: rgba(30, 41, 59, 0.6);
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.ticket-original p { color: white; font-size: 15px; line-height: 1.6; margin-bottom: 12px; }
+.ticket-meta { color: #64748b; font-size: 13px; }
+
+.ticket-messages { display: flex; flex-direction: column; gap: 12px; }
+.message-bubble { max-width: 70%; padding: 14px 18px; border-radius: 16px; }
+
+.message-bubble.received {
+  align-self: flex-start;
   background: rgba(30, 41, 59, 0.8);
   color: white;
   border-bottom-left-radius: 4px;
 }
 
-.line-clamp-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+.message-bubble.sent {
+  align-self: flex-end;
+  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.message-bubble p { font-size: 14px; line-height: 1.5; margin-bottom: 6px; }
+.message-meta { font-size: 11px; opacity: 0.7; }
+
+.ticket-actions { padding: 20px 24px; border-top: 1px solid rgba(6, 182, 212, 0.1); }
+.action-selects { display: flex; gap: 12px; margin-bottom: 16px; }
+
+.action-selects select {
+  flex: 1;
+  padding: 12px 16px;
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+  border-radius: 10px;
+  color: white;
+  font-size: 14px;
+  outline: none;
+}
+
+.reply-input { display: flex; gap: 12px; }
+
+.reply-input input {
+  flex: 1;
+  padding: 14px 18px;
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+  border-radius: 12px;
+  color: white;
+  font-size: 14px;
+  outline: none;
+}
+
+.reply-input input:focus { border-color: #06b6d4; }
+
+.reply-input button {
+  padding: 14px 24px;
+  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.reply-input button:hover:not(:disabled) { transform: translateY(-2px); }
+.reply-input button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.animate-fade-in { animation: fadeIn 0.4s ease; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 1024px) {
+  .sidebar { display: none; }
+  .main-content { margin-left: 0; }
+  .chat-container { flex-direction: column; }
+  .chat-sidebar {
+    width: 100%;
+    max-height: 200px;
+    border-right: none;
+    border-bottom: 1px solid rgba(6, 182, 212, 0.1);
+  }
+}
+
+@media (max-width: 640px) {
+  .nav-content { padding: 12px 16px; }
+  .nav-title, .nav-divider { display: none; }
+  .main-content { padding: 20px 16px; }
+  .section-header h1 { font-size: 24px; }
+  .stats-grid { grid-template-columns: 1fr; }
+}
+
+/* Analytics Styles */
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.analytics-card {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.6));
+  border: 1px solid rgba(6, 182, 212, 0.1);
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.analytics-card.full-width { grid-column: span 2; }
+
+.time-filter {
+  display: flex;
+  gap: 8px;
+}
+
+.time-filter button {
+  padding: 8px 16px;
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+  border-radius: 8px;
+  color: #94a3b8;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.time-filter button.active {
+  background: rgba(6, 182, 212, 0.2);
+  border-color: #06b6d4;
+  color: #22d3ee;
+}
+
+.chart-container { margin-top: 24px; }
+
+.mini-chart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 150px;
+  gap: 12px;
+}
+
+.chart-bar {
+  flex: 1;
+  background: linear-gradient(to top, #06b6d4, #3b82f6);
+  border-radius: 8px 8px 0 0;
+  min-height: 20px;
+  position: relative;
+  transition: height 0.3s;
+}
+
+.chart-bar:hover { opacity: 0.8; }
+
+.bar-value {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #22d3ee;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.chart-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.chart-labels span {
+  flex: 1;
+  text-align: center;
+  color: #64748b;
+  font-size: 12px;
+}
+
+.metric-list { display: flex; flex-direction: column; gap: 16px; margin-top: 16px; }
+
+.metric-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: rgba(30, 41, 59, 0.4);
+  border-radius: 10px;
+}
+
+.metric-label { color: #94a3b8; font-size: 14px; }
+.metric-value { color: white; font-size: 16px; font-weight: 600; }
+.metric-value.good { color: #10b981; }
+
+.satisfaction-display { text-align: center; margin: 20px 0; }
+.satisfaction-score { font-size: 48px; font-weight: 700; color: #fbbf24; }
+.satisfaction-stars { font-size: 24px; margin: 8px 0; }
+.satisfaction-display p { color: #64748b; font-size: 13px; }
+
+.rating-breakdown { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
+
+.rating-row {
+  display: grid;
+  grid-template-columns: 50px 1fr 40px;
+  align-items: center;
+  gap: 12px;
+}
+
+.rating-row span:first-child { color: #94a3b8; font-size: 12px; }
+.rating-row span:last-child { color: white; font-size: 12px; text-align: right; }
+
+.rating-bar {
+  height: 8px;
+  background: rgba(30, 41, 59, 0.6);
+  border-radius: 4px;
   overflow: hidden;
 }
+
+.rating-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #fbbf24, #f59e0b);
+  border-radius: 4px;
+}
+
+.team-leaderboard { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
+
+.leaderboard-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: rgba(30, 41, 59, 0.4);
+  border-radius: 10px;
+}
+
+.leaderboard-item .rank { font-size: 20px; }
+.leaderboard-item .name { flex: 1; color: white; font-weight: 500; }
+.leaderboard-item .tickets-resolved { color: #22d3ee; font-size: 13px; }
+
+/* Knowledge Base Styles */
+.kb-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.kb-card {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.6));
+  border: 1px solid rgba(6, 182, 212, 0.1);
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.3s;
+}
+
+.kb-card:hover { border-color: rgba(6, 182, 212, 0.3); transform: translateY(-2px); }
+
+.kb-category {
+  display: inline-block;
+  padding: 4px 10px;
+  background: rgba(6, 182, 212, 0.2);
+  border-radius: 6px;
+  color: #22d3ee;
+  font-size: 11px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.kb-card h3 { color: white; font-size: 16px; margin-bottom: 8px; }
+.kb-card p { color: #94a3b8; font-size: 13px; line-height: 1.5; margin-bottom: 16px; }
+
+.kb-meta {
+  display: flex;
+  gap: 16px;
+  color: #64748b;
+  font-size: 12px;
+  margin-bottom: 16px;
+}
+
+.kb-actions { display: flex; gap: 10px; }
+
+.edit-btn, .delete-btn {
+  padding: 8px 14px;
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+  border-radius: 8px;
+  color: #94a3b8;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.edit-btn:hover { background: rgba(6, 182, 212, 0.1); color: #22d3ee; }
+.delete-btn:hover { background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.3); color: #f87171; }
+
+.kb-card.add-new {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-style: dashed;
+  cursor: pointer;
+  min-height: 200px;
+}
+
+.kb-card.add-new span { font-size: 32px; color: #06b6d4; margin-bottom: 8px; }
+.kb-card.add-new p { color: #94a3b8; margin: 0; }
+.kb-card.add-new:hover { background: rgba(6, 182, 212, 0.05); }
+
+/* System Logs Styles */
+.log-filters { display: flex; gap: 12px; }
+
+.logs-table {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.6));
+  border: 1px solid rgba(6, 182, 212, 0.1);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.logs-header {
+  display: grid;
+  grid-template-columns: 150px 100px 80px 1fr 100px;
+  gap: 16px;
+  padding: 16px 20px;
+  background: rgba(6, 182, 212, 0.1);
+  color: #94a3b8;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.log-row {
+  display: grid;
+  grid-template-columns: 150px 100px 80px 1fr 100px;
+  gap: 16px;
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(6, 182, 212, 0.05);
+  transition: background 0.2s;
+}
+
+.log-row:hover { background: rgba(6, 182, 212, 0.05); }
+.log-row:last-child { border-bottom: none; }
+
+.log-time { color: #64748b; font-size: 12px; font-family: monospace; }
+.log-type { color: #94a3b8; font-size: 13px; text-transform: capitalize; }
+
+.log-level {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.log-level.info { background: rgba(6, 182, 212, 0.2); color: #22d3ee; }
+.log-level.warning { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+.log-level.error { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+
+.log-message { color: white; font-size: 13px; }
+.log-user { color: #64748b; font-size: 12px; }
+
+.logs-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  justify-content: flex-end;
+}
+
+.danger-btn {
+  padding: 12px 20px;
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 10px;
+  color: #f87171;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.danger-btn:hover { background: rgba(239, 68, 68, 0.3); }
 </style>
