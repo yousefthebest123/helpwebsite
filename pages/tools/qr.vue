@@ -259,6 +259,8 @@
 </template>
 
 <script setup>
+import QRCode from 'qrcode'
+
 useHead({
   title: 'QR Code Generator - QuickHelp.lol'
 })
@@ -275,6 +277,7 @@ const qrTypes = [
 const activeType = ref('url')
 const qrGenerated = ref(false)
 const copied = ref(false)
+const qrDataUrl = ref('')
 
 // Input values
 const urlInput = ref('https://quickhelp.lol')
@@ -331,96 +334,96 @@ const generateQR = async () => {
   const content = getQRContent()
   if (!content) return
 
-  // Simple QR code generation using canvas
-  // In production, you'd use a library like qrcode.js
-  const canvas = qrCanvas.value
-  const ctx = canvas.getContext('2d')
-  
-  canvas.width = qrSize.value
-  canvas.height = qrSize.value
-  
-  // Fill background
-  ctx.fillStyle = bgColor.value
-  ctx.fillRect(0, 0, qrSize.value, qrSize.value)
-  
-  // Generate QR pattern (simplified - in production use qrcode library)
-  ctx.fillStyle = qrColor.value
-  
-  // Create a simple placeholder pattern for demo
-  // In real implementation, use: import QRCode from 'qrcode'
-  const moduleSize = Math.floor(qrSize.value / 25)
-  const margin = moduleSize * 2
-  
-  // Draw finder patterns (corners)
-  const drawFinderPattern = (x, y) => {
-    // Outer square
-    ctx.fillRect(x, y, moduleSize * 7, moduleSize * 7)
-    // White square
-    ctx.fillStyle = bgColor.value
-    ctx.fillRect(x + moduleSize, y + moduleSize, moduleSize * 5, moduleSize * 5)
-    // Inner square
-    ctx.fillStyle = qrColor.value
-    ctx.fillRect(x + moduleSize * 2, y + moduleSize * 2, moduleSize * 3, moduleSize * 3)
+  try {
+    const canvas = qrCanvas.value
+    
+    // Generate QR code using the qrcode library
+    await QRCode.toCanvas(canvas, content, {
+      width: qrSize.value,
+      margin: 2,
+      color: {
+        dark: qrColor.value,
+        light: bgColor.value
+      },
+      errorCorrectionLevel: errorCorrection.value
+    })
+    
+    // Also generate data URL for copying
+    qrDataUrl.value = await QRCode.toDataURL(content, {
+      width: qrSize.value,
+      margin: 2,
+      color: {
+        dark: qrColor.value,
+        light: bgColor.value
+      },
+      errorCorrectionLevel: errorCorrection.value
+    })
+    
+    qrGenerated.value = true
+  } catch (err) {
+    console.error('QR generation error:', err)
   }
-  
-  drawFinderPattern(margin, margin)
-  drawFinderPattern(qrSize.value - margin - moduleSize * 7, margin)
-  drawFinderPattern(margin, qrSize.value - margin - moduleSize * 7)
-  
-  // Generate pseudo-random data pattern based on content
-  const seed = content.split('').reduce((a, c) => a + c.charCodeAt(0), 0)
-  const random = (i) => ((seed * (i + 1) * 9301 + 49297) % 233280) / 233280
-  
-  for (let i = 0; i < 21; i++) {
-    for (let j = 0; j < 21; j++) {
-      // Skip finder pattern areas
-      if ((i < 8 && j < 8) || (i < 8 && j > 12) || (i > 12 && j < 8)) continue
-      
-      if (random(i * 21 + j) > 0.5) {
-        ctx.fillStyle = qrColor.value
-        ctx.fillRect(
-          margin + j * moduleSize,
-          margin + i * moduleSize,
-          moduleSize,
-          moduleSize
-        )
-      }
-    }
-  }
-  
-  qrGenerated.value = true
 }
 
-const downloadQR = (format) => {
-  const canvas = qrCanvas.value
+const downloadQR = async (format) => {
+  const content = getQRContent()
+  if (!content) return
   
   if (format === 'png') {
+    const dataUrl = await QRCode.toDataURL(content, {
+      width: qrSize.value * 2, // Higher resolution for download
+      margin: 2,
+      color: {
+        dark: qrColor.value,
+        light: bgColor.value
+      },
+      errorCorrectionLevel: errorCorrection.value
+    })
     const link = document.createElement('a')
     link.download = 'qrcode.png'
-    link.href = canvas.toDataURL('image/png')
+    link.href = dataUrl
     link.click()
-  } else {
-    // SVG export would require additional conversion
+  } else if (format === 'svg') {
+    const svgString = await QRCode.toString(content, {
+      type: 'svg',
+      width: qrSize.value,
+      margin: 2,
+      color: {
+        dark: qrColor.value,
+        light: bgColor.value
+      },
+      errorCorrectionLevel: errorCorrection.value
+    })
+    const blob = new Blob([svgString], { type: 'image/svg+xml' })
+    const url = URL.createObjectURL(blob)
     const link = document.createElement('a')
-    link.download = 'qrcode.png'
-    link.href = canvas.toDataURL('image/png')
+    link.download = 'qrcode.svg'
+    link.href = url
     link.click()
+    URL.revokeObjectURL(url)
   }
 }
 
 const copyQR = async () => {
-  const canvas = qrCanvas.value
-  canvas.toBlob(async (blob) => {
+  try {
+    const canvas = qrCanvas.value
+    const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'))
+    await navigator.clipboard.write([
+      new ClipboardItem({ 'image/png': blob })
+    ])
+    copied.value = true
+    setTimeout(() => copied.value = false, 2000)
+  } catch (err) {
+    console.error('Failed to copy:', err)
+    // Fallback: copy data URL
     try {
-      await navigator.clipboard.write([
-        new ClipboardItem({ 'image/png': blob })
-      ])
+      await navigator.clipboard.writeText(qrDataUrl.value)
       copied.value = true
       setTimeout(() => copied.value = false, 2000)
-    } catch (err) {
-      console.error('Failed to copy:', err)
+    } catch (e) {
+      console.error('Fallback copy also failed:', e)
     }
-  })
+  }
 }
 
 // Generate initial QR
