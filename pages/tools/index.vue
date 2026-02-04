@@ -5,7 +5,7 @@
       <div class="page-header">
         <h1 class="page-title">All <span class="gradient-text">Tools</span></h1>
         <p class="page-subtitle">
-          50+ free tools to help you with daily tasks, productivity, creativity, and more.
+          30+ free tools to help you with daily tasks, productivity, creativity, and more.
         </p>
         
         <!-- Search & Filter -->
@@ -81,49 +81,41 @@ const categories = [
 const tools = [
   // Daily Workflow
   { name: 'Unit Converter', icon: '🔄', path: '/tools/converter', desc: 'Convert currencies, units, time zones, and more', color: 'purple', category: 'daily' },
-  { name: 'PDF Tools', icon: '📄', path: '/tools/pdf', desc: 'Merge, split, compress, and convert PDFs', color: 'pink', category: 'daily' },
-  { name: 'Format Shifter', icon: '🔀', path: '/tools/format', desc: 'Convert image and video formats', color: 'teal', category: 'daily' },
-  { name: 'File Compressor', icon: '📦', path: '/tools/compress', desc: 'Compress images and files', color: 'blue', category: 'daily' },
+  { name: 'Age Calculator', icon: '🎂', path: '/tools/age-calculator', desc: 'Calculate your exact age in years, months, days', color: 'pink', category: 'daily' },
+  { name: 'Tip Calculator', icon: '💵', path: '/tools/tip-calculator', desc: 'Calculate tips and split bills easily', color: 'teal', category: 'daily' },
+  { name: 'Link Shortener', icon: '🔗', path: '/tools/link-shortener', desc: 'Create short, shareable links', color: 'blue', category: 'daily' },
   
   // Brain De-Clutter
   { name: 'Focus Timer', icon: '⏱️', path: '/tools/timer', desc: 'Pomodoro timer with ambient sounds', color: 'orange', category: 'brain', badge: 'Popular' },
   { name: 'Quick Notes', icon: '📝', path: '/tools/notes', desc: 'Auto-saving scratchpad', color: 'blue', category: 'brain' },
   { name: 'Priority Matrix', icon: '📊', path: '/tools/matrix', desc: 'Eisenhower decision matrix', color: 'green', category: 'brain' },
-  { name: 'Habit Tracker', icon: '✅', path: '/tools/habits', desc: 'Track daily habits and streaks', color: 'purple', category: 'brain' },
-  { name: 'Goal Setter', icon: '🎯', path: '/tools/goals', desc: 'Set and track your goals', color: 'pink', category: 'brain' },
+  { name: 'Countdown Timer', icon: '⏳', path: '/tools/countdown', desc: 'Countdown to important events', color: 'purple', category: 'brain' },
   
   // Content Creator
-  { name: 'Caption Generator', icon: '✨', path: '/tools/caption', desc: 'AI-powered caption ideas', color: 'pink', category: 'creator', badge: 'AI' },
-  { name: 'Color Palette', icon: '🎨', path: '/tools/colors', desc: 'Extract colors from images', color: 'purple', category: 'creator' },
-  { name: 'Remove Background', icon: '🖼️', path: '/tools/background', desc: 'Instant background removal', color: 'teal', category: 'creator' },
-  { name: 'Image Resizer', icon: '📐', path: '/tools/resize', desc: 'Resize images for any platform', color: 'orange', category: 'creator' },
-  { name: 'Meme Generator', icon: '😂', path: '/tools/meme', desc: 'Create memes quickly', color: 'blue', category: 'creator' },
+  { name: 'Color Palette', icon: '🎨', path: '/tools/colors', desc: 'Generate beautiful color palettes', color: 'purple', category: 'creator' },
+  { name: 'Lorem Ipsum', icon: '📄', path: '/tools/lorem-ipsum', desc: 'Generate placeholder text instantly', color: 'pink', category: 'creator' },
+  { name: 'QR Code Maker', icon: '📱', path: '/tools/qr', desc: 'Create QR codes instantly', color: 'orange', category: 'creator', badge: 'Popular' },
+  { name: 'Base64 Image', icon: '🖼️', path: '/tools/base64-image', desc: 'Convert images to Base64', color: 'teal', category: 'creator' },
   
   // Technical
-  { name: 'Text Cleaner', icon: '🧹', path: '/tools/text', desc: 'Clean and format text', color: 'blue', category: 'tech' },
+  { name: 'Text Cleaner', icon: '🧹', path: '/tools/text-cleaner', desc: 'Clean and format text', color: 'blue', category: 'tech' },
   { name: 'Password Generator', icon: '🔐', path: '/tools/password', desc: 'Generate secure passwords', color: 'green', category: 'tech', badge: 'Popular' },
-  { name: 'QR Code Maker', icon: '📱', path: '/tools/qr', desc: 'Create QR codes instantly', color: 'orange', category: 'tech' },
   { name: 'JSON Formatter', icon: '{ }', path: '/tools/json', desc: 'Format and validate JSON', color: 'purple', category: 'tech' },
-  { name: 'Markdown Editor', icon: '📑', path: '/tools/markdown', desc: 'Live markdown preview', color: 'pink', category: 'tech' },
+  { name: 'Markdown Preview', icon: '📑', path: '/tools/markdown', desc: 'Live markdown preview editor', color: 'pink', category: 'tech' },
   { name: 'Base64 Encoder', icon: '🔄', path: '/tools/base64', desc: 'Encode/decode Base64', color: 'teal', category: 'tech' },
-  { name: 'Hash Generator', icon: '🔒', path: '/tools/hash', desc: 'Generate MD5, SHA hashes', color: 'blue', category: 'tech' },
-  { name: 'Regex Tester', icon: '🔍', path: '/tools/regex', desc: 'Test regular expressions', color: 'green', category: 'tech' },
-  { name: 'Lorem Ipsum', icon: '📝', path: '/tools/lorem', desc: 'Generate placeholder text', color: 'orange', category: 'tech' },
+  { name: 'Hash Generator', icon: '🔒', path: '/tools/hash-generator', desc: 'Generate MD5, SHA hashes', color: 'blue', category: 'tech' },
+  { name: 'UUID Generator', icon: '🆔', path: '/tools/uuid-generator', desc: 'Generate unique UUIDs', color: 'green', category: 'tech' },
+  { name: 'Regex Tester', icon: '🔍', path: '/tools/regex', desc: 'Test regular expressions', color: 'orange', category: 'tech' },
   { name: 'Diff Checker', icon: '📊', path: '/tools/diff', desc: 'Compare two texts', color: 'purple', category: 'tech' },
   { name: 'Timestamp Converter', icon: '🕐', path: '/tools/timestamp', desc: 'Convert Unix timestamps', color: 'pink', category: 'tech' },
   { name: 'URL Encoder', icon: '🔗', path: '/tools/url', desc: 'Encode/decode URLs', color: 'teal', category: 'tech' },
-  { name: 'HTML Escape', icon: '< >', path: '/tools/html', desc: 'Escape HTML entities', color: 'blue', category: 'tech' },
-  { name: 'CSS Minifier', icon: '🎨', path: '/tools/css', desc: 'Minify CSS code', color: 'green', category: 'tech' },
-  { name: 'JS Minifier', icon: '⚡', path: '/tools/js', desc: 'Minify JavaScript code', color: 'orange', category: 'tech' },
+  { name: 'HTML Formatter', icon: '🌐', path: '/tools/html', desc: 'Format and minify HTML', color: 'blue', category: 'tech' },
+  { name: 'CSS Formatter', icon: '🎨', path: '/tools/css', desc: 'Beautify and minify CSS', color: 'green', category: 'tech' },
+  { name: 'JS Formatter', icon: '⚡', path: '/tools/js', desc: 'Format JavaScript code', color: 'orange', category: 'tech' },
   
   // Learning
-  { name: 'Calculator', icon: '🧮', path: '/tools/calculator', desc: 'Scientific calculator', color: 'purple', category: 'learning' },
-  { name: 'Unit Circle', icon: '⭕', path: '/tools/unitcircle', desc: 'Interactive unit circle', color: 'pink', category: 'learning' },
-  { name: 'Periodic Table', icon: '⚗️', path: '/tools/periodic', desc: 'Interactive periodic table', color: 'teal', category: 'learning' },
-  { name: 'Word Counter', icon: '📊', path: '/tools/wordcount', desc: 'Count words, characters', color: 'blue', category: 'learning' },
-  { name: 'Citation Generator', icon: '📚', path: '/tools/citation', desc: 'Generate citations', color: 'green', category: 'learning' },
-  { name: 'Flashcards', icon: '🃏', path: '/tools/flashcards', desc: 'Create study flashcards', color: 'orange', category: 'learning' },
-  { name: 'Countdown Timer', icon: '⏳', path: '/tools/countdown', desc: 'Countdown to events', color: 'purple', category: 'learning' },
+  { name: 'Scientific Calculator', icon: '🧮', path: '/tools/calculator', desc: 'Advanced scientific calculator', color: 'purple', category: 'learning' },
+  { name: 'Word Counter', icon: '📊', path: '/tools/word-counter', desc: 'Count words, characters, sentences', color: 'blue', category: 'learning' },
   { name: 'Grade Calculator', icon: '📝', path: '/tools/grade', desc: 'Calculate your GPA', color: 'pink', category: 'learning' },
 ]
 
