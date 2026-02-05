@@ -3,7 +3,7 @@
     <div class="cyber-grid"></div>
     <div class="animated-bg"></div>
 
-    <main class="container mx-auto px-6 pt-24 pb-16 relative z-10">
+    <main class="container mx-auto px-6 pt-32 pb-16 relative z-10">
       <!-- Header -->
       <div class="text-center mb-12 animate-fade-in-up">
         <div class="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 rounded-full text-cyan-400 text-sm font-medium mb-6 shadow-lg shadow-cyan-500/10">

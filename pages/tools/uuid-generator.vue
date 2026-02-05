@@ -3,7 +3,7 @@
     <div class="cyber-grid"></div>
     <div class="animated-bg"></div>
 
-    <main class="container mx-auto px-6 pt-24 pb-16 relative z-10">
+    <main class="container mx-auto px-6 pt-32 pb-16 relative z-10">
       <!-- Header -->
       <div class="text-center mb-12 animate-fade-in-up">
         <NuxtLink to="/tools" class="back-link">
