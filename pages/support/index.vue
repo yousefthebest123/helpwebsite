@@ -6,12 +6,12 @@
     <main class="container mx-auto px-6 pt-32 pb-16 relative z-10">
       <!-- Header -->
       <div class="text-center mb-12 animate-fade-in-up">
-        <div class="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 rounded-full text-cyan-400 text-sm font-medium mb-6 shadow-lg shadow-cyan-500/10">
-          <span class="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></span>
+        <div class="support-badge">
+          <span class="badge-dot"></span>
           <span>Live Support Available</span>
         </div>
-        <h1 class="text-4xl md:text-6xl font-bold mb-6">
-          <span class="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">Support Center</span>
+        <h1 class="text-4xl md:text-5xl font-bold mb-6">
+          <span class="gradient-text">Support Center</span>
         </h1>
         <p class="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed">
           Need help? Create a support ticket and our dedicated team will assist you as soon as possible.
@@ -24,7 +24,7 @@
           <div class="support-card">
             <div class="card-header">
               <div class="flex items-center gap-4">
-                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center text-2xl shadow-lg shadow-cyan-500/30">
+                <div class="card-icon">
                   🎫
                 </div>
                 <div>
@@ -442,6 +442,40 @@ useHead({ title: 'Support - QuickHelp.lol' })
 .support-page {
   position: relative;
   background: linear-gradient(180deg, #030712 0%, #0a1628 50%, #030712 100%);
+}
+
+.support-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: rgba(124, 58, 237, 0.12);
+  border: 1px solid rgba(124, 58, 237, 0.25);
+  border-radius: var(--radius-full);
+  color: var(--primary-light);
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+.badge-dot {
+  width: 8px;
+  height: 8px;
+  background: #22c55e;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #7c3aed, #3b82f6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.3);
 }
 
 .support-card {

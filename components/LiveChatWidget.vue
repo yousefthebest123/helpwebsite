@@ -21,7 +21,7 @@
             </div>
             <div>
               <h3>Live Support</h3>
-              <span class="status">{{ isConnected ? 'Online' : 'Connecting...' }}</span>
+              <span class="status">{{ isOffline ? 'Offline' : isConnected ? 'Online' : 'Connecting...' }}</span>
             </div>
           </div>
           <button @click="toggleChat" class="close-btn">✕</button>
@@ -112,12 +112,15 @@
 const isOpen = ref(false)
 const isConnected = ref(false)
 const isTyping = ref(false)
+const isOffline = ref(false)
 const unreadCount = ref(0)
 const newMessage = ref('')
 const chatBody = ref<HTMLElement | null>(null)
 const sessionId = ref<string | null>(null)
-const pollingInterval = ref<NodeJS.Timeout | null>(null)
+const pollingInterval = ref<ReturnType<typeof setInterval> | null>(null)
 const lastMessageTime = ref<string | null>(null)
+const connectionRetries = ref(0)
+const maxRetries = 3
 
 const userInfo = ref({
   name: '',
@@ -219,7 +222,12 @@ const fetchMessages = async () => {
     isConnected.value = true
   } catch (error) {
     console.error('Failed to fetch messages:', error)
-    isConnected.value = false
+    connectionRetries.value++
+    if (connectionRetries.value >= maxRetries) {
+      isOffline.value = true
+      isConnected.value = false
+      stopPolling()
+    }
   }
 }
 
@@ -268,6 +276,15 @@ const submitUserInfo = async () => {
     }
   } catch (error) {
     console.error('Failed to create chat session:', error)
+    isOffline.value = true
+    // Still let user see the chat in offline mode
+    userInfo.value.collected = true
+    addLocalMessage({
+      id: 'offline-' + Date.now(),
+      content: '⚠️ Live chat is temporarily unavailable. Please try again later or use our Support Center for help.',
+      sender: 'support',
+      timestamp: new Date()
+    })
   }
 }
 
@@ -400,17 +417,25 @@ watch(isOpen, (open) => {
   align-items: center;
   justify-content: center;
   box-shadow: 0 8px 32px rgba(124, 58, 237, 0.4);
-  transition: all 0.3s ease;
+  transition: all 0.4s var(--ease-spring);
   position: relative;
+  animation: chatPulse 3s ease-in-out infinite;
 }
 
 .chat-toggle:hover {
   transform: scale(1.1);
   box-shadow: 0 12px 40px rgba(124, 58, 237, 0.5);
+  animation: none;
 }
 
 .chat-toggle.active {
   background: linear-gradient(135deg, #64748b, #475569);
+  animation: none;
+}
+
+@keyframes chatPulse {
+  0%, 100% { box-shadow: 0 8px 32px rgba(124, 58, 237, 0.4); }
+  50% { box-shadow: 0 8px 32px rgba(124, 58, 237, 0.4), 0 0 0 12px rgba(124, 58, 237, 0.1); }
 }
 
 .toggle-icon {

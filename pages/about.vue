@@ -14,7 +14,7 @@
     </section>
 
     <!-- Mission -->
-    <section class="mission section">
+    <section class="mission section scroll-reveal">
       <div class="container">
         <div class="mission-grid">
           <div class="mission-content">
@@ -41,7 +41,7 @@
     </section>
 
     <!-- Features -->
-    <section class="features section">
+    <section class="features section scroll-reveal">
       <div class="container">
         <h2 class="section-title">Why QuickHelp?</h2>
         
@@ -81,7 +81,7 @@
     </section>
 
     <!-- Stats -->
-    <section class="stats section">
+    <section class="stats section scroll-reveal reveal-scale">
       <div class="container">
         <div class="stats-grid">
           <div class="stat-card">
@@ -105,7 +105,7 @@
     </section>
 
     <!-- Tech Stack -->
-    <section class="tech section">
+    <section class="tech section scroll-reveal reveal-left">
       <div class="container">
         <h2 class="section-title">Built With Modern Tech</h2>
         
@@ -131,7 +131,7 @@
     </section>
 
     <!-- CTA -->
-    <section class="cta section">
+    <section class="cta section scroll-reveal reveal-scale">
       <div class="container">
         <div class="cta-card glass">
           <h2>Ready to Get Started?</h2>
@@ -149,7 +149,7 @@
     </section>
 
     <!-- Contact -->
-    <section class="contact section">
+    <section class="contact section scroll-reveal">
       <div class="container">
         <h2 class="section-title">Get in Touch</h2>
         <p class="section-subtitle">Have a suggestion or found a bug? We'd love to hear from you.</p>
@@ -177,6 +177,10 @@
 </template>
 
 <script setup>
+import { useScrollReveal } from '~/composables/useScrollReveal'
+
+useScrollReveal()
+
 useHead({
   title: 'About - QuickHelp.lol',
   meta: [

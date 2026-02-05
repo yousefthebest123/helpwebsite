@@ -15,7 +15,7 @@
     </section>
 
     <!-- Quick Actions -->
-    <section class="quick-actions">
+    <section class="quick-actions scroll-reveal">
       <div class="container">
         <div class="actions-grid">
           <button class="action-card" @click="openBreathing">
@@ -172,7 +172,7 @@
     </div>
 
     <!-- Coping Techniques -->
-    <section class="coping-section section">
+    <section class="coping-section section scroll-reveal reveal-left">
       <div class="container">
         <div class="section-header">
           <h2 class="section-title">Coping Techniques</h2>
@@ -195,7 +195,7 @@
     </section>
 
     <!-- Positive Affirmations -->
-    <section class="affirmations-section section">
+    <section class="affirmations-section section scroll-reveal reveal-scale">
       <div class="container">
         <div class="affirmation-card glass">
           <span class="affirmation-icon">✨</span>
@@ -209,7 +209,7 @@
     </section>
 
     <!-- Crisis Resources -->
-    <section class="crisis-section section">
+    <section class="crisis-section section scroll-reveal">
       <div class="container">
         <div class="crisis-card">
           <div class="crisis-header">
@@ -250,7 +250,7 @@
     </section>
 
     <!-- Self-Care Reminders -->
-    <section class="selfcare-section section">
+    <section class="selfcare-section section scroll-reveal reveal-right">
       <div class="container">
         <h2 class="section-title">Daily Self-Care Checklist</h2>
         <p class="section-subtitle">Small actions can make a big difference.</p>
@@ -273,6 +273,10 @@
 </template>
 
 <script setup>
+import { useScrollReveal } from '~/composables/useScrollReveal'
+
+useScrollReveal()
+
 useHead({
   title: 'Mental Health Support - QuickHelp.lol',
   meta: [

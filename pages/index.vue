@@ -85,7 +85,7 @@
     </section>
 
     <!-- Quick Access Toolbar -->
-    <section class="quick-access">
+    <section class="quick-access scroll-reveal">
       <div class="container">
         <div class="quick-bar glass">
           <NuxtLink v-for="tool in quickTools" :key="tool.to" :to="tool.to" class="quick-item">
@@ -97,7 +97,7 @@
     </section>
 
     <!-- Featured Tools Section -->
-    <section class="section featured-tools">
+    <section class="section featured-tools scroll-reveal">
       <div class="container">
         <div class="section-header">
           <span class="section-label">Most Popular</span>
@@ -129,7 +129,7 @@
     </section>
 
     <!-- Wellness Spotlight -->
-    <section class="section wellness-spotlight">
+    <section class="section wellness-spotlight scroll-reveal reveal-left">
       <div class="container">
         <div class="wellness-grid">
           <div class="wellness-content">
@@ -212,7 +212,7 @@
     </section>
 
     <!-- Tool Categories -->
-    <section class="section tool-categories">
+    <section class="section tool-categories scroll-reveal">
       <div class="container">
         <div class="section-header">
           <span class="section-label">Everything You Need</span>
@@ -236,7 +236,7 @@
     </section>
 
     <!-- Emergency Help Banner -->
-    <section class="section emergency-banner">
+    <section class="section emergency-banner scroll-reveal reveal-scale">
       <div class="container">
         <div class="emergency-card glass">
           <div class="emergency-pulse"></div>
@@ -254,7 +254,7 @@
     </section>
 
     <!-- Learning Section -->
-    <section class="section learning-section">
+    <section class="section learning-section scroll-reveal reveal-right">
       <div class="container">
         <div class="section-header">
           <span class="section-label">Level Up</span>
@@ -293,7 +293,7 @@
     </section>
 
     <!-- Developer Tools Section -->
-    <section class="section dev-tools">
+    <section class="section dev-tools scroll-reveal reveal-left">
       <div class="container">
         <div class="section-header">
           <span class="section-label">For Developers</span>
@@ -318,7 +318,7 @@
     </section>
 
     <!-- Final CTA -->
-    <section class="section final-cta">
+    <section class="section final-cta scroll-reveal reveal-scale">
       <div class="container">
         <div class="cta-card glass">
           <div class="cta-glow"></div>
@@ -340,6 +340,9 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { useScrollReveal } from '~/composables/useScrollReveal'
+
+useScrollReveal()
 
 useHead({
   title: 'QuickHelp.lol — Your All-in-One Help Hub',

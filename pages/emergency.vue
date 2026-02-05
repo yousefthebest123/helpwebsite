@@ -16,7 +16,7 @@
     </section>
 
     <!-- Immediate Help -->
-    <section class="container">
+    <section class="container scroll-reveal">
       <div class="immediate-help glass">
         <div class="ih-header">
           <h2>🆘 Immediate Help Lines</h2>
@@ -38,7 +38,7 @@
     </section>
 
     <!-- Crisis Types -->
-    <section class="section container">
+    <section class="section container scroll-reveal">
       <div class="section-header">
         <h2>Resources by <span class="gradient-text">situation</span></h2>
         <p>Find specific help for what you're going through right now.</p>
@@ -60,7 +60,7 @@
     </section>
 
     <!-- Self-Help Grounding -->
-    <section class="section container">
+    <section class="section container scroll-reveal reveal-scale">
       <div class="grounding-card glass">
         <div class="grounding-content">
           <h2>🌊 5-4-3-2-1 Grounding Exercise</h2>
@@ -115,7 +115,7 @@
     </section>
 
     <!-- Safety Plan -->
-    <section class="section container">
+    <section class="section container scroll-reveal reveal-left">
       <div class="section-header">
         <h2>📋 Build Your <span class="gradient-text">Safety Plan</span></h2>
         <p>A personal safety plan can help during difficult moments. This stays on your device only.</p>
@@ -148,7 +148,7 @@
     </section>
 
     <!-- Bottom CTA -->
-    <section class="section container">
+    <section class="section container scroll-reveal reveal-scale">
       <div class="bottom-cta glass">
         <h2>Remember: asking for help is a sign of <span class="gradient-text">strength</span> 💜</h2>
         <p>You matter, and things can get better. Reach out to someone you trust.</p>
@@ -163,6 +163,9 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useScrollReveal } from '~/composables/useScrollReveal'
+
+useScrollReveal()
 
 useHead({ title: 'Emergency Help — QuickHelp.lol' })
 

@@ -67,7 +67,7 @@
       </header>
 
       <!-- Stats Bar -->
-      <div class="stats-bar">
+      <div class="stats-bar scroll-reveal">
         <div class="stat-item">
           <span class="stat-number">{{ tools.length }}</span>
           <span class="stat-label">Total Tools</span>
@@ -90,7 +90,7 @@
       </div>
 
       <!-- Tools Grid -->
-      <TransitionGroup name="tools" tag="div" class="tools-grid">
+      <TransitionGroup name="tools" tag="div" class="tools-grid scroll-reveal">
         <NuxtLink 
           v-for="(tool, index) in filteredTools" 
           :key="tool.path"
@@ -165,6 +165,8 @@
 </template>
 
 <script setup>
+useScrollReveal()
+
 useHead({
   title: 'All Tools - QuickHelp.lol'
 })

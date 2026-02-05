@@ -15,7 +15,7 @@
     </section>
 
     <!-- Quick Tools -->
-    <section class="quick-tools">
+    <section class="quick-tools scroll-reveal">
       <div class="container">
         <div class="tools-grid">
           <div class="tool-card" @click="activeSection = 'calculator'">
@@ -243,7 +243,7 @@
     </section>
 
     <!-- Study Tips Section -->
-    <section class="study-tips section">
+    <section class="study-tips section scroll-reveal reveal-left">
       <div class="container">
         <div class="section-header">
           <h2 class="section-title">📖 Study Techniques</h2>
@@ -303,7 +303,7 @@
     </section>
 
     <!-- Resources Section -->
-    <section class="resources section">
+    <section class="resources section scroll-reveal">
       <div class="container">
         <h2 class="section-title">🔗 Free Learning Resources</h2>
         
@@ -345,6 +345,10 @@
 </template>
 
 <script setup>
+import { useScrollReveal } from '~/composables/useScrollReveal'
+
+useScrollReveal()
+
 useHead({
   title: 'Learning Hub - QuickHelp.lol',
   meta: [

@@ -12,7 +12,7 @@
     </section>
 
     <!-- Dashboard Grid -->
-    <section class="container dashboard">
+    <section class="container dashboard scroll-reveal">
       <!-- Habit Tracker -->
       <div class="dash-card glass habit-card">
         <div class="card-header">
@@ -205,6 +205,9 @@
 
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue'
+import { useScrollReveal } from '~/composables/useScrollReveal'
+
+useScrollReveal()
 
 useHead({ title: 'Wellness Dashboard — QuickHelp.lol' })
 
