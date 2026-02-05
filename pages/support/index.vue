@@ -975,7 +975,6 @@ useHead({ title: 'Support - QuickHelp.lol' })
     padding: 18px;
   }
 }
-</style>
 
 .modal-overlay {
   position: fixed;
