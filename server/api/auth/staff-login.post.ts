@@ -1,5 +1,6 @@
 import { getDb } from '../../utils/mongodb'
 import { generateToken } from '../../utils/auth'
+import { logInfo, logWarning } from '../../utils/logger'
 
 // Owner credentials from login.txt
 const OWNER_USER = 'ysf'
@@ -20,6 +21,8 @@ export default defineEventHandler(async (event) => {
         role: 'owner'
       })
 
+      await logInfo('auth', 'Owner logged in successfully', OWNER_USER)
+
       return {
         success: true,
         token,
@@ -30,6 +33,8 @@ export default defineEventHandler(async (event) => {
         }
       }
     }
+    
+    await logWarning('auth', `Failed owner login attempt for username: ${username}`, 'unknown')
     
     throw createError({
       statusCode: 401,
@@ -42,6 +47,8 @@ export default defineEventHandler(async (event) => {
     const member = await db.collection('support_members').findOne({ code, active: true })
 
     if (!member) {
+      await logWarning('auth', `Failed staff login attempt with invalid code`, 'unknown')
+      
       throw createError({
         statusCode: 401,
         message: 'Invalid or inactive code'
@@ -59,6 +66,8 @@ export default defineEventHandler(async (event) => {
       username: member.name,
       role: member.role
     })
+
+    await logInfo('auth', `Staff member logged in: ${member.name}`, member.name)
 
     return {
       success: true,

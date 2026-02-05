@@ -110,11 +110,14 @@
 
 <script setup lang="ts">
 const isOpen = ref(false)
-const isConnected = ref(true)
+const isConnected = ref(false)
 const isTyping = ref(false)
 const unreadCount = ref(0)
 const newMessage = ref('')
 const chatBody = ref<HTMLElement | null>(null)
+const sessionId = ref<string | null>(null)
+const pollingInterval = ref<NodeJS.Timeout | null>(null)
+const lastMessageTime = ref<string | null>(null)
 
 const userInfo = ref({
   name: '',
@@ -125,7 +128,8 @@ const userInfo = ref({
 interface Message {
   id: string
   content: string
-  sender: 'user' | 'support'
+  sender: 'user' | 'support' | 'system'
+  senderName?: string
   timestamp: Date
 }
 
@@ -135,87 +139,197 @@ const toggleChat = () => {
   isOpen.value = !isOpen.value
   if (isOpen.value) {
     unreadCount.value = 0
+    if (sessionId.value) {
+      startPolling()
+    }
+  } else {
+    stopPolling()
   }
 }
 
-const submitUserInfo = () => {
-  if (userInfo.value.name && userInfo.value.email) {
-    userInfo.value.collected = true
-    // Send initial greeting
-    setTimeout(() => {
-      addSupportMessage(`Hi ${userInfo.value.name}! 👋 Thanks for reaching out. How can I help you today?`)
-    }, 1000)
+const startPolling = () => {
+  if (pollingInterval.value) return
+  
+  pollingInterval.value = setInterval(async () => {
+    if (sessionId.value) {
+      await fetchMessages()
+    }
+  }, 3000) // Poll every 3 seconds
+}
+
+const stopPolling = () => {
+  if (pollingInterval.value) {
+    clearInterval(pollingInterval.value)
+    pollingInterval.value = null
+  }
+}
+
+const fetchMessages = async () => {
+  if (!sessionId.value) return
+  
+  try {
+    const params: any = { sessionId: sessionId.value }
+    if (lastMessageTime.value) {
+      params.since = lastMessageTime.value
+    }
+    
+    const response = await $fetch<{ success: boolean; messages: Message[] }>('/api/chat/messages', {
+      query: params
+    })
+    
+    if (response.success && response.messages.length > 0) {
+      // If we had a lastMessageTime, these are new messages
+      if (lastMessageTime.value) {
+        // Filter to only add messages we don't already have
+        const newMsgs = response.messages.filter(
+          m => !messages.value.some(existing => existing.id === m.id)
+        )
+        
+        newMsgs.forEach(msg => {
+          messages.value.push({
+            ...msg,
+            timestamp: new Date(msg.timestamp)
+          })
+          
+          // Increment unread if from support and chat is closed
+          if (msg.sender === 'support' && !isOpen.value) {
+            unreadCount.value++
+          }
+        })
+        
+        if (newMsgs.length > 0) {
+          scrollToBottom()
+        }
+      } else {
+        // Initial load
+        messages.value = response.messages.map(m => ({
+          ...m,
+          timestamp: new Date(m.timestamp)
+        }))
+        scrollToBottom()
+      }
+      
+      // Update last message time
+      if (response.messages.length > 0) {
+        const lastMsg = response.messages[response.messages.length - 1]
+        lastMessageTime.value = new Date(lastMsg.timestamp).toISOString()
+      }
+    }
+    
+    isConnected.value = true
+  } catch (error) {
+    console.error('Failed to fetch messages:', error)
+    isConnected.value = false
+  }
+}
+
+const submitUserInfo = async () => {
+  if (!userInfo.value.name || !userInfo.value.email) return
+  
+  try {
+    const response = await $fetch<{ success: boolean; sessionId: string; isExisting: boolean }>('/api/chat/create', {
+      method: 'POST',
+      body: {
+        userName: userInfo.value.name,
+        userEmail: userInfo.value.email
+      }
+    })
+    
+    if (response.success) {
+      sessionId.value = response.sessionId
+      userInfo.value.collected = true
+      isConnected.value = true
+      
+      // Save to localStorage
+      localStorage.setItem('chat-session', JSON.stringify({
+        sessionId: response.sessionId,
+        name: userInfo.value.name,
+        email: userInfo.value.email
+      }))
+      
+      // Fetch existing messages if any
+      await fetchMessages()
+      
+      // Start polling
+      startPolling()
+      
+      // If not existing session, show welcome
+      if (!response.isExisting) {
+        // Auto-send welcome from system
+        setTimeout(() => {
+          addLocalMessage({
+            id: 'welcome-' + Date.now(),
+            content: `Hi ${userInfo.value.name}! 👋 A support agent will be with you shortly.`,
+            sender: 'support',
+            timestamp: new Date()
+          })
+        }, 500)
+      }
+    }
+  } catch (error) {
+    console.error('Failed to create chat session:', error)
   }
 }
 
 const sendQuickMessage = (message: string) => {
   if (!userInfo.value.collected) {
-    userInfo.value.collected = true
     userInfo.value.name = 'Guest'
+    userInfo.value.email = 'guest@quickhelp.lol'
+    submitUserInfo().then(() => {
+      setTimeout(() => sendMessage(message), 500)
+    })
+    return
   }
-  addUserMessage(message)
-  simulateSupportResponse(message)
+  sendMessage(message)
 }
 
-const sendMessage = () => {
-  if (!newMessage.value.trim()) return
+const sendMessage = async (msg?: string) => {
+  const content = msg || newMessage.value
+  if (!content.trim() || !sessionId.value) return
   
-  addUserMessage(newMessage.value)
-  const msg = newMessage.value
-  newMessage.value = ''
-  simulateSupportResponse(msg)
-}
-
-const addUserMessage = (content: string) => {
-  messages.value.push({
-    id: Date.now().toString(),
-    content,
+  // Add message locally immediately for responsiveness
+  const localMsg: Message = {
+    id: 'temp-' + Date.now(),
+    content: content.trim(),
     sender: 'user',
     timestamp: new Date()
-  })
+  }
+  messages.value.push(localMsg)
+  newMessage.value = ''
   scrollToBottom()
+  
+  try {
+    const response = await $fetch<{ success: boolean; message: any }>('/api/chat/send', {
+      method: 'POST',
+      body: {
+        sessionId: sessionId.value,
+        content: content.trim(),
+        sender: 'user',
+        senderName: userInfo.value.name
+      }
+    })
+    
+    if (response.success) {
+      // Replace temp message with real one
+      const idx = messages.value.findIndex(m => m.id === localMsg.id)
+      if (idx !== -1) {
+        messages.value[idx] = {
+          ...response.message,
+          timestamp: new Date(response.message.timestamp)
+        }
+      }
+      lastMessageTime.value = new Date(response.message.timestamp).toISOString()
+    }
+  } catch (error) {
+    console.error('Failed to send message:', error)
+    // Remove temp message on error
+    messages.value = messages.value.filter(m => m.id !== localMsg.id)
+  }
 }
 
-const addSupportMessage = (content: string) => {
-  messages.value.push({
-    id: Date.now().toString(),
-    content,
-    sender: 'support',
-    timestamp: new Date()
-  })
-  
-  if (!isOpen.value) {
-    unreadCount.value++
-  }
+const addLocalMessage = (msg: Message) => {
+  messages.value.push(msg)
   scrollToBottom()
-}
-
-const simulateSupportResponse = (userMessage: string) => {
-  isTyping.value = true
-  scrollToBottom()
-  
-  const responses: Record<string, string> = {
-    'tool': "I'd be happy to help with our tools! Which specific tool are you having trouble with? We have password generators, QR code tools, text converters, and many more.",
-    'technical': "I understand you're experiencing a technical issue. Could you please describe what's happening? Include any error messages you're seeing.",
-    'general': "Of course! Feel free to ask me anything about QuickHelp. I'm here to assist you.",
-    'default': "Thanks for your message! A support team member will respond shortly. In the meantime, is there anything specific I can help you with?"
-  }
-  
-  let response = responses.default
-  const lowerMsg = userMessage.toLowerCase()
-  
-  if (lowerMsg.includes('tool') || lowerMsg.includes('help')) {
-    response = responses.tool
-  } else if (lowerMsg.includes('technical') || lowerMsg.includes('issue') || lowerMsg.includes('error')) {
-    response = responses.technical
-  } else if (lowerMsg.includes('general') || lowerMsg.includes('question')) {
-    response = responses.general
-  }
-  
-  setTimeout(() => {
-    isTyping.value = false
-    addSupportMessage(response)
-  }, 1500 + Math.random() * 1000)
 }
 
 const scrollToBottom = () => {
@@ -227,25 +341,42 @@ const scrollToBottom = () => {
 }
 
 const formatTime = (date: Date) => {
-  return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
+  return new Date(date).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
 }
 
-// Load saved user info
+// Load saved session info
 onMounted(() => {
-  const saved = localStorage.getItem('chat-user-info')
+  const saved = localStorage.getItem('chat-session')
   if (saved) {
-    const parsed = JSON.parse(saved)
-    userInfo.value = { ...parsed, collected: true }
+    try {
+      const parsed = JSON.parse(saved)
+      sessionId.value = parsed.sessionId
+      userInfo.value = {
+        name: parsed.name,
+        email: parsed.email,
+        collected: true
+      }
+      isConnected.value = true
+      
+      // Fetch messages for existing session
+      fetchMessages()
+    } catch (e) {
+      localStorage.removeItem('chat-session')
+    }
   }
 })
 
-// Save user info when collected
-watch(() => userInfo.value.collected, (collected) => {
-  if (collected && userInfo.value.name !== 'Guest') {
-    localStorage.setItem('chat-user-info', JSON.stringify({
-      name: userInfo.value.name,
-      email: userInfo.value.email
-    }))
+// Cleanup on unmount
+onUnmounted(() => {
+  stopPolling()
+})
+
+// Start/stop polling when chat opens/closes
+watch(isOpen, (open) => {
+  if (open && sessionId.value) {
+    startPolling()
+  } else {
+    stopPolling()
   }
 })
 </script>

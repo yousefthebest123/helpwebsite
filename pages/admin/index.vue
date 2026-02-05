@@ -305,10 +305,13 @@
                     <div class="chat-avatar large">{{ selectedChat.userName?.charAt(0) || '?' }}</div>
                     <div>
                       <h3>{{ selectedChat.userName || 'Anonymous' }}</h3>
-                      <span class="online-status">Online</span>
+                      <span class="online-status">{{ selectedChat.status === 'active' ? 'Online' : 'Offline' }}</span>
                     </div>
                   </div>
-                  <button @click="selectedChat = null" class="close-chat">✕</button>
+                  <div class="chat-header-actions">
+                    <button @click="closeChatSession" class="end-chat-btn" title="End Chat">🔚</button>
+                    <button @click="selectedChat = null; stopChatMessagesPolling()" class="close-chat">✕</button>
+                  </div>
                 </div>
 
                 <div class="chat-messages" ref="chatMessagesRef">
@@ -780,35 +783,25 @@ const maxWeeklyValue = computed(() => Math.max(...weeklyData.value))
 
 // Knowledge Base state
 const showArticleModal = ref(false)
-const kbArticles = ref([
-  { id: '1', title: 'Getting Started Guide', category: 'General', excerpt: 'Learn how to use QuickHelp tools effectively...', views: 1247, updatedAt: new Date(Date.now() - 86400000) },
-  { id: '2', title: 'Password Generator FAQ', category: 'Tools', excerpt: 'Common questions about the password generator...', views: 856, updatedAt: new Date(Date.now() - 172800000) },
-  { id: '3', title: 'Troubleshooting Common Issues', category: 'Support', excerpt: 'Solutions for frequently encountered problems...', views: 623, updatedAt: new Date(Date.now() - 259200000) },
-  { id: '4', title: 'API Documentation', category: 'Technical', excerpt: 'Complete API reference for developers...', views: 412, updatedAt: new Date(Date.now() - 345600000) },
-])
+const kbArticles = ref<any[]>([])
+const kbCategories = ref<any[]>([])
+const editingArticle = ref<any>(null)
+const articleForm = ref({
+  title: '',
+  content: '',
+  excerpt: '',
+  category: 'General',
+  published: true
+})
 
 // System Logs state (Owner only)
 const logFilter = ref({ type: '', level: '' })
-const systemLogs = ref([
-  { id: '1', timestamp: new Date(), type: 'auth', level: 'info', message: 'Staff member logged in successfully', user: 'admin' },
-  { id: '2', timestamp: new Date(Date.now() - 300000), type: 'ticket', level: 'info', message: 'New ticket #1234 created', user: 'System' },
-  { id: '3', timestamp: new Date(Date.now() - 600000), type: 'admin', level: 'warning', message: 'Failed login attempt detected', user: 'unknown' },
-  { id: '4', timestamp: new Date(Date.now() - 900000), type: 'system', level: 'info', message: 'Automated backup completed', user: 'System' },
-  { id: '5', timestamp: new Date(Date.now() - 1200000), type: 'admin', level: 'info', message: 'Staff code generated for new member', user: 'owner' },
-  { id: '6', timestamp: new Date(Date.now() - 1500000), type: 'ticket', level: 'info', message: 'Ticket #1233 resolved', user: 'support_agent' },
-])
+const systemLogs = ref<any[]>([])
+const logsLoading = ref(false)
 
-const liveChats = ref<any[]>([
-  { id: '1', userName: 'John Doe', lastMessage: 'Thanks for the help!', lastMessageTime: new Date(), unread: 2, messages: [
-    { id: '1', content: 'Hi, I need help with the password generator', sender: 'user', timestamp: new Date(Date.now() - 300000) },
-    { id: '2', content: 'Of course! What seems to be the issue?', sender: 'staff', timestamp: new Date(Date.now() - 240000) },
-    { id: '3', content: 'It\'s not generating special characters', sender: 'user', timestamp: new Date(Date.now() - 180000) },
-    { id: '4', content: 'Thanks for the help!', sender: 'user', timestamp: new Date() },
-  ]},
-  { id: '2', userName: 'Jane Smith', lastMessage: 'How do I use the QR generator?', lastMessageTime: new Date(Date.now() - 600000), unread: 1, messages: [
-    { id: '1', content: 'How do I use the QR generator?', sender: 'user', timestamp: new Date(Date.now() - 600000) },
-  ]},
-])
+const liveChats = ref<any[]>([])
+const chatPollingInterval = ref<NodeJS.Timeout | null>(null)
+const chatMessagesPollingInterval = ref<NodeJS.Timeout | null>(null)
 
 const filteredChats = computed(() => {
   if (!chatSearch.value) return liveChats.value
@@ -871,8 +864,22 @@ const loadData = async () => {
     if (membersResult.success && 'members' in membersResult) {
       members.value = membersResult.members
     }
+    // Fetch system logs for owner
+    fetchSystemLogs()
   }
+  
+  // Fetch chat sessions and start polling
+  startChatSessionsPolling()
+  
+  // Fetch KB articles
+  fetchKbArticles()
 }
+
+// Cleanup on unmount
+onUnmounted(() => {
+  stopChatSessionsPolling()
+  stopChatMessagesPolling()
+})
 
 const handleLogout = () => {
   staffLogout()
@@ -945,30 +952,252 @@ const sendReply = async () => {
 }
 
 // Live Chat functions
-const selectChat = (chat: any) => {
-  selectedChat.value = chat
-  chat.unread = 0
+const fetchChatSessions = async () => {
+  try {
+    const response = await $fetch<{ success: boolean; sessions: any[] }>('/api/chat/sessions')
+    if (response.success) {
+      liveChats.value = response.sessions.map(s => ({
+        id: s.id,
+        userName: s.userName,
+        userEmail: s.userEmail,
+        lastMessage: s.lastMessage,
+        lastMessageTime: new Date(s.lastMessageAt),
+        unread: s.unread,
+        status: s.status,
+        messages: []
+      }))
+    }
+  } catch (error) {
+    console.error('Failed to fetch chat sessions:', error)
+  }
 }
 
-const sendChatMessage = () => {
+const fetchChatMessages = async (sessionId: string) => {
+  try {
+    const response = await $fetch<{ success: boolean; messages: any[] }>('/api/chat/messages', {
+      query: { sessionId }
+    })
+    if (response.success) {
+      return response.messages.map(m => ({
+        id: m.id,
+        content: m.content,
+        sender: m.sender,
+        senderName: m.senderName,
+        timestamp: new Date(m.timestamp)
+      }))
+    }
+  } catch (error) {
+    console.error('Failed to fetch chat messages:', error)
+  }
+  return []
+}
+
+const selectChat = async (chat: any) => {
+  selectedChat.value = chat
+  
+  // Fetch messages for this chat
+  const messages = await fetchChatMessages(chat.id)
+  selectedChat.value.messages = messages
+  
+  // Mark as read
+  chat.unread = 0
+  try {
+    await $fetch('/api/chat/update', {
+      method: 'POST',
+      body: { sessionId: chat.id, markReadByStaff: true }
+    })
+  } catch (error) {
+    console.error('Failed to mark chat as read:', error)
+  }
+  
+  // Start polling for new messages in this chat
+  startChatMessagesPolling()
+}
+
+const startChatMessagesPolling = () => {
+  stopChatMessagesPolling()
+  chatMessagesPollingInterval.value = setInterval(async () => {
+    if (selectedChat.value) {
+      const messages = await fetchChatMessages(selectedChat.value.id)
+      selectedChat.value.messages = messages
+      nextTick(() => {
+        if (chatMessagesRef.value) {
+          chatMessagesRef.value.scrollTop = chatMessagesRef.value.scrollHeight
+        }
+      })
+    }
+  }, 3000)
+}
+
+const stopChatMessagesPolling = () => {
+  if (chatMessagesPollingInterval.value) {
+    clearInterval(chatMessagesPollingInterval.value)
+    chatMessagesPollingInterval.value = null
+  }
+}
+
+const startChatSessionsPolling = () => {
+  fetchChatSessions()
+  chatPollingInterval.value = setInterval(fetchChatSessions, 5000)
+}
+
+const stopChatSessionsPolling = () => {
+  if (chatPollingInterval.value) {
+    clearInterval(chatPollingInterval.value)
+    chatPollingInterval.value = null
+  }
+}
+
+const sendChatMessage = async () => {
   if (!selectedChat.value || !chatMessage.value.trim()) return
   
+  const content = chatMessage.value.trim()
+  chatMessage.value = ''
+  
+  // Add locally for responsiveness
+  const tempId = 'temp-' + Date.now()
   selectedChat.value.messages.push({
-    id: Date.now().toString(),
-    content: chatMessage.value.trim(),
+    id: tempId,
+    content,
     sender: 'staff',
+    senderName: staffUser.value?.username || 'Support',
     timestamp: new Date()
   })
-  selectedChat.value.lastMessage = chatMessage.value.trim()
-  selectedChat.value.lastMessageTime = new Date()
-  chatMessage.value = ''
   
   nextTick(() => {
     if (chatMessagesRef.value) {
       chatMessagesRef.value.scrollTop = chatMessagesRef.value.scrollHeight
     }
   })
+  
+  try {
+    await $fetch('/api/chat/send', {
+      method: 'POST',
+      body: {
+        sessionId: selectedChat.value.id,
+        content,
+        sender: 'staff',
+        senderName: staffUser.value?.username || 'Support'
+      }
+    })
+    
+    selectedChat.value.lastMessage = content
+    selectedChat.value.lastMessageTime = new Date()
+  } catch (error) {
+    console.error('Failed to send message:', error)
+    // Remove temp message on error
+    selectedChat.value.messages = selectedChat.value.messages.filter((m: any) => m.id !== tempId)
+  }
 }
+
+const closeChatSession = async () => {
+  if (!selectedChat.value) return
+  
+  try {
+    await $fetch('/api/chat/update', {
+      method: 'POST',
+      body: { sessionId: selectedChat.value.id, status: 'closed' }
+    })
+    selectedChat.value = null
+    stopChatMessagesPolling()
+    await fetchChatSessions()
+  } catch (error) {
+    console.error('Failed to close chat:', error)
+  }
+}
+
+// Knowledge Base functions
+const fetchKbArticles = async () => {
+  try {
+    const response = await $fetch<{ success: boolean; articles: any[]; categories: any[] }>('/api/kb/articles')
+    if (response.success) {
+      kbArticles.value = response.articles
+      kbCategories.value = response.categories
+    }
+  } catch (error) {
+    console.error('Failed to fetch KB articles:', error)
+  }
+}
+
+const openArticleModal = (article?: any) => {
+  if (article) {
+    editingArticle.value = article
+    articleForm.value = {
+      title: article.title,
+      content: article.content || '',
+      excerpt: article.excerpt || '',
+      category: article.category,
+      published: article.published !== false
+    }
+  } else {
+    editingArticle.value = null
+    articleForm.value = {
+      title: '',
+      content: '',
+      excerpt: '',
+      category: 'General',
+      published: true
+    }
+  }
+  showArticleModal.value = true
+}
+
+const saveArticle = async () => {
+  if (!articleForm.value.title || !articleForm.value.content) return
+  
+  try {
+    await $fetch('/api/kb/save', {
+      method: 'POST',
+      body: {
+        id: editingArticle.value?.id,
+        ...articleForm.value,
+        author: staffUser.value?.username
+      }
+    })
+    showArticleModal.value = false
+    await fetchKbArticles()
+  } catch (error) {
+    console.error('Failed to save article:', error)
+  }
+}
+
+const deleteArticle = async (id: string) => {
+  if (!confirm('Are you sure you want to delete this article?')) return
+  
+  try {
+    await $fetch('/api/kb/delete', {
+      method: 'POST',
+      body: { id }
+    })
+    await fetchKbArticles()
+  } catch (error) {
+    console.error('Failed to delete article:', error)
+  }
+}
+
+// System Logs functions
+const fetchSystemLogs = async () => {
+  logsLoading.value = true
+  try {
+    const params: any = {}
+    if (logFilter.value.type) params.type = logFilter.value.type
+    if (logFilter.value.level) params.level = logFilter.value.level
+    
+    const response = await $fetch<{ success: boolean; logs: any[] }>('/api/logs', { query: params })
+    if (response.success) {
+      systemLogs.value = response.logs
+    }
+  } catch (error) {
+    console.error('Failed to fetch logs:', error)
+  } finally {
+    logsLoading.value = false
+  }
+}
+
+// Watch for log filter changes
+watch(logFilter, () => {
+  fetchSystemLogs()
+}, { deep: true })
 
 const formatDate = (date: any) => {
   if (!date) return ''
