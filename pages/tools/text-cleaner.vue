@@ -472,7 +472,7 @@ watch([inputText, activeTools, selectedCase], () => {
   display: grid;
   grid-template-columns: 1fr 320px 1fr;
   gap: 24px;
-  max-w-full;
+  max-width: 100%;
   margin-bottom: 32px;
 }
 
