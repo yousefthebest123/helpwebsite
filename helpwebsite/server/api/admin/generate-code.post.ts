@@ -51,6 +51,7 @@ export default defineEventHandler(async (event) => {
 
   return {
     success: true,
+    code,
     member: {
       username,
       role,
