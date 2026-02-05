@@ -177,7 +177,7 @@ watch([pattern, flags, testString], updateMatches, { immediate: true })
 .page-bg { position: fixed; inset: 0; z-index: -1; background: #030712; }
 .gradient-orb { position: absolute; border-radius: 50%; filter: blur(100px); animation: float 20s ease-in-out infinite; }
 .orb-1 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(16, 185, 129, 0.3), transparent 70%); top: -100px; right: -100px; }
-.orb-2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(6, 182, 212, 0.2), transparent 70%); bottom: -100px; left: -100px; animation-delay: -10s; }
+.orb-2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(124, 58, 237, 0.2), transparent 70%); bottom: -100px; left: -100px; animation-delay: -10s; }
 @keyframes float { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(30px, 30px); } }
 
 .tool-container { max-width: 900px; margin: 0 auto; padding: 100px 24px 60px; }
@@ -186,7 +186,7 @@ watch([pattern, flags, testString], updateMatches, { immediate: true })
 .back-btn:hover { color: #10b981; }
 .badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 100px; color: #10b981; font-size: 13px; margin-bottom: 16px; }
 .tool-header h1 { font-size: 42px; font-weight: 700; margin-bottom: 12px; }
-.gradient-text { background: linear-gradient(135deg, #10b981, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.gradient-text { background: linear-gradient(135deg, #10b981, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .tool-header p { color: #64748b; font-size: 18px; }
 
 .tool-card { background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 24px; padding: 32px; backdrop-filter: blur(20px); }

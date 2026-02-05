@@ -195,7 +195,7 @@ useHead({ title: 'Word Counter - QuickHelp.lol' })
 .page-title { font-size: 3rem; font-weight: 800; margin-bottom: 16px; }
 
 .title-gradient {
-  background: linear-gradient(135deg, #34d399, #22d3ee, #3b82f6);
+  background: linear-gradient(135deg, #34d399, #a78bfa, #3b82f6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -221,7 +221,7 @@ useHead({ title: 'Word Counter - QuickHelp.lol' })
 
 .stat-card:hover { transform: translateY(-4px); }
 
-.stat-card.cyan { border: 1px solid rgba(6, 182, 212, 0.3); }
+.stat-card.cyan { border: 1px solid rgba(124, 58, 237, 0.3); }
 .stat-card.blue { border: 1px solid rgba(59, 130, 246, 0.3); }
 .stat-card.purple { border: 1px solid rgba(139, 92, 246, 0.3); }
 .stat-card.green { border: 1px solid rgba(16, 185, 129, 0.3); }
@@ -230,7 +230,7 @@ useHead({ title: 'Word Counter - QuickHelp.lol' })
 .stat-icon { font-size: 28px; margin-bottom: 12px; }
 
 .stat-value { font-size: 32px; font-weight: 800; margin-bottom: 4px; }
-.stat-card.cyan .stat-value { color: #22d3ee; }
+.stat-card.cyan .stat-value { color: #a78bfa; }
 .stat-card.blue .stat-value { color: #3b82f6; }
 .stat-card.purple .stat-value { color: #a78bfa; }
 .stat-card.green .stat-value { color: #34d399; }
@@ -305,7 +305,7 @@ useHead({ title: 'Word Counter - QuickHelp.lol' })
 .extra-stat { display: flex; align-items: center; gap: 10px; }
 .extra-icon { font-size: 16px; }
 .extra-label { color: #94a3b8; font-size: 14px; }
-.extra-value { color: #22d3ee; font-size: 15px; font-weight: 600; font-family: 'Fira Code', monospace; }
+.extra-value { color: #a78bfa; font-size: 15px; font-weight: 600; font-family: 'Fira Code', monospace; }
 
 /* Info Grid */
 .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }

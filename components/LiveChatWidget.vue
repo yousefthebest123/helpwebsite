@@ -393,20 +393,20 @@ watch(isOpen, (open) => {
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  background: linear-gradient(135deg, #7c3aed, #3b82f6);
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 32px rgba(6, 182, 212, 0.4);
+  box-shadow: 0 8px 32px rgba(124, 58, 237, 0.4);
   transition: all 0.3s ease;
   position: relative;
 }
 
 .chat-toggle:hover {
   transform: scale(1.1);
-  box-shadow: 0 12px 40px rgba(6, 182, 212, 0.5);
+  box-shadow: 0 12px 40px rgba(124, 58, 237, 0.5);
 }
 
 .chat-toggle.active {
@@ -445,9 +445,9 @@ watch(isOpen, (open) => {
   right: 0;
   width: 380px;
   height: 520px;
-  background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(30, 41, 59, 0.95));
-  border: 1px solid rgba(6, 182, 212, 0.2);
-  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(17, 17, 40, 0.98), rgba(17, 17, 40, 0.95));
+  border: 1px solid rgba(124, 58, 237, 0.2);
+  border-radius: var(--radius-xl);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -470,7 +470,7 @@ watch(isOpen, (open) => {
   align-items: center;
   justify-content: space-between;
   padding: 16px 20px;
-  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  background: linear-gradient(135deg, #7c3aed, #3b82f6);
 }
 
 .header-info {
@@ -498,7 +498,7 @@ watch(isOpen, (open) => {
   width: 10px;
   height: 10px;
   background: #10b981;
-  border: 2px solid #06b6d4;
+  border: 2px solid #7c3aed;
   border-radius: 50%;
 }
 
@@ -570,10 +570,10 @@ watch(isOpen, (open) => {
 
 .quick-actions button {
   padding: 12px 16px;
-  background: rgba(6, 182, 212, 0.1);
-  border: 1px solid rgba(6, 182, 212, 0.2);
+  background: rgba(124, 58, 237, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.2);
   border-radius: 12px;
-  color: #22d3ee;
+  color: #a78bfa;
   font-size: 14px;
   cursor: pointer;
   transition: all 0.2s;
@@ -581,8 +581,8 @@ watch(isOpen, (open) => {
 }
 
 .quick-actions button:hover {
-  background: rgba(6, 182, 212, 0.2);
-  border-color: rgba(6, 182, 212, 0.4);
+  background: rgba(124, 58, 237, 0.2);
+  border-color: rgba(124, 58, 237, 0.4);
 }
 
 .message {
@@ -603,7 +603,7 @@ watch(isOpen, (open) => {
 .message-avatar {
   width: 32px;
   height: 32px;
-  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  background: linear-gradient(135deg, #7c3aed, #3b82f6);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -614,7 +614,7 @@ watch(isOpen, (open) => {
 
 .message-content {
   padding: 12px 16px;
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
 }
 
 .message.support .message-content {
@@ -623,7 +623,7 @@ watch(isOpen, (open) => {
 }
 
 .message.user .message-content {
-  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  background: linear-gradient(135deg, #7c3aed, #3b82f6);
   border-bottom-right-radius: 4px;
 }
 
@@ -650,7 +650,7 @@ watch(isOpen, (open) => {
   gap: 4px;
   padding: 12px 16px;
   background: rgba(30, 41, 59, 0.8);
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   border-bottom-left-radius: 4px;
 }
 
@@ -673,7 +673,7 @@ watch(isOpen, (open) => {
 
 .user-info-form {
   padding: 16px 20px;
-  border-top: 1px solid rgba(6, 182, 212, 0.1);
+  border-top: 1px solid rgba(124, 58, 237, 0.1);
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -688,7 +688,7 @@ watch(isOpen, (open) => {
 .user-info-form input {
   padding: 12px 16px;
   background: rgba(30, 41, 59, 0.6);
-  border: 1px solid rgba(6, 182, 212, 0.2);
+  border: 1px solid rgba(124, 58, 237, 0.2);
   border-radius: 10px;
   color: white;
   font-size: 14px;
@@ -696,12 +696,12 @@ watch(isOpen, (open) => {
 }
 
 .user-info-form input:focus {
-  border-color: #06b6d4;
+  border-color: #7c3aed;
 }
 
 .user-info-form button {
   padding: 12px 16px;
-  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  background: linear-gradient(135deg, #7c3aed, #3b82f6);
   border: none;
   border-radius: 10px;
   color: white;
@@ -724,14 +724,14 @@ watch(isOpen, (open) => {
   display: flex;
   gap: 10px;
   padding: 16px 20px;
-  border-top: 1px solid rgba(6, 182, 212, 0.1);
+  border-top: 1px solid rgba(124, 58, 237, 0.1);
 }
 
 .chat-input input {
   flex: 1;
   padding: 12px 16px;
   background: rgba(30, 41, 59, 0.6);
-  border: 1px solid rgba(6, 182, 212, 0.2);
+  border: 1px solid rgba(124, 58, 237, 0.2);
   border-radius: 12px;
   color: white;
   font-size: 14px;
@@ -739,13 +739,13 @@ watch(isOpen, (open) => {
 }
 
 .chat-input input:focus {
-  border-color: #06b6d4;
+  border-color: #7c3aed;
 }
 
 .chat-input button {
   width: 44px;
   height: 44px;
-  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  background: linear-gradient(135deg, #7c3aed, #3b82f6);
   border: none;
   border-radius: 12px;
   font-size: 18px;

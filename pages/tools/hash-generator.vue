@@ -231,7 +231,7 @@ useHead({ title: 'Hash Generator - QuickHelp.lol' })
 }
 
 .back-link:hover {
-  color: #22d3ee;
+  color: #a78bfa;
 }
 
 .tool-badge {
@@ -246,7 +246,7 @@ useHead({ title: 'Hash Generator - QuickHelp.lol' })
 }
 
 .tool-badge.blue {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(6, 182, 212, 0.15));
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(124, 58, 237, 0.15));
   border: 1px solid rgba(59, 130, 246, 0.3);
   color: #60a5fa;
 }
@@ -258,7 +258,7 @@ useHead({ title: 'Hash Generator - QuickHelp.lol' })
 }
 
 .title-gradient {
-  background: linear-gradient(135deg, #06b6d4, #3b82f6, #8b5cf6);
+  background: linear-gradient(135deg, #7c3aed, #3b82f6, #8b5cf6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -274,7 +274,7 @@ useHead({ title: 'Hash Generator - QuickHelp.lol' })
 
 .tool-card {
   background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.8));
-  border: 1px solid rgba(6, 182, 212, 0.15);
+  border: 1px solid rgba(124, 58, 237, 0.15);
   border-radius: 24px;
   overflow: hidden;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
@@ -282,7 +282,7 @@ useHead({ title: 'Hash Generator - QuickHelp.lol' })
 
 .card-section {
   padding: 32px;
-  border-bottom: 1px solid rgba(6, 182, 212, 0.1);
+  border-bottom: 1px solid rgba(124, 58, 237, 0.1);
 }
 
 .card-section:last-child {
@@ -313,8 +313,8 @@ useHead({ title: 'Hash Generator - QuickHelp.lol' })
 }
 
 .section-icon.cyan {
-  background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(6, 182, 212, 0.1));
-  border: 1px solid rgba(6, 182, 212, 0.3);
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.2), rgba(124, 58, 237, 0.1));
+  border: 1px solid rgba(124, 58, 237, 0.3);
 }
 
 .section-title {
@@ -333,7 +333,7 @@ useHead({ title: 'Hash Generator - QuickHelp.lol' })
   width: 100%;
   padding: 20px;
   background: rgba(15, 23, 42, 0.8);
-  border: 1px solid rgba(6, 182, 212, 0.2);
+  border: 1px solid rgba(124, 58, 237, 0.2);
   border-radius: 16px;
   color: white;
   font-size: 15px;
@@ -344,8 +344,8 @@ useHead({ title: 'Hash Generator - QuickHelp.lol' })
 }
 
 .tool-textarea:focus {
-  border-color: #06b6d4;
-  box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.15);
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
 }
 
 .tool-textarea::placeholder {
@@ -368,14 +368,14 @@ useHead({ title: 'Hash Generator - QuickHelp.lol' })
 
 .hash-item {
   background: rgba(15, 23, 42, 0.6);
-  border: 1px solid rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.1);
   border-radius: 16px;
   padding: 20px;
   transition: all 0.3s;
 }
 
 .hash-item:hover {
-  border-color: rgba(6, 182, 212, 0.25);
+  border-color: rgba(124, 58, 237, 0.25);
   background: rgba(15, 23, 42, 0.8);
 }
 
@@ -427,10 +427,10 @@ useHead({ title: 'Hash Generator - QuickHelp.lol' })
 
 .copy-btn {
   padding: 8px 16px;
-  background: rgba(6, 182, 212, 0.1);
-  border: 1px solid rgba(6, 182, 212, 0.3);
+  background: rgba(124, 58, 237, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.3);
   border-radius: 8px;
-  color: #22d3ee;
+  color: #a78bfa;
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
@@ -438,7 +438,7 @@ useHead({ title: 'Hash Generator - QuickHelp.lol' })
 }
 
 .copy-btn:hover:not(:disabled) {
-  background: rgba(6, 182, 212, 0.2);
+  background: rgba(124, 58, 237, 0.2);
 }
 
 .copy-btn:disabled {
@@ -461,7 +461,7 @@ useHead({ title: 'Hash Generator - QuickHelp.lol' })
 
 .hash-value {
   display: block;
-  color: #22d3ee;
+  color: #a78bfa;
   font-family: 'Fira Code', 'Consolas', monospace;
   font-size: 13px;
   word-break: break-all;
@@ -478,7 +478,7 @@ useHead({ title: 'Hash Generator - QuickHelp.lol' })
   gap: 16px;
   margin: 32px;
   padding: 20px 24px;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(6, 182, 212, 0.1));
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(124, 58, 237, 0.1));
   border: 1px solid rgba(59, 130, 246, 0.2);
   border-radius: 16px;
 }
@@ -511,14 +511,14 @@ useHead({ title: 'Hash Generator - QuickHelp.lol' })
 .hash-info-card {
   padding: 24px;
   background: rgba(15, 23, 42, 0.6);
-  border: 1px solid rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.1);
   border-radius: 16px;
   text-align: center;
   transition: all 0.3s;
 }
 
 .hash-info-card:hover {
-  border-color: rgba(6, 182, 212, 0.25);
+  border-color: rgba(124, 58, 237, 0.25);
   transform: translateY(-4px);
 }
 

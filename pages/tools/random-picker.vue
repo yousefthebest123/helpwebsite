@@ -358,7 +358,7 @@ const wheelArray = computed(() => {
 const getWheelSegmentStyle = (index: number) => {
   const total = wheelArray.value.length
   const angle = 360 / total
-  const colors = ['#f43f5e', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6', '#ec4899', '#06b6d4', '#84cc16']
+  const colors = ['#f43f5e', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6', '#ec4899', '#7c3aed', '#84cc16']
   
   return {
     transform: `rotate(${index * angle}deg)`,

@@ -459,7 +459,7 @@ watch([inputText, activeTools, selectedCase], () => {
 .page-title { font-size: 3rem; font-weight: 800; margin-bottom: 16px; }
 
 .title-gradient {
-  background: linear-gradient(135deg, #a78bfa, #8b5cf6, #06b6d4);
+  background: linear-gradient(135deg, #a78bfa, #8b5cf6, #7c3aed);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -500,16 +500,16 @@ watch([inputText, activeTools, selectedCase], () => {
   align-items: center;
   gap: 6px;
   padding: 8px 14px;
-  background: rgba(6, 182, 212, 0.1);
-  border: 1px solid rgba(6, 182, 212, 0.2);
+  background: rgba(124, 58, 237, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.2);
   border-radius: 10px;
-  color: #22d3ee;
+  color: #a78bfa;
   font-size: 12px;
   cursor: pointer;
   transition: all 0.3s;
 }
 
-.action-btn:hover { background: rgba(6, 182, 212, 0.2); }
+.action-btn:hover { background: rgba(124, 58, 237, 0.2); }
 .action-btn.danger { background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.2); color: #f87171; }
 .action-btn.danger:hover { background: rgba(239, 68, 68, 0.2); }
 .action-btn.success { background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.2); color: #34d399; }
@@ -576,8 +576,8 @@ watch([inputText, activeTools, selectedCase], () => {
   transition: all 0.3s;
 }
 
-.tool-btn:hover { border-color: rgba(6, 182, 212, 0.4); color: white; }
-.tool-btn.active { background: rgba(6, 182, 212, 0.15); border-color: #22d3ee; color: #22d3ee; }
+.tool-btn:hover { border-color: rgba(124, 58, 237, 0.4); color: white; }
+.tool-btn.active { background: rgba(124, 58, 237, 0.15); border-color: #a78bfa; color: #a78bfa; }
 .tool-btn.case.active { background: rgba(59, 130, 246, 0.15); border-color: #3b82f6; color: #60a5fa; }
 .tool-btn.format.active { background: rgba(16, 185, 129, 0.15); border-color: #10b981; color: #34d399; }
 .tool-icon { font-size: 12px; }
@@ -588,7 +588,7 @@ watch([inputText, activeTools, selectedCase], () => {
   justify-content: center;
   gap: 10px;
   padding: 16px 24px;
-  background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
   border: none;
   border-radius: 14px;
   color: white;
@@ -613,7 +613,7 @@ watch([inputText, activeTools, selectedCase], () => {
 .section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
 .section-icon { font-size: 22px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 12px; }
 .section-icon.orange { background: rgba(249, 115, 22, 0.15); }
-.section-icon.cyan { background: rgba(6, 182, 212, 0.15); }
+.section-icon.cyan { background: rgba(124, 58, 237, 0.15); }
 .section-title { color: white; font-size: 17px; font-weight: 600; }
 
 .quick-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
@@ -640,7 +640,7 @@ watch([inputText, activeTools, selectedCase], () => {
   max-width: 700px;
   margin: 0 auto;
   background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.8));
-  border: 1px solid rgba(6, 182, 212, 0.15);
+  border: 1px solid rgba(124, 58, 237, 0.15);
   border-radius: 20px;
   padding: 28px;
 }
@@ -652,13 +652,13 @@ watch([inputText, activeTools, selectedCase], () => {
 .find-input {
   padding: 14px 16px;
   background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(6, 182, 212, 0.15);
+  border: 1px solid rgba(124, 58, 237, 0.15);
   border-radius: 12px;
   color: white;
   font-size: 14px;
 }
 
-.find-input:focus { outline: none; border-color: #22d3ee; }
+.find-input:focus { outline: none; border-color: #a78bfa; }
 
 .find-options { display: flex; justify-content: space-between; align-items: center; }
 .checkboxes { display: flex; gap: 20px; }
@@ -675,7 +675,7 @@ watch([inputText, activeTools, selectedCase], () => {
 .checkbox {
   width: 16px;
   height: 16px;
-  accent-color: #22d3ee;
+  accent-color: #a78bfa;
 }
 
 .replace-btn {
@@ -683,7 +683,7 @@ watch([inputText, activeTools, selectedCase], () => {
   align-items: center;
   gap: 8px;
   padding: 12px 24px;
-  background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+  background: linear-gradient(135deg, #7c3aed, #8b5cf6);
   border: none;
   border-radius: 12px;
   color: white;
@@ -693,10 +693,10 @@ watch([inputText, activeTools, selectedCase], () => {
   transition: all 0.3s;
 }
 
-.replace-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(6, 182, 212, 0.4); }
+.replace-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4); }
 
 .match-count { text-align: center; color: #64748b; font-size: 14px; margin-top: 16px; }
-.match-number { color: #22d3ee; font-weight: 600; }
+.match-number { color: #a78bfa; font-weight: 600; }
 
 @media (max-width: 1200px) {
   .main-grid { grid-template-columns: 1fr; }

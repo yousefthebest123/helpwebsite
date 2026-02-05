@@ -1,461 +1,335 @@
 <template>
-  <div class="home">
-    <!-- Particles Background -->
-    <div class="particles-container">
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-    </div>
-
+  <div class="home-page">
     <!-- Hero Section -->
     <section class="hero">
-      <div class="container">
+      <div class="hero-particles" aria-hidden="true">
+        <span v-for="i in 30" :key="i" class="particle" :style="particleStyle(i)"></span>
+      </div>
+      <div class="container hero-container">
         <div class="hero-content">
-          <div class="hero-badge animate-bounce-in">
-            <span class="badge-dot"></span>
-            <span>Your all-in-one help hub</span>
+          <div class="hero-pill glass">
+            <span class="pill-dot"></span>
+            <span>All-in-One Help Hub — Free Forever</span>
           </div>
-          <h1 class="hero-title animate-slide-up">
-            Get <span class="text-gradient-animated">Quick Help</span><br>
-            With Anything
+          <h1 class="hero-title">
+            Your go-to place for<br/>
+            <span class="typed-wrapper">
+              <span class="typed-text gradient-text">{{ displayText }}</span>
+              <span class="cursor" :class="{ blink: !isTyping }">|</span>
+            </span>
           </h1>
-          <p class="hero-subtitle animate-slide-up stagger-1">
-            From mental health support to productivity tools, math homework to creative projects — 
-            we've got everything you need in one beautiful place. No sign-ups, no ads, just help.
+          <p class="hero-desc">
+            40+ free tools, mental health resources, wellness tracking, and learning 
+            aids — all in one beautiful, private place. No ads. No tracking. Just help.
           </p>
-          <div class="hero-actions animate-slide-up stagger-2">
-            <NuxtLink to="/tools" class="btn btn-primary btn-lg magnetic-btn hover-neon">
-              <span>Explore All Tools</span>
-              <span class="btn-arrow">→</span>
+          <div class="hero-actions">
+            <NuxtLink to="/tools" class="btn btn-primary btn-lg">
+              <span>Explore Tools</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
             </NuxtLink>
-            <NuxtLink to="/mental-health" class="btn btn-secondary btn-lg hover-lift">
+            <NuxtLink to="/mental-health" class="btn btn-glass btn-lg">
               <span>💜</span>
-              <span>Mental Health Support</span>
+              <span>Mental Health</span>
             </NuxtLink>
           </div>
-          <div class="hero-stats animate-slide-up stagger-3">
-            <div class="stat hover-3d">
-              <span class="stat-value">50+</span>
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-number">40+</span>
               <span class="stat-label">Free Tools</span>
             </div>
-            <div class="stat hover-3d">
-              <span class="stat-value">24/7</span>
-              <span class="stat-label">Available</span>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-number">100%</span>
+              <span class="stat-label">Privacy First</span>
             </div>
-            <div class="stat hover-3d">
-              <span class="stat-value">0</span>
-              <span class="stat-label">Ads</span>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-number">0</span>
+              <span class="stat-label">Ads Shown</span>
             </div>
           </div>
         </div>
         <div class="hero-visual">
-          <div class="hero-cards stagger">
-            <div class="floating-card card-1 hover-scale-rotate">
-              <span class="card-icon">🧮</span>
-              <span>Calculator</span>
+          <div class="hero-card-stack">
+            <div class="hero-card card-1 glass" @mouseenter="activeCard = 1" @mouseleave="activeCard = 0">
+              <div class="card-icon">🧠</div>
+              <h3>Mental Health</h3>
+              <p>Breathing exercises, mood tracking & journaling</p>
             </div>
-            <div class="floating-card card-2 hover-scale-rotate">
-              <span class="card-icon">⏱️</span>
-              <span>Focus Timer</span>
+            <div class="hero-card card-2 glass" @mouseenter="activeCard = 2" @mouseleave="activeCard = 0">
+              <div class="card-icon">⚡</div>
+              <h3>Quick Tools</h3>
+              <p>Passwords, QR codes, converters & more</p>
             </div>
-            <div class="floating-card card-3 hover-scale-rotate">
-              <span class="card-icon">🔐</span>
-              <span>Password Gen</span>
+            <div class="hero-card card-3 glass" @mouseenter="activeCard = 3" @mouseleave="activeCard = 0">
+              <div class="card-icon">📚</div>
+              <h3>Learning Hub</h3>
+              <p>Flashcards, calculators & study aids</p>
             </div>
-            <div class="floating-card card-4 hover-scale-rotate">
-              <span class="card-icon">💜</span>
-              <span>Mental Health</span>
-            </div>
-            <div class="floating-card card-5 hover-scale-rotate">
-              <span class="card-icon">📄</span>
-              <span>PDF Tools</span>
+            <div class="hero-card card-4 glass" @mouseenter="activeCard = 4" @mouseleave="activeCard = 0">
+              <div class="card-icon">🌿</div>
+              <h3>Wellness</h3>
+              <p>Habit tracker, hydration & sleep tools</p>
             </div>
           </div>
+          <div class="hero-glow"></div>
+        </div>
+      </div>
+      <div class="hero-scroll-indicator">
+        <div class="scroll-mouse">
+          <div class="scroll-dot"></div>
         </div>
       </div>
     </section>
 
-    <!-- Quick Access Tools -->
-    <section class="quick-tools section">
+    <!-- Quick Access Toolbar -->
+    <section class="quick-access">
       <div class="container">
-        <div class="section-header">
-          <span class="section-tag">⚡ Quick Access</span>
-          <h2 class="section-title">Most Popular Tools</h2>
-          <p class="section-subtitle">
-            Jump straight into our most-used tools. No accounts, no waiting.
-          </p>
-        </div>
-        
-        <div class="quick-grid">
-          <NuxtLink to="/tools/converter" class="quick-card">
-            <div class="quick-icon purple">🔄</div>
-            <div class="quick-info">
-              <h3>Unit Converter</h3>
-              <p>Convert anything instantly</p>
-            </div>
-            <span class="quick-arrow">→</span>
-          </NuxtLink>
-          <NuxtLink to="/tools/timer" class="quick-card">
-            <div class="quick-icon pink">⏱️</div>
-            <div class="quick-info">
-              <h3>Focus Timer</h3>
-              <p>Pomodoro with ambient sounds</p>
-            </div>
-            <span class="quick-arrow">→</span>
-          </NuxtLink>
-          <NuxtLink to="/tools/password" class="quick-card">
-            <div class="quick-icon teal">🔐</div>
-            <div class="quick-info">
-              <h3>Password Generator</h3>
-              <p>Create secure passwords</p>
-            </div>
-            <span class="quick-arrow">→</span>
-          </NuxtLink>
-          <NuxtLink to="/tools/qr" class="quick-card">
-            <div class="quick-icon orange">📱</div>
-            <div class="quick-info">
-              <h3>QR Code Maker</h3>
-              <p>Generate QR codes instantly</p>
-            </div>
-            <span class="quick-arrow">→</span>
+        <div class="quick-bar glass">
+          <NuxtLink v-for="tool in quickTools" :key="tool.to" :to="tool.to" class="quick-item">
+            <span class="quick-icon">{{ tool.icon }}</span>
+            <span class="quick-label">{{ tool.label }}</span>
           </NuxtLink>
         </div>
       </div>
     </section>
 
-    <!-- Daily Workflow Section -->
-    <section class="tools-section section">
+    <!-- Featured Tools Section -->
+    <section class="section featured-tools">
       <div class="container">
         <div class="section-header">
-          <span class="section-tag">📊 Daily Workflow</span>
-          <h2 class="section-title">Everyday Essentials</h2>
-          <p class="section-subtitle">
-            Quick-fix tools you'll use every single day. Save time on repetitive tasks.
-          </p>
+          <span class="section-label">Most Popular</span>
+          <h2>Tools people love <span class="gradient-text">most</span></h2>
+          <p>The essentials that keep people coming back every day.</p>
         </div>
-        
-        <div class="tools-grid grid-3">
-          <div class="card card-gradient tool-card glass-card-animated">
-            <div class="tool-icon purple">🔄</div>
-            <h3>Smart Unit Converter</h3>
-            <p>Convert currencies, time zones, kitchen measurements, data sizes, and more with real-time rates.</p>
-            <NuxtLink to="/tools/converter" class="tool-link">
-              Try it now <span>→</span>
-            </NuxtLink>
-          </div>
-          <div class="card card-gradient tool-card glass-card-animated">
-            <div class="tool-icon pink">🔐</div>
-            <h3>Hash Generator</h3>
-            <p>Generate MD5, SHA-1, SHA-256, SHA-512 hashes. Perfect for checksums and verification.</p>
-            <NuxtLink to="/tools/hash-generator" class="tool-link">
-              Try it now <span>→</span>
-            </NuxtLink>
-          </div>
-          <div class="card card-gradient tool-card glass-card-animated">
-            <div class="tool-icon teal">🎲</div>
-            <h3>UUID Generator</h3>
-            <p>Generate unique identifiers (v1/v4) for databases, APIs, and more. Copy instantly.</p>
-            <NuxtLink to="/tools/uuid-generator" class="tool-link">
-              Try it now <span>→</span>
-            </NuxtLink>
-          </div>
+        <div class="featured-grid">
+          <NuxtLink 
+            v-for="tool in featuredTools" 
+            :key="tool.to" 
+            :to="tool.to" 
+            class="featured-card glass"
+          >
+            <div class="featured-icon-wrap" :style="{ background: tool.gradient }">
+              <span>{{ tool.icon }}</span>
+            </div>
+            <div class="featured-info">
+              <h3>{{ tool.name }}</h3>
+              <p>{{ tool.desc }}</p>
+            </div>
+            <div class="featured-arrow">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7v10"/>
+              </svg>
+            </div>
+          </NuxtLink>
         </div>
       </div>
     </section>
 
-    <!-- Brain De-Clutter Section -->
-    <section class="tools-section section brain-section">
+    <!-- Wellness Spotlight -->
+    <section class="section wellness-spotlight">
       <div class="container">
-        <div class="section-header">
-          <span class="section-tag">🧠 Brain De-Clutter</span>
-          <h2 class="section-title">Clear Your Mind</h2>
-          <p class="section-subtitle">
-            Organize your thoughts without complex project management tools.
-          </p>
-        </div>
-        
-        <div class="tools-grid grid-3">
-          <div class="card card-gradient tool-card glass-card-animated">
-            <div class="tool-icon orange">⏱️</div>
-            <h3>Focus Timer</h3>
-            <p>Built-in Pomodoro timer with lo-fi beats, rain sounds, café ambience, and more.</p>
-            <NuxtLink to="/tools/timer" class="tool-link">
-              Start focusing <span>→</span>
-            </NuxtLink>
-          </div>
-          <div class="card card-gradient tool-card glass-card-animated">
-            <div class="tool-icon blue">📝</div>
-            <h3>Minimalist Notes</h3>
-            <p>A quick scratchpad that auto-saves to your browser. No login needed, ever.</p>
-            <NuxtLink to="/tools/notes" class="tool-link">
-              Start writing <span>→</span>
-            </NuxtLink>
-          </div>
-          <div class="card card-gradient tool-card glass-card-animated">
-            <div class="tool-icon green">📊</div>
-            <h3>Priority Matrix</h3>
-            <p>Drag-and-drop Eisenhower Matrix to decide what's urgent, important, or can wait.</p>
-            <NuxtLink to="/tools/matrix" class="tool-link">
-              Organize now <span>→</span>
-            </NuxtLink>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Content Creator Section -->
-    <section class="tools-section section creator-section">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-tag">🎨 Content Creator</span>
-          <h2 class="section-title">Create Amazing Content</h2>
-          <p class="section-subtitle">
-            Perfect for social media posts, school presentations, and creative projects.
-          </p>
-        </div>
-        
-        <div class="tools-grid grid-3">
-          <div class="card card-gradient tool-card glass-card-animated">
-            <div class="tool-icon pink">📝</div>
-            <h3>Lorem Ipsum Generator</h3>
-            <p>Generate professional placeholder text for mockups, designs, and presentations.</p>
-            <NuxtLink to="/tools/lorem-ipsum" class="tool-link">
-              Generate text <span>→</span>
-            </NuxtLink>
-          </div>
-          <div class="card card-gradient tool-card glass-card-animated">
-            <div class="tool-icon purple">🎨</div>
-            <h3>Color Palette Picker</h3>
-            <p>Upload any image and extract a beautiful, matching color palette instantly.</p>
-            <NuxtLink to="/tools/colors" class="tool-link">
-              Pick colors <span>→</span>
-            </NuxtLink>
-          </div>
-          <div class="card card-gradient tool-card glass-card-animated">
-            <div class="tool-icon teal">🖼️</div>
-            <h3>Image to Base64</h3>
-            <p>Convert images to Base64 for embedding in CSS, HTML, and web apps.</p>
-            <NuxtLink to="/tools/base64-image" class="tool-link">
-              Convert now <span>→</span>
-            </NuxtLink>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Technical Shortcuts Section -->
-    <section class="tools-section section tech-section">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-tag">⚙️ Technical Shortcuts</span>
-          <h2 class="section-title">Developer & Power User Tools</h2>
-          <p class="section-subtitle">
-            Small tools that save big time for students, developers, and office workers.
-          </p>
-        </div>
-        
-        <div class="tools-grid grid-4">
-          <div class="card card-gradient tool-card glass-card-animated">
-            <div class="tool-icon blue">📊</div>
-            <h3>Word Counter</h3>
-            <p>Count words, characters, sentences, and reading time instantly.</p>
-            <NuxtLink to="/tools/word-counter" class="tool-link">
-              Count words <span>→</span>
-            </NuxtLink>
-          </div>
-          <div class="card card-gradient tool-card glass-card-animated">
-            <div class="tool-icon green">🔐</div>
-            <h3>Password Generator</h3>
-            <p>Generate strong, random passwords and masked emails.</p>
-            <NuxtLink to="/tools/password" class="tool-link">
-              Generate <span>→</span>
-            </NuxtLink>
-          </div>
-          <div class="card card-gradient tool-card glass-card-animated">
-            <div class="tool-icon orange">📱</div>
-            <h3>QR Code Maker</h3>
-            <p>Turn any URL into a QR code for flyers, menus, and more.</p>
-            <NuxtLink to="/tools/qr" class="tool-link">
-              Create QR <span>→</span>
-            </NuxtLink>
-          </div>
-          <div class="card card-gradient tool-card glass-card-animated">
-            <div class="tool-icon purple">{ }</div>
-            <h3>JSON Formatter</h3>
-            <p>Format, validate, and beautify JSON data instantly.</p>
-            <NuxtLink to="/tools/json" class="tool-link">
-              Format JSON <span>→</span>
-            </NuxtLink>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Mental Health Section -->
-    <section class="mental-section section">
-      <div class="container">
-        <div class="mental-content">
-          <div class="mental-text">
-            <span class="section-tag">💜 Mental Health Support</span>
-            <h2 class="section-title">You're Not Alone</h2>
-            <p class="section-subtitle">
-              Sometimes we all need a little help. Access resources, breathing exercises, 
-              mood tracking, and connections to support when you need it most.
+        <div class="wellness-grid">
+          <div class="wellness-content">
+            <span class="section-label">Your Wellbeing Matters</span>
+            <h2>Take care of your mind <span class="gradient-text">&amp; body</span></h2>
+            <p class="wellness-desc">
+              We believe technology should help you feel better, not worse. 
+              Our wellness tools are designed with care and backed by science.
             </p>
-            <div class="mental-features">
-              <div class="mental-feature">
-                <span>🌬️</span>
-                <span>Guided Breathing</span>
+            <div class="wellness-features">
+              <div class="wellness-feat">
+                <div class="feat-icon">🧘</div>
+                <div>
+                  <h4>Guided Breathing</h4>
+                  <p>4-7-8, box breathing, and custom patterns</p>
+                </div>
               </div>
-              <div class="mental-feature">
-                <span>📔</span>
-                <span>Mood Journal</span>
+              <div class="wellness-feat">
+                <div class="feat-icon">📊</div>
+                <div>
+                  <h4>Mood Tracking</h4>
+                  <p>Track emotions, identify patterns, grow</p>
+                </div>
               </div>
-              <div class="mental-feature">
-                <span>🎯</span>
-                <span>Coping Techniques</span>
+              <div class="wellness-feat">
+                <div class="feat-icon">💧</div>
+                <div>
+                  <h4>Hydration Tracker</h4>
+                  <p>Stay hydrated with gentle reminders</p>
+                </div>
               </div>
-              <div class="mental-feature">
-                <span>📞</span>
-                <span>Crisis Resources</span>
+              <div class="wellness-feat">
+                <div class="feat-icon">🌙</div>
+                <div>
+                  <h4>Sleep Logger</h4>
+                  <p>Track sleep quality and build better habits</p>
+                </div>
               </div>
             </div>
-            <NuxtLink to="/mental-health" class="btn btn-primary btn-lg">
-              Get Support <span class="btn-arrow">→</span>
-            </NuxtLink>
+            <div class="wellness-actions">
+              <NuxtLink to="/mental-health" class="btn btn-primary">
+                Mental Health Tools
+              </NuxtLink>
+              <NuxtLink to="/wellness" class="btn btn-glass">
+                Wellness Dashboard
+              </NuxtLink>
+            </div>
           </div>
-          <div class="mental-visual">
-            <div class="mental-card glass">
-              <div class="breathing-circle">
-                <div class="breathing-inner"></div>
-                <span>Breathe</span>
+          <div class="wellness-visual">
+            <div class="breathing-demo glass">
+              <div class="breathing-circle" :class="{ active: breathingActive }">
+                <div class="breathing-inner">
+                  <span class="breathing-label">{{ breathingPhase }}</span>
+                </div>
+                <svg class="breathing-ring" viewBox="0 0 200 200">
+                  <circle cx="100" cy="100" r="90" fill="none" stroke="rgba(124,58,237,0.15)" stroke-width="4"/>
+                  <circle 
+                    cx="100" cy="100" r="90" fill="none" 
+                    stroke="url(#breathGradient)" stroke-width="4" 
+                    stroke-linecap="round"
+                    :stroke-dasharray="565.48"
+                    :stroke-dashoffset="breathingProgress"
+                    transform="rotate(-90 100 100)"
+                  />
+                  <defs>
+                    <linearGradient id="breathGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#7c3aed"/>
+                      <stop offset="100%" stop-color="#06b6d4"/>
+                    </linearGradient>
+                  </defs>
+                </svg>
               </div>
+              <button class="btn btn-glass btn-sm" @click="toggleBreathing">
+                {{ breathingActive ? 'Pause' : 'Try Breathing Exercise' }}
+              </button>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Learning Hub Section -->
-    <section class="learning-section section">
+    <!-- Tool Categories -->
+    <section class="section tool-categories">
       <div class="container">
         <div class="section-header">
-          <span class="section-tag">📚 Learning Hub</span>
-          <h2 class="section-title">Need Help with Homework?</h2>
-          <p class="section-subtitle">
-            Math formulas, writing guides, study techniques, and more — all free.
-          </p>
+          <span class="section-label">Everything You Need</span>
+          <h2>Browse by <span class="gradient-text">category</span></h2>
+          <p>Organized so you can find exactly what you need, fast.</p>
         </div>
-        
-        <div class="learning-grid grid-4">
-          <NuxtLink to="/learning" class="learning-card">
-            <span class="learning-icon">🧮</span>
-            <h3>Math Help</h3>
-            <p>Calculators, formulas, step-by-step solutions</p>
-          </NuxtLink>
-          <NuxtLink to="/learning" class="learning-card">
-            <span class="learning-icon">✍️</span>
-            <h3>Writing Help</h3>
-            <p>Grammar tips, essay structure, citations</p>
-          </NuxtLink>
-          <NuxtLink to="/learning" class="learning-card">
-            <span class="learning-icon">📖</span>
-            <h3>Study Techniques</h3>
-            <p>Flashcards, memory tricks, focus tips</p>
-          </NuxtLink>
-          <NuxtLink to="/learning" class="learning-card">
-            <span class="learning-icon">🔬</span>
-            <h3>Science Help</h3>
-            <p>Physics, chemistry, biology resources</p>
+        <div class="categories-grid">
+          <NuxtLink 
+            v-for="cat in categories" 
+            :key="cat.label" 
+            :to="cat.to" 
+            class="category-card glass"
+          >
+            <span class="cat-icon">{{ cat.icon }}</span>
+            <h3>{{ cat.label }}</h3>
+            <p>{{ cat.desc }}</p>
+            <span class="cat-count">{{ cat.count }} tools</span>
           </NuxtLink>
         </div>
       </div>
     </section>
 
-    <!-- More Tools Section -->
-    <section class="more-tools section">
+    <!-- Emergency Help Banner -->
+    <section class="section emergency-banner">
       <div class="container">
-        <div class="section-header">
-          <span class="section-tag">🛠️ Even More Tools</span>
-          <h2 class="section-title">And There's More...</h2>
-          <p class="section-subtitle">
-            We're constantly adding new tools based on what you need.
-          </p>
-        </div>
-        
-        <div class="more-grid">
-          <NuxtLink to="/tools/converter" class="more-item">
-            <span>🔄</span>
-            <span>Unit Converter</span>
-          </NuxtLink>
-          <NuxtLink to="/tools/timer" class="more-item">
-            <span>⏱️</span>
-            <span>Focus Timer</span>
-          </NuxtLink>
-          <NuxtLink to="/tools/colors" class="more-item">
-            <span>🎨</span>
-            <span>Color Palette</span>
-          </NuxtLink>
-          <NuxtLink to="/tools/lorem-ipsum" class="more-item">
-            <span>📝</span>
-            <span>Lorem Ipsum Generator</span>
-          </NuxtLink>
-          <NuxtLink to="/tools/hash-generator" class="more-item">
-            <span>🔒</span>
-            <span>Hash Generator</span>
-          </NuxtLink>
-          <NuxtLink to="/tools/base64-image" class="more-item">
-            <span>🔄</span>
-            <span>Base64 Encoder</span>
-          </NuxtLink>
-          <NuxtLink to="/tools/link-shortener" class="more-item">
-            <span>🔗</span>
-            <span>Link Shortener</span>
-          </NuxtLink>
-          <NuxtLink to="/tools/age-calculator" class="more-item">
-            <span>📅</span>
-            <span>Age Calculator</span>
-          </NuxtLink>
-          <NuxtLink to="/tools/tip-calculator" class="more-item">
-            <span>💰</span>
-            <span>Tip Calculator</span>
-          </NuxtLink>
-          <NuxtLink to="/tools/uuid-generator" class="more-item">
-            <span>🎲</span>
-            <span>UUID Generator</span>
-          </NuxtLink>
-          <NuxtLink to="/tools/word-counter" class="more-item">
-            <span>📊</span>
-            <span>Word Counter</span>
-          </NuxtLink>
-          <NuxtLink to="/support" class="more-item">
-            <span>💬</span>
-            <span>Support Center</span>
-          </NuxtLink>
-        </div>
-        
-        <div class="more-cta">
-          <NuxtLink to="/tools" class="btn btn-secondary btn-lg">
-            View All Tools <span class="btn-arrow">→</span>
+        <div class="emergency-card glass">
+          <div class="emergency-pulse"></div>
+          <div class="emergency-content">
+            <h3>🆘 Need Immediate Help?</h3>
+            <p>
+              If you're in crisis or need urgent support, free help is available 24/7.
+            </p>
+          </div>
+          <NuxtLink to="/emergency" class="btn btn-danger btn-lg">
+            Get Emergency Help
           </NuxtLink>
         </div>
       </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="cta-section">
+    <!-- Learning Section -->
+    <section class="section learning-section">
       <div class="container">
-        <div class="cta-content glass">
-          <h2>Ready to Get Help?</h2>
-          <p>All our tools are free, private, and work directly in your browser.</p>
+        <div class="section-header">
+          <span class="section-label">Level Up</span>
+          <h2>Learn &amp; grow with <span class="gradient-text">smart tools</span></h2>
+          <p>From flashcards to writing helpers — tools for curious minds.</p>
+        </div>
+        <div class="learning-grid">
+          <NuxtLink to="/learning" class="learning-card card-large glass">
+            <div class="lc-icon">📖</div>
+            <h3>Learning Hub</h3>
+            <p>Flashcards, study timers, math tools, and writing helpers all in one place.</p>
+            <span class="lc-link">Open Hub →</span>
+          </NuxtLink>
+          <NuxtLink to="/tools/grade" class="learning-card glass">
+            <div class="lc-icon">📝</div>
+            <h3>Grade Calculator</h3>
+            <p>Weighted and simple averages</p>
+          </NuxtLink>
+          <NuxtLink to="/tools/word-counter" class="learning-card glass">
+            <div class="lc-icon">🔤</div>
+            <h3>Word Counter</h3>
+            <p>Count words, characters & reading time</p>
+          </NuxtLink>
+          <NuxtLink to="/tools/calculator" class="learning-card glass">
+            <div class="lc-icon">🧮</div>
+            <h3>Calculator</h3>
+            <p>Scientific calculations made simple</p>
+          </NuxtLink>
+          <NuxtLink to="/tools/notes" class="learning-card glass">
+            <div class="lc-icon">📓</div>
+            <h3>Notes</h3>
+            <p>Quick notes that save locally</p>
+          </NuxtLink>
+        </div>
+      </div>
+    </section>
+
+    <!-- Developer Tools Section -->
+    <section class="section dev-tools">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">For Developers</span>
+          <h2>Build faster with <span class="gradient-text">dev tools</span></h2>
+          <p>JSON formatting, regex testing, hashing, and more.</p>
+        </div>
+        <div class="dev-grid">
+          <NuxtLink 
+            v-for="tool in devTools" 
+            :key="tool.to" 
+            :to="tool.to" 
+            class="dev-card glass"
+          >
+            <span class="dev-icon">{{ tool.icon }}</span>
+            <div>
+              <h4>{{ tool.name }}</h4>
+              <p>{{ tool.desc }}</p>
+            </div>
+          </NuxtLink>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="section final-cta">
+      <div class="container">
+        <div class="cta-card glass">
+          <div class="cta-glow"></div>
+          <h2>Ready to get stuff done?</h2>
+          <p>Jump in — everything is free, private, and built for you.</p>
           <div class="cta-actions">
             <NuxtLink to="/tools" class="btn btn-primary btn-lg">
-              Start Using Tools
+              Browse All Tools
             </NuxtLink>
-            <NuxtLink to="/about" class="btn btn-ghost btn-lg">
-              Learn More About Us
+            <NuxtLink to="/about" class="btn btn-glass btn-lg">
+              Learn More
             </NuxtLink>
           </div>
         </div>
@@ -465,503 +339,958 @@
 </template>
 
 <script setup>
+import { ref, onMounted, onUnmounted, computed } from 'vue'
+
 useHead({
-  title: 'QuickHelp.lol - Your All-in-One Help Hub',
+  title: 'QuickHelp.lol — Your All-in-One Help Hub',
   meta: [
-    { name: 'description', content: 'Get quick help with anything - mental health support, productivity tools, math homework, and more. Free, no sign-ups, no ads.' }
-  ]
+    { name: 'description', content: 'Free tools, mental health resources, wellness tracking, and learning aids. No ads, no tracking — just help.' },
+  ],
+})
+
+// Typed text animation
+const phrases = [
+  'quick help.',
+  'mental wellness.',
+  'smart tools.',
+  'learning aids.',
+  'better habits.',
+  'focus & flow.',
+]
+const displayText = ref('')
+const isTyping = ref(true)
+let phraseIndex = 0
+let charIndex = 0
+let typingTimeout = null
+
+const typeText = () => {
+  const current = phrases[phraseIndex]
+  if (charIndex < current.length) {
+    isTyping.value = true
+    displayText.value = current.substring(0, charIndex + 1)
+    charIndex++
+    typingTimeout = setTimeout(typeText, 60 + Math.random() * 40)
+  } else {
+    isTyping.value = false
+    typingTimeout = setTimeout(deleteText, 2500)
+  }
+}
+
+const deleteText = () => {
+  if (charIndex > 0) {
+    isTyping.value = true
+    charIndex--
+    displayText.value = phrases[phraseIndex].substring(0, charIndex)
+    typingTimeout = setTimeout(deleteText, 30)
+  } else {
+    phraseIndex = (phraseIndex + 1) % phrases.length
+    typingTimeout = setTimeout(typeText, 400)
+  }
+}
+
+// Breathing exercise demo
+const breathingActive = ref(false)
+const breathingPhase = ref('Breathe')
+const breathingProgress = ref(565.48)
+let breathingInterval = null
+let breathingTimer = null
+
+const toggleBreathing = () => {
+  breathingActive.value = !breathingActive.value
+  if (breathingActive.value) {
+    startBreathing()
+  } else {
+    stopBreathing()
+  }
+}
+
+const startBreathing = () => {
+  let elapsed = 0
+  const totalCycle = 16000 // 4-4-4-4 cycle in ms
+  
+  const update = () => {
+    elapsed += 50
+    const cycle = elapsed % totalCycle
+    const phase = Math.floor(cycle / 4000)
+    const phaseProgress = (cycle % 4000) / 4000
+    
+    if (phase === 0) {
+      breathingPhase.value = 'Breathe In'
+      breathingProgress.value = 565.48 - (565.48 * phaseProgress * 0.25)
+    } else if (phase === 1) {
+      breathingPhase.value = 'Hold'
+      breathingProgress.value = 565.48 * 0.75 - (565.48 * phaseProgress * 0.25)
+    } else if (phase === 2) {
+      breathingPhase.value = 'Breathe Out'
+      breathingProgress.value = 565.48 * 0.5 + (565.48 * phaseProgress * 0.25)
+    } else {
+      breathingPhase.value = 'Hold'
+      breathingProgress.value = 565.48 * 0.75 + (565.48 * phaseProgress * 0.25)
+    }
+  }
+  
+  breathingInterval = setInterval(update, 50)
+}
+
+const stopBreathing = () => {
+  clearInterval(breathingInterval)
+  breathingPhase.value = 'Breathe'
+  breathingProgress.value = 565.48
+}
+
+// Floating hero cards
+const activeCard = ref(0)
+
+// Particle styles
+const particleStyle = (i) => {
+  const size = 2 + Math.random() * 4
+  return {
+    width: `${size}px`,
+    height: `${size}px`,
+    left: `${Math.random() * 100}%`,
+    top: `${Math.random() * 100}%`,
+    animationDelay: `${Math.random() * 8}s`,
+    animationDuration: `${6 + Math.random() * 10}s`,
+    opacity: 0.2 + Math.random() * 0.4,
+  }
+}
+
+// Quick access tools
+const quickTools = [
+  { icon: '🔐', label: 'Password', to: '/tools/password' },
+  { icon: '⏱️', label: 'Timer', to: '/tools/timer' },
+  { icon: '📦', label: 'Converter', to: '/tools/converter' },
+  { icon: '📱', label: 'QR Code', to: '/tools/qr' },
+  { icon: '🎨', label: 'Colors', to: '/tools/colors' },
+  { icon: '📝', label: 'Notes', to: '/tools/notes' },
+  { icon: '🧠', label: 'Mental Health', to: '/mental-health' },
+  { icon: '💚', label: 'Wellness', to: '/wellness' },
+]
+
+// Featured tools
+const featuredTools = [
+  { name: 'Password Generator', desc: 'Create uncrackable passwords with custom rules', icon: '🔐', to: '/tools/password', gradient: 'linear-gradient(135deg, rgba(124,58,237,0.2), rgba(124,58,237,0.05))' },
+  { name: 'QR Code Generator', desc: 'Generate and scan QR codes instantly', icon: '📱', to: '/tools/qr-generator', gradient: 'linear-gradient(135deg, rgba(6,182,212,0.2), rgba(6,182,212,0.05))' },
+  { name: 'Unit Converter', desc: 'Length, weight, temperature, and more', icon: '📦', to: '/tools/converter', gradient: 'linear-gradient(135deg, rgba(236,72,153,0.2), rgba(236,72,153,0.05))' },
+  { name: 'JSON Formatter', desc: 'Beautify, validate, and minify JSON data', icon: '{ }', to: '/tools/json', gradient: 'linear-gradient(135deg, rgba(34,197,94,0.2), rgba(34,197,94,0.05))' },
+  { name: 'Color Picker', desc: 'Pick, convert, and explore color palettes', icon: '🎨', to: '/tools/color-picker', gradient: 'linear-gradient(135deg, rgba(251,146,60,0.2), rgba(251,146,60,0.05))' },
+  { name: 'Focus Timer', desc: 'Pomodoro timer with ambient sounds', icon: '⏱️', to: '/tools/pomodoro', gradient: 'linear-gradient(135deg, rgba(168,85,247,0.2), rgba(168,85,247,0.05))' },
+]
+
+// Categories
+const categories = [
+  { icon: '🛠️', label: 'Productivity', desc: 'Timers, notes, converters, and more', count: 12, to: '/tools' },
+  { icon: '💻', label: 'Developer', desc: 'JSON, regex, hashing, encoding', count: 10, to: '/tools' },
+  { icon: '🧠', label: 'Mental Health', desc: 'Breathing, mood tracking, journaling', count: 5, to: '/mental-health' },
+  { icon: '🌿', label: 'Wellness', desc: 'Habits, hydration, sleep, BMI', count: 4, to: '/wellness' },
+  { icon: '📚', label: 'Learning', desc: 'Flashcards, grades, calculators', count: 6, to: '/learning' },
+  { icon: '🆘', label: 'Emergency', desc: 'Crisis hotlines and resources', count: 3, to: '/emergency' },
+]
+
+// Dev tools
+const devTools = [
+  { name: 'JSON Formatter', desc: 'Beautify & validate', icon: '{ }', to: '/tools/json' },
+  { name: 'Regex Tester', desc: 'Test patterns live', icon: '.*', to: '/tools/regex' },
+  { name: 'Hash Generator', desc: 'MD5, SHA-256 & more', icon: '#️⃣', to: '/tools/hash-generator' },
+  { name: 'Base64 Encoder', desc: 'Encode & decode', icon: '🔄', to: '/tools/base64' },
+  { name: 'Diff Checker', desc: 'Compare text side-by-side', icon: '📄', to: '/tools/diff' },
+  { name: 'UUID Generator', desc: 'Generate unique IDs', icon: '🆔', to: '/tools/uuid-generator' },
+  { name: 'URL Encoder', desc: 'Encode URL components', icon: '🔗', to: '/tools/url' },
+  { name: 'CSS Formatter', desc: 'Beautify stylesheets', icon: '🎨', to: '/tools/css' },
+]
+
+onMounted(() => {
+  typingTimeout = setTimeout(typeText, 600)
+})
+
+onUnmounted(() => {
+  clearTimeout(typingTimeout)
+  clearInterval(breathingInterval)
 })
 </script>
 
 <style scoped>
-/* Hero Section */
+/* Hero */
 .hero {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  padding: 120px 0 80px;
+  padding: 120px 0 60px;
   position: relative;
   overflow: hidden;
 }
 
-.hero .container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: center;
-}
-
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  background: rgba(99, 102, 241, 0.1);
-  border: 1px solid rgba(99, 102, 241, 0.3);
-  border-radius: 50px;
-  font-size: 13px;
-  color: #a5b4fc;
-  margin-bottom: 24px;
-}
-
-.badge-dot {
-  width: 8px;
-  height: 8px;
-  background: #22c55e;
-  border-radius: 50%;
-  animation: pulse 2s infinite;
-}
-
-.hero-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 72px;
-  font-weight: 700;
-  line-height: 1.1;
-  margin-bottom: 24px;
-}
-
-.hero-subtitle {
-  font-size: 18px;
-  color: var(--text-muted);
-  line-height: 1.7;
-  margin-bottom: 32px;
-  max-width: 540px;
-}
-
-.hero-actions {
-  display: flex;
-  gap: 16px;
-  margin-bottom: 48px;
-}
-
-.btn-lg {
-  padding: 16px 32px;
-  font-size: 15px;
-}
-
-.hero-stats {
-  display: flex;
-  gap: 48px;
-}
-
-.stat {
-  display: flex;
-  flex-direction: column;
-}
-
-.stat-value {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 36px;
-  font-weight: 700;
-  color: white;
-}
-
-.stat-label {
-  font-size: 14px;
-  color: var(--text-muted);
-}
-
-.hero-visual {
-  position: relative;
-  height: 500px;
-}
-
-.hero-cards {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.floating-card {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px 24px;
-  background: var(--surface);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  font-size: 14px;
-  font-weight: 500;
-  color: white;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  animation: floatCard 6s ease-in-out infinite;
-}
-
-.card-icon {
-  font-size: 24px;
-}
-
-.card-1 { top: 10%; left: 10%; animation-delay: 0s; }
-.card-2 { top: 30%; right: 10%; animation-delay: 1s; }
-.card-3 { top: 55%; left: 5%; animation-delay: 2s; }
-.card-4 { top: 45%; left: 40%; animation-delay: 0.5s; }
-.card-5 { bottom: 10%; right: 20%; animation-delay: 1.5s; }
-
-@keyframes floatCard {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
-}
-
-/* Section Header */
-.section-header {
-  text-align: center;
-  margin-bottom: 60px;
-}
-
-.section-tag {
-  display: inline-block;
-  padding: 8px 16px;
-  background: rgba(99, 102, 241, 0.1);
-  border-radius: 50px;
-  font-size: 13px;
-  font-weight: 500;
-  color: #a5b4fc;
-  margin-bottom: 16px;
-}
-
-/* Quick Tools */
-.quick-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-}
-
-.quick-card {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 20px;
-  background: var(--surface);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 16px;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.quick-card:hover {
-  border-color: var(--primary);
-  transform: translateY(-4px);
-  box-shadow: 0 10px 40px rgba(99, 102, 241, 0.2);
-}
-
-.quick-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-}
-
-.quick-icon.purple { background: rgba(99, 102, 241, 0.2); }
-.quick-icon.pink { background: rgba(236, 72, 153, 0.2); }
-.quick-icon.teal { background: rgba(20, 184, 166, 0.2); }
-.quick-icon.orange { background: rgba(245, 158, 11, 0.2); }
-
-.quick-info h3 {
-  font-size: 15px;
-  font-weight: 600;
-  color: white;
-  margin-bottom: 4px;
-}
-
-.quick-info p {
-  font-size: 13px;
-  color: var(--text-muted);
-}
-
-.quick-arrow {
-  margin-left: auto;
-  font-size: 18px;
-  color: var(--text-muted);
-  transition: all 0.2s ease;
-}
-
-.quick-card:hover .quick-arrow {
-  color: var(--primary);
-  transform: translateX(4px);
-}
-
-/* Tool Cards */
-.tool-card {
-  padding: 32px;
-}
-
-.tool-card h3 {
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 12px;
-}
-
-.tool-card p {
-  font-size: 14px;
-  color: var(--text-muted);
-  line-height: 1.6;
-  margin-bottom: 20px;
-}
-
-.tool-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--primary);
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-
-.tool-link:hover {
-  gap: 12px;
-}
-
-/* Mental Health Section */
-.mental-section {
-  background: linear-gradient(180deg, transparent 0%, rgba(99, 102, 241, 0.05) 50%, transparent 100%);
-}
-
-.mental-content {
+.hero-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 80px;
   align-items: center;
 }
 
-.mental-features {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-  margin: 32px 0;
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
 }
 
-.mental-feature {
-  display: flex;
+.particle {
+  position: absolute;
+  background: var(--primary);
+  border-radius: 50%;
+  animation: particleFloat linear infinite;
+}
+
+@keyframes particleFloat {
+  0% { transform: translateY(0) scale(1); opacity: 0; }
+  10% { opacity: var(--opacity, 0.3); }
+  90% { opacity: var(--opacity, 0.3); }
+  100% { transform: translateY(-200px) scale(0); opacity: 0; }
+}
+
+.hero-pill {
+  display: inline-flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  background: rgba(99, 102, 241, 0.1);
-  border-radius: 10px;
-  font-size: 14px;
+  gap: 10px;
+  padding: 8px 20px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 28px;
+  border: 1px solid rgba(124, 58, 237, 0.2);
+  background: rgba(124, 58, 237, 0.05);
+}
+
+.pill-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--success);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
+  50% { opacity: 0.8; box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+}
+
+.hero-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 24px;
   color: white;
 }
 
-.mental-visual {
-  display: flex;
-  justify-content: center;
+.typed-wrapper {
+  display: inline-flex;
+  align-items: baseline;
 }
 
-.mental-card {
+.typed-text {
+  font-style: normal;
+}
+
+.cursor {
+  display: inline-block;
+  color: var(--primary);
+  font-weight: 300;
+  margin-left: 2px;
+}
+
+.cursor.blink {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.hero-desc {
+  font-size: 17px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 36px;
+  max-width: 480px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 48px;
+}
+
+.hero-stats {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.stat-item { text-align: center; }
+
+.stat-number {
+  display: block;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: white;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 36px;
+  background: var(--border-light);
+}
+
+/* Hero Visual - Card stack */
+.hero-visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+
+.hero-card-stack {
+  position: relative;
+  width: 320px;
+  height: 380px;
+}
+
+.hero-card {
+  position: absolute;
+  padding: 28px;
+  border-radius: var(--radius-xl);
+  cursor: pointer;
+  transition: all 0.6s var(--ease-out-expo);
+  width: 260px;
+  border: 1px solid rgba(124, 58, 237, 0.15);
+}
+
+.hero-card:hover {
+  border-color: rgba(124, 58, 237, 0.4);
+}
+
+.card-1 {
+  top: 0; left: 0;
+  z-index: 4;
+  transform: rotate(-2deg);
+}
+.card-1:hover { transform: rotate(0deg) translateY(-8px) scale(1.03); z-index: 10; }
+
+.card-2 {
+  top: 30px; left: 60px;
+  z-index: 3;
+  transform: rotate(3deg);
+}
+.card-2:hover { transform: rotate(0deg) translateY(-8px) scale(1.03); z-index: 10; }
+
+.card-3 {
+  top: 120px; left: 20px;
+  z-index: 2;
+  transform: rotate(-1deg);
+}
+.card-3:hover { transform: rotate(0deg) translateY(-8px) scale(1.03); z-index: 10; }
+
+.card-4 {
+  top: 180px; left: 80px;
+  z-index: 1;
+  transform: rotate(2deg);
+}
+.card-4:hover { transform: rotate(0deg) translateY(-8px) scale(1.03); z-index: 10; }
+
+.card-icon {
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+
+.hero-card h3 {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.hero-card p {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.hero-glow {
+  position: absolute;
   width: 300px;
   height: 300px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.2), transparent 70%);
+  border-radius: 50%;
+  filter: blur(60px);
+  pointer-events: none;
 }
 
-.breathing-circle {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(236, 72, 153, 0.3));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  animation: breathe 4s ease-in-out infinite;
-}
-
-.breathing-inner {
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  background: var(--surface);
+/* Scroll indicator */
+.hero-scroll-indicator {
   position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-.breathing-circle span {
+.scroll-mouse {
+  width: 24px;
+  height: 38px;
+  border: 2px solid rgba(124, 58, 237, 0.3);
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  padding-top: 8px;
+}
+
+.scroll-dot {
+  width: 4px;
+  height: 8px;
+  background: var(--primary);
+  border-radius: 4px;
+  animation: scrollDown 2s ease-in-out infinite;
+}
+
+@keyframes scrollDown {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(12px); opacity: 0; }
+}
+
+/* Quick Access */
+.quick-access {
+  margin-top: -30px;
   position: relative;
-  z-index: 1;
-  font-size: 18px;
-  font-weight: 500;
-  color: white;
+  z-index: 2;
 }
 
-@keyframes breathe {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.15); }
+.quick-bar {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 20px;
+  border-radius: var(--radius-xl);
+  background: rgba(17, 17, 40, 0.8);
+  border: 1px solid rgba(124, 58, 237, 0.15);
+  overflow-x: auto;
 }
 
-/* Learning Section */
-.learning-card {
-  padding: 32px;
-  background: var(--surface);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 20px;
-  text-decoration: none;
-  text-align: center;
-  transition: all 0.3s ease;
-}
-
-.learning-card:hover {
-  border-color: var(--primary);
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-}
-
-.learning-icon {
-  font-size: 48px;
-  display: block;
-  margin-bottom: 16px;
-}
-
-.learning-card h3 {
-  font-size: 18px;
-  font-weight: 600;
-  color: white;
-  margin-bottom: 8px;
-}
-
-.learning-card p {
-  font-size: 14px;
-  color: var(--text-muted);
-}
-
-/* More Tools */
-.more-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 12px;
-  margin-bottom: 40px;
-}
-
-.more-item {
+.quick-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-  padding: 20px 16px;
-  background: var(--surface);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
+  gap: 6px;
+  padding: 12px 18px;
+  border-radius: var(--radius-lg);
   text-decoration: none;
-  font-size: 13px;
   color: var(--text-muted);
-  text-align: center;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  min-width: 80px;
 }
 
-.more-item span:first-child {
-  font-size: 24px;
-}
-
-.more-item:hover {
-  border-color: var(--primary);
+.quick-item:hover {
+  background: rgba(124, 58, 237, 0.1);
   color: white;
   transform: translateY(-2px);
 }
 
-.more-cta {
+.quick-icon { font-size: 22px; }
+
+.quick-label {
+  font-size: 11px;
+  font-weight: 500;
+}
+
+/* Section Styling */
+.section {
+  padding: 100px 0;
+}
+
+.section-header {
   text-align: center;
+  margin-bottom: 56px;
 }
 
-/* CTA Section */
-.cta-section {
-  padding: 60px 0;
+.section-label {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary-light);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 12px;
 }
 
-.cta-content {
-  text-align: center;
-  padding: 80px 60px;
-}
-
-.cta-content h2 {
+.section-header h2 {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 42px;
+  font-size: clamp(28px, 4vw, 42px);
   font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.section-header p {
+  color: var(--text-muted);
+  font-size: 16px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Featured Grid */
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.featured-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid var(--border-light);
+  transition: all 0.4s var(--ease-out-expo);
+}
+
+.featured-card:hover {
+  border-color: rgba(124, 58, 237, 0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(124, 58, 237, 0.15);
+}
+
+.featured-icon-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.featured-info h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.featured-info p {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.featured-arrow {
+  margin-left: auto;
+  color: var(--text-dim);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.featured-card:hover .featured-arrow {
+  color: var(--primary);
+  transform: translate(3px, -3px);
+}
+
+/* Wellness Spotlight */
+.wellness-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.wellness-desc {
+  font-size: 16px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin: 20px 0 32px;
+}
+
+.wellness-features {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 36px;
+}
+
+.wellness-feat {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.feat-icon {
+  font-size: 24px;
+  margin-top: 2px;
+}
+
+.wellness-feat h4 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.wellness-feat p {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.wellness-actions { display: flex; gap: 12px; }
+
+/* Breathing Demo */
+.breathing-demo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  padding: 48px 40px;
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(124, 58, 237, 0.15);
+}
+
+.breathing-circle {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.breathing-inner {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: rgba(124, 58, 237, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 4s ease-in-out;
+}
+
+.breathing-circle.active .breathing-inner {
+  animation: breathScale 16s ease-in-out infinite;
+}
+
+@keyframes breathScale {
+  0%, 100% { transform: scale(0.8); background: rgba(124, 58, 237, 0.08); }
+  25% { transform: scale(1.1); background: rgba(124, 58, 237, 0.15); }
+  50% { transform: scale(1.1); background: rgba(6, 182, 212, 0.15); }
+  75% { transform: scale(0.8); background: rgba(6, 182, 212, 0.08); }
+}
+
+.breathing-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.breathing-ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Categories Grid */
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.category-card {
+  padding: 32px 28px;
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid var(--border-light);
+  transition: all 0.4s var(--ease-out-expo);
+  position: relative;
+  overflow: hidden;
+}
+
+.category-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.category-card:hover {
+  border-color: rgba(124, 58, 237, 0.3);
+  transform: translateY(-6px);
+  box-shadow: 0 16px 48px rgba(124, 58, 237, 0.12);
+}
+
+.category-card:hover::before { opacity: 1; }
+
+.cat-icon {
+  font-size: 32px;
+  display: block;
   margin-bottom: 16px;
 }
 
-.cta-content p {
-  font-size: 18px;
+.category-card h3 {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.category-card p {
+  font-size: 13px;
   color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.cat-count {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary-light);
+}
+
+/* Emergency Banner */
+.emergency-card {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding: 40px 48px;
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.05), rgba(17, 17, 40, 0.9));
+  position: relative;
+  overflow: hidden;
+}
+
+.emergency-pulse {
+  position: absolute;
+  left: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  background: #ef4444;
+  border-radius: 50%;
+  animation: emergencyPulse 2s ease-in-out infinite;
+}
+
+@keyframes emergencyPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.5); }
+  50% { box-shadow: 0 0 0 16px rgba(239, 68, 68, 0); }
+}
+
+.emergency-content { flex: 1; padding-left: 16px; }
+
+.emergency-content h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.emergency-content p {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  padding: 14px 28px;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.btn-danger:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(239, 68, 68, 0.3);
+}
+
+/* Learning Grid */
+.learning-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 20px;
+}
+
+.learning-card {
+  padding: 28px;
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid var(--border-light);
+  transition: all 0.4s var(--ease-out-expo);
+}
+
+.learning-card:hover {
+  border-color: rgba(124, 58, 237, 0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(124, 58, 237, 0.1);
+}
+
+.learning-card.card-large {
+  grid-row: 1 / 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.08), rgba(17, 17, 40, 0.9));
+}
+
+.lc-icon {
+  font-size: 32px;
+  margin-bottom: 16px;
+}
+
+.learning-card h3 {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.learning-card p {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.lc-link {
+  display: inline-block;
+  margin-top: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary-light);
+}
+
+/* Dev Tools Grid */
+.dev-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.dev-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid var(--border-light);
+  transition: all 0.3s ease;
+}
+
+.dev-card:hover {
+  border-color: rgba(124, 58, 237, 0.25);
+  transform: translateY(-3px);
+  background: rgba(124, 58, 237, 0.04);
+}
+
+.dev-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.dev-card h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.dev-card p {
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+/* CTA */
+.cta-card {
+  text-align: center;
+  padding: 80px 40px;
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(124, 58, 237, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-glow {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  height: 300px;
+  background: radial-gradient(ellipse, rgba(124, 58, 237, 0.15), transparent 70%);
+  pointer-events: none;
+}
+
+.cta-card h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.cta-card p {
+  color: var(--text-muted);
+  font-size: 16px;
   margin-bottom: 32px;
 }
 
 .cta-actions {
   display: flex;
+  gap: 14px;
   justify-content: center;
-  gap: 16px;
 }
 
 /* Responsive */
-@media (max-width: 1200px) {
-  .quick-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .more-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
+@media (max-width: 1024px) {
+  .hero-container { grid-template-columns: 1fr; gap: 48px; text-align: center; }
+  .hero-desc { margin: 0 auto 36px; }
+  .hero-actions { justify-content: center; }
+  .hero-stats { justify-content: center; }
+  .hero-visual { display: none; }
+  .featured-grid { grid-template-columns: repeat(2, 1fr); }
+  .wellness-grid { grid-template-columns: 1fr; gap: 48px; }
+  .dev-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-@media (max-width: 900px) {
-  .hero .container {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-
-  .hero-title {
-    font-size: 48px;
-  }
-
-  .hero-subtitle {
-    max-width: 100%;
-  }
-
-  .hero-actions {
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .hero-stats {
-    justify-content: center;
-  }
-
-  .hero-visual {
-    display: none;
-  }
-
-  .mental-content {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-
-  .mental-visual {
-    order: -1;
-  }
-
-  .more-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 600px) {
-  .hero-title {
-    font-size: 36px;
-  }
-
-  .quick-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .more-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .cta-actions {
-    flex-direction: column;
-  }
+@media (max-width: 768px) {
+  .hero { min-height: auto; padding: 100px 0 40px; }
+  .featured-grid { grid-template-columns: 1fr; }
+  .categories-grid { grid-template-columns: repeat(2, 1fr); }
+  .learning-grid { grid-template-columns: 1fr; }
+  .learning-card.card-large { grid-row: auto; }
+  .dev-grid { grid-template-columns: 1fr; }
+  .emergency-card { flex-direction: column; text-align: center; padding: 32px 24px; }
+  .emergency-pulse { display: none; }
+  .cta-card { padding: 48px 24px; }
+  .cta-card h2 { font-size: 28px; }
+  .cta-actions { flex-direction: column; align-items: center; }
+  .quick-bar { justify-content: flex-start; }
 }
 </style>

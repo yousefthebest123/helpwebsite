@@ -204,7 +204,7 @@
 </template>
 
 <script setup lang="ts">
-const hexValue = ref('#06b6d4')
+const hexValue = ref('#7c3aed')
 const alpha = ref(100)
 const showToast = ref(false)
 const toastMessage = ref('')

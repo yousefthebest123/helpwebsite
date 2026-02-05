@@ -396,7 +396,7 @@ onMounted(() => {
 }
 
 .note-item.active {
-  background: rgba(99, 102, 241, 0.1);
+  background: rgba(124, 58, 237, 0.1);
   border-color: var(--primary);
 }
 

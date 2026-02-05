@@ -537,13 +537,13 @@ onMounted(() => {
 .hero {
   padding: 100px 0;
   text-align: center;
-  background: linear-gradient(180deg, rgba(139, 92, 246, 0.1) 0%, transparent 100%);
+  background: linear-gradient(180deg, rgba(124, 58, 237, 0.1) 0%, transparent 100%);
 }
 
 .hero-badge {
   display: inline-block;
   padding: 8px 20px;
-  background: rgba(139, 92, 246, 0.2);
+  background: rgba(124, 58, 237, 0.2);
   border-radius: 50px;
   font-size: 14px;
   color: #c4b5fd;
@@ -578,8 +578,8 @@ onMounted(() => {
 .action-card {
   padding: 32px 24px;
   background: var(--surface);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 20px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xl);
   text-align: center;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -674,7 +674,7 @@ onMounted(() => {
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(236, 72, 153, 0.3));
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.3), rgba(236, 72, 153, 0.3));
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -726,8 +726,8 @@ onMounted(() => {
   padding: 8px 16px;
   font-size: 13px;
   background: var(--surface);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xl);
   color: var(--text-muted);
   cursor: pointer;
   transition: all 0.2s ease;
@@ -759,7 +759,7 @@ onMounted(() => {
   padding: 16px;
   background: var(--surface);
   border: 2px solid transparent;
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
@@ -774,7 +774,7 @@ onMounted(() => {
 
 .mood-btn.selected {
   border-color: var(--primary);
-  background: rgba(99, 102, 241, 0.1);
+  background: rgba(124, 58, 237, 0.1);
 }
 
 .mood-emoji {
@@ -801,7 +801,7 @@ onMounted(() => {
 .mood-history {
   margin-top: 32px;
   padding-top: 24px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--border-light);
   text-align: left;
 }
 
@@ -870,8 +870,8 @@ onMounted(() => {
   margin-left: 8px;
   font-size: 12px;
   background: var(--surface);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xl);
   color: white;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -888,7 +888,7 @@ onMounted(() => {
   font-size: 16px;
   line-height: 1.7;
   background: var(--surface);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-light);
   border-radius: 12px;
   color: white;
   resize: vertical;
@@ -916,8 +916,8 @@ onMounted(() => {
 .technique-card {
   padding: 32px;
   background: var(--surface);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 20px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xl);
 }
 
 .technique-icon {
@@ -955,7 +955,7 @@ onMounted(() => {
   content: '✓';
   position: absolute;
   left: 0;
-  color: var(--accent);
+  color: var(--secondary);
 }
 
 /* Affirmations */
@@ -995,8 +995,8 @@ onMounted(() => {
 }
 
 .crisis-card {
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1));
-  border: 1px solid rgba(139, 92, 246, 0.3);
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(236, 72, 153, 0.1));
+  border: 1px solid rgba(124, 58, 237, 0.3);
   border-radius: 24px;
   padding: 48px;
   max-width: 900px;
@@ -1034,7 +1034,7 @@ onMounted(() => {
 .resource-item {
   padding: 24px;
   background: var(--surface);
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
 }
 
 .resource-item h4 {
@@ -1078,7 +1078,7 @@ onMounted(() => {
   gap: 12px;
   padding: 16px 20px;
   background: var(--surface);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-light);
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.2s ease;

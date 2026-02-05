@@ -446,20 +446,20 @@ useHead({ title: 'Support - QuickHelp.lol' })
 
 .support-card {
   background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.8));
-  border: 1px solid rgba(6, 182, 212, 0.15);
+  border: 1px solid rgba(124, 58, 237, 0.15);
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .support-card:hover {
-  border-color: rgba(6, 182, 212, 0.3);
+  border-color: rgba(124, 58, 237, 0.3);
 }
 
 .card-header {
   padding: 24px;
-  background: rgba(6, 182, 212, 0.03);
-  border-bottom: 1px solid rgba(6, 182, 212, 0.1);
+  background: rgba(124, 58, 237, 0.03);
+  border-bottom: 1px solid rgba(124, 58, 237, 0.1);
 }
 
 .card-header.compact {
@@ -494,7 +494,7 @@ useHead({ title: 'Support - QuickHelp.lol' })
   width: 100%;
   padding: 14px 18px;
   background: rgba(15, 23, 42, 0.8);
-  border: 1px solid rgba(6, 182, 212, 0.2);
+  border: 1px solid rgba(124, 58, 237, 0.2);
   border-radius: 12px;
   color: white;
   font-size: 15px;
@@ -503,8 +503,8 @@ useHead({ title: 'Support - QuickHelp.lol' })
 }
 
 .form-input:focus {
-  border-color: #06b6d4;
-  box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.15), 0 0 20px rgba(6, 182, 212, 0.1);
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15), 0 0 20px rgba(124, 58, 237, 0.1);
 }
 
 .form-input::placeholder {
@@ -604,9 +604,9 @@ useHead({ title: 'Support - QuickHelp.lol' })
 .ticket-code {
   display: inline-block;
   padding: 4px 12px;
-  background: rgba(6, 182, 212, 0.2);
+  background: rgba(124, 58, 237, 0.2);
   border-radius: 6px;
-  color: #22d3ee;
+  color: #a78bfa;
   font-family: monospace;
   font-weight: 600;
 }
@@ -615,7 +615,7 @@ useHead({ title: 'Support - QuickHelp.lol' })
 .submit-btn {
   width: 100%;
   padding: 18px 32px;
-  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  background: linear-gradient(135deg, #7c3aed, #3b82f6);
   border: none;
   border-radius: 14px;
   color: white;
@@ -623,12 +623,12 @@ useHead({ title: 'Support - QuickHelp.lol' })
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(6, 182, 212, 0.4);
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
 }
 
 .submit-btn:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(6, 182, 212, 0.5);
+  box-shadow: 0 8px 30px rgba(124, 58, 237, 0.5);
 }
 
 .submit-btn:disabled {
@@ -671,15 +671,15 @@ useHead({ title: 'Support - QuickHelp.lol' })
   gap: 14px;
   padding: 14px 16px;
   background: rgba(15, 23, 42, 0.6);
-  border: 1px solid rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.1);
   border-radius: 12px;
   text-decoration: none;
   transition: all 0.3s ease;
 }
 
 .quick-link:hover {
-  background: rgba(6, 182, 212, 0.1);
-  border-color: rgba(6, 182, 212, 0.3);
+  background: rgba(124, 58, 237, 0.1);
+  border-color: rgba(124, 58, 237, 0.3);
 }
 
 .quick-link-icon {
@@ -700,7 +700,7 @@ useHead({ title: 'Support - QuickHelp.lol' })
 }
 
 .quick-link:hover .quick-link-title {
-  color: #22d3ee;
+  color: #a78bfa;
 }
 
 .quick-link-desc {
@@ -715,7 +715,7 @@ useHead({ title: 'Support - QuickHelp.lol' })
 }
 
 .quick-link:hover .quick-link-arrow {
-  color: #22d3ee;
+  color: #a78bfa;
   transform: translateX(4px);
 }
 
@@ -728,7 +728,7 @@ useHead({ title: 'Support - QuickHelp.lol' })
   gap: 8px;
   padding: 14px 20px;
   background: rgba(30, 41, 59, 0.8);
-  border: 1px solid rgba(6, 182, 212, 0.2);
+  border: 1px solid rgba(124, 58, 237, 0.2);
   border-radius: 12px;
   color: white;
   font-size: 14px;
@@ -738,8 +738,8 @@ useHead({ title: 'Support - QuickHelp.lol' })
 }
 
 .track-btn:hover:not(:disabled) {
-  background: rgba(6, 182, 212, 0.15);
-  border-color: #06b6d4;
+  background: rgba(124, 58, 237, 0.15);
+  border-color: #7c3aed;
 }
 
 .track-btn:disabled {
@@ -776,15 +776,15 @@ useHead({ title: 'Support - QuickHelp.lol' })
 .my-ticket-item {
   padding: 14px 16px;
   background: rgba(15, 23, 42, 0.6);
-  border: 1px solid rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.1);
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .my-ticket-item:hover {
-  background: rgba(6, 182, 212, 0.1);
-  border-color: rgba(6, 182, 212, 0.3);
+  background: rgba(124, 58, 237, 0.1);
+  border-color: rgba(124, 58, 237, 0.3);
 }
 
 .ticket-item-header {
@@ -814,8 +814,8 @@ useHead({ title: 'Support - QuickHelp.lol' })
 }
 
 .ticket-status-badge.in-progress {
-  background: rgba(6, 182, 212, 0.15);
-  color: #22d3ee;
+  background: rgba(124, 58, 237, 0.15);
+  color: #a78bfa;
 }
 
 .ticket-status-badge.resolved {
@@ -848,7 +848,7 @@ useHead({ title: 'Support - QuickHelp.lol' })
   display: flex;
   flex-direction: column;
   background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(30, 41, 59, 0.95));
-  border: 1px solid rgba(6, 182, 212, 0.2);
+  border: 1px solid rgba(124, 58, 237, 0.2);
   border-radius: 24px;
   overflow: hidden;
   box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
@@ -856,8 +856,8 @@ useHead({ title: 'Support - QuickHelp.lol' })
 
 .modal-header {
   padding: 24px;
-  background: rgba(6, 182, 212, 0.03);
-  border-bottom: 1px solid rgba(6, 182, 212, 0.1);
+  background: rgba(124, 58, 237, 0.03);
+  border-bottom: 1px solid rgba(124, 58, 237, 0.1);
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -894,7 +894,7 @@ useHead({ title: 'Support - QuickHelp.lol' })
 .message-original {
   padding: 20px;
   background: rgba(15, 23, 42, 0.8);
-  border: 1px solid rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.1);
   border-radius: 16px;
 }
 
@@ -908,7 +908,7 @@ useHead({ title: 'Support - QuickHelp.lol' })
 
 .chat-bubble.sent {
   align-self: flex-end;
-  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  background: linear-gradient(135deg, #7c3aed, #3b82f6);
   color: white;
   border-bottom-right-radius: 4px;
 }
@@ -917,19 +917,19 @@ useHead({ title: 'Support - QuickHelp.lol' })
   align-self: flex-start;
   background: rgba(30, 41, 59, 0.8);
   color: white;
-  border: 1px solid rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.1);
   border-bottom-left-radius: 4px;
 }
 
 .modal-footer {
   padding: 20px 24px;
-  background: rgba(6, 182, 212, 0.03);
-  border-top: 1px solid rgba(6, 182, 212, 0.1);
+  background: rgba(124, 58, 237, 0.03);
+  border-top: 1px solid rgba(124, 58, 237, 0.1);
 }
 
 .reply-btn {
   padding: 14px 28px;
-  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  background: linear-gradient(135deg, #7c3aed, #3b82f6);
   border: none;
   border-radius: 12px;
   color: white;
@@ -941,7 +941,7 @@ useHead({ title: 'Support - QuickHelp.lol' })
 
 .reply-btn:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 4px 20px rgba(6, 182, 212, 0.4);
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
 }
 
 .reply-btn:disabled {
@@ -1013,7 +1013,7 @@ useHead({ title: 'Support - QuickHelp.lol' })
 }
 
 .chat-bubble.sent {
-  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  background: linear-gradient(135deg, #7c3aed, #3b82f6);
   color: white;
   margin-left: auto;
   border-bottom-right-radius: 4px;

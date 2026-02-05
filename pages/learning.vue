@@ -529,8 +529,8 @@ onMounted(() => {
 .tool-card {
   padding: 32px 24px;
   background: var(--surface);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 20px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xl);
   text-align: center;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -568,7 +568,7 @@ onMounted(() => {
 
 .calc-display {
   background: var(--surface);
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   padding: 20px;
   margin-bottom: 20px;
   text-align: right;
@@ -617,7 +617,7 @@ onMounted(() => {
 }
 
 .calc-btn.op {
-  background: rgba(99, 102, 241, 0.2);
+  background: rgba(124, 58, 237, 0.2);
   color: var(--primary);
 }
 
@@ -640,7 +640,7 @@ onMounted(() => {
 
 .calc-history {
   padding-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--border-light);
 }
 
 .calc-history h4 {
@@ -783,13 +783,13 @@ onMounted(() => {
   justify-content: center;
   padding: 32px;
   background: var(--surface);
-  border-radius: 20px;
-  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-xl);
+  border: 2px solid var(--border-light);
 }
 
 .flashcard-back {
   transform: rotateY(180deg);
-  background: linear-gradient(135deg, var(--primary), var(--accent));
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
 }
 
 .flashcard-front span,
@@ -826,7 +826,7 @@ onMounted(() => {
   font-size: 16px;
   line-height: 1.8;
   background: var(--surface);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-light);
   border-radius: 12px;
   color: white;
   resize: vertical;
@@ -893,8 +893,8 @@ onMounted(() => {
 .tip-card {
   padding: 28px;
   background: var(--surface);
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-light);
 }
 
 .tip-icon {
@@ -943,8 +943,8 @@ onMounted(() => {
 .resource-card {
   padding: 24px;
   background: var(--surface);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 16px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
   text-decoration: none;
   transition: all 0.3s ease;
 }

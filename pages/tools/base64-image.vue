@@ -250,7 +250,7 @@ useHead({ title: 'Image to Base64 - QuickHelp.lol' })
 .page-title { font-size: 3rem; font-weight: 800; margin-bottom: 16px; }
 
 .title-gradient {
-  background: linear-gradient(135deg, #f472b6, #a855f7, #06b6d4);
+  background: linear-gradient(135deg, #f472b6, #a855f7, #7c3aed);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -260,12 +260,12 @@ useHead({ title: 'Image to Base64 - QuickHelp.lol' })
 
 .tool-card {
   background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.8));
-  border: 1px solid rgba(6, 182, 212, 0.15);
+  border: 1px solid rgba(124, 58, 237, 0.15);
   border-radius: 24px;
   overflow: hidden;
 }
 
-.card-section { padding: 32px; border-bottom: 1px solid rgba(6, 182, 212, 0.1); }
+.card-section { padding: 32px; border-bottom: 1px solid rgba(124, 58, 237, 0.1); }
 .card-section:last-child { border-bottom: none; }
 
 /* Drop Zone */
@@ -336,7 +336,7 @@ useHead({ title: 'Image to Base64 - QuickHelp.lol' })
 
 .preview-card, .info-card {
   background: rgba(15, 23, 42, 0.6);
-  border: 1px solid rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.1);
   border-radius: 16px;
   overflow: hidden;
 }
@@ -344,7 +344,7 @@ useHead({ title: 'Image to Base64 - QuickHelp.lol' })
 .preview-header, .info-header {
   padding: 16px 20px;
   background: rgba(0, 0, 0, 0.2);
-  border-bottom: 1px solid rgba(6, 182, 212, 0.1);
+  border-bottom: 1px solid rgba(124, 58, 237, 0.1);
 }
 
 .preview-label, .info-label { color: #94a3b8; font-size: 14px; font-weight: 500; }
@@ -370,29 +370,29 @@ useHead({ title: 'Image to Base64 - QuickHelp.lol' })
 
 .copy-btn {
   padding: 10px 18px;
-  background: rgba(6, 182, 212, 0.1);
-  border: 1px solid rgba(6, 182, 212, 0.3);
+  background: rgba(124, 58, 237, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.3);
   border-radius: 10px;
-  color: #22d3ee;
+  color: #a78bfa;
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s;
 }
 
-.copy-btn:hover { background: rgba(6, 182, 212, 0.2); }
+.copy-btn:hover { background: rgba(124, 58, 237, 0.2); }
 .copy-btn.copied { background: rgba(16, 185, 129, 0.2); border-color: rgba(16, 185, 129, 0.4); color: #34d399; }
 .copy-btn.sm { padding: 8px 14px; font-size: 12px; }
 
 .output-box {
   padding: 20px;
   background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.1);
   border-radius: 12px;
   overflow-x: auto;
 }
 
-.output-code { color: #22d3ee; font-family: 'Fira Code', monospace; font-size: 12px; word-break: break-all; line-height: 1.6; }
+.output-code { color: #a78bfa; font-family: 'Fira Code', monospace; font-size: 12px; word-break: break-all; line-height: 1.6; }
 .output-hint { color: #64748b; font-size: 13px; margin-top: 10px; }
 
 /* Code Section */
@@ -411,7 +411,7 @@ useHead({ title: 'Image to Base64 - QuickHelp.lol' })
   gap: 10px;
   padding: 16px 24px;
   background: rgba(30, 41, 59, 0.8);
-  border: 1px solid rgba(6, 182, 212, 0.2);
+  border: 1px solid rgba(124, 58, 237, 0.2);
   border-radius: 14px;
   color: white;
   font-size: 15px;
@@ -420,7 +420,7 @@ useHead({ title: 'Image to Base64 - QuickHelp.lol' })
   transition: all 0.3s;
 }
 
-.reset-btn:hover { background: rgba(6, 182, 212, 0.15); border-color: #06b6d4; }
+.reset-btn:hover { background: rgba(124, 58, 237, 0.15); border-color: #7c3aed; }
 
 @media (max-width: 768px) {
   .result-grid { grid-template-columns: 1fr; }

@@ -274,7 +274,7 @@ useHead({
 
 <style scoped>
 .gradient-text {
-  background: linear-gradient(135deg, #06b6d4, #3b82f6, #8b5cf6);
+  background: linear-gradient(135deg, #7c3aed, #3b82f6, #8b5cf6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -283,12 +283,12 @@ useHead({
 .glass-card {
   background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.7));
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(6, 182, 212, 0.2);
+  border: 1px solid rgba(124, 58, 237, 0.2);
   border-radius: 24px;
 }
 
 .upload-area {
-  border: 2px dashed rgba(6, 182, 212, 0.3);
+  border: 2px dashed rgba(124, 58, 237, 0.3);
   border-radius: 16px;
   padding: 40px;
   text-align: center;
@@ -297,8 +297,8 @@ useHead({
 }
 
 .upload-area.dragging {
-  border-color: #06b6d4;
-  background: rgba(6, 182, 212, 0.1);
+  border-color: #7c3aed;
+  background: rgba(124, 58, 237, 0.1);
 }
 
 .upload-area.has-image {
@@ -360,7 +360,7 @@ useHead({
 
 .preview-arrow {
   font-size: 24px;
-  color: #06b6d4;
+  color: #7c3aed;
 }
 
 .size-info {
@@ -394,8 +394,8 @@ useHead({
 .spinner {
   width: 32px;
   height: 32px;
-  border: 3px solid rgba(6, 182, 212, 0.3);
-  border-top-color: #06b6d4;
+  border: 3px solid rgba(124, 58, 237, 0.3);
+  border-top-color: #7c3aed;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -431,7 +431,7 @@ useHead({
 .quality-slider input[type="range"] {
   flex: 1;
   height: 6px;
-  background: rgba(6, 182, 212, 0.3);
+  background: rgba(124, 58, 237, 0.3);
   border-radius: 3px;
   appearance: none;
 }
@@ -440,13 +440,13 @@ useHead({
   appearance: none;
   width: 18px;
   height: 18px;
-  background: #06b6d4;
+  background: #7c3aed;
   border-radius: 50%;
   cursor: pointer;
 }
 
 .quality-value {
-  color: #22d3ee;
+  color: #a78bfa;
   font-weight: 600;
   min-width: 45px;
 }
@@ -459,7 +459,7 @@ useHead({
 .format-btn {
   padding: 8px 16px;
   background: rgba(30, 41, 59, 0.6);
-  border: 1px solid rgba(6, 182, 212, 0.2);
+  border: 1px solid rgba(124, 58, 237, 0.2);
   border-radius: 8px;
   color: #94a3b8;
   font-size: 13px;
@@ -468,16 +468,16 @@ useHead({
 }
 
 .format-btn.active {
-  background: rgba(6, 182, 212, 0.2);
-  border-color: #06b6d4;
-  color: #22d3ee;
+  background: rgba(124, 58, 237, 0.2);
+  border-color: #7c3aed;
+  color: #a78bfa;
 }
 
 .input {
   width: 100%;
   padding: 10px 14px;
   background: rgba(30, 41, 59, 0.6);
-  border: 1px solid rgba(6, 182, 212, 0.2);
+  border: 1px solid rgba(124, 58, 237, 0.2);
   border-radius: 8px;
   color: white;
   font-size: 14px;
@@ -485,7 +485,7 @@ useHead({
 }
 
 .input:focus {
-  border-color: #06b6d4;
+  border-color: #7c3aed;
 }
 
 .actions {
@@ -506,20 +506,20 @@ useHead({
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  background: linear-gradient(135deg, #7c3aed, #3b82f6);
   color: white;
-  box-shadow: 0 4px 20px rgba(6, 182, 212, 0.4);
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(6, 182, 212, 0.5);
+  box-shadow: 0 8px 30px rgba(124, 58, 237, 0.5);
 }
 
 .btn-secondary {
   background: rgba(30, 41, 59, 0.6);
   color: #94a3b8;
-  border: 1px solid rgba(6, 182, 212, 0.2);
+  border: 1px solid rgba(124, 58, 237, 0.2);
 }
 
 .btn-secondary:hover {
@@ -567,7 +567,7 @@ useHead({
 .feature-card {
   padding: 24px;
   background: rgba(15, 23, 42, 0.8);
-  border: 1px solid rgba(6, 182, 212, 0.15);
+  border: 1px solid rgba(124, 58, 237, 0.15);
   border-radius: 16px;
   text-align: center;
 }

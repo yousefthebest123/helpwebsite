@@ -550,12 +550,12 @@ onUnmounted(() => {
   height: 80px;
   background: var(--gradient-1);
   color: white;
-  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
 }
 
 .control-btn.primary:hover {
   transform: scale(1.05);
-  box-shadow: 0 8px 30px rgba(99, 102, 241, 0.5);
+  box-shadow: 0 8px 30px rgba(124, 58, 237, 0.5);
 }
 
 .control-btn.secondary {
@@ -632,7 +632,7 @@ onUnmounted(() => {
 
 .sound-item.active {
   border-color: var(--primary);
-  background: rgba(99, 102, 241, 0.1);
+  background: rgba(124, 58, 237, 0.1);
 }
 
 .sound-icon {

@@ -328,16 +328,16 @@ useHead({ title: 'Age Calculator - QuickHelp.lol' })
 .break-card {
   padding: 24px 16px;
   background: rgba(15, 23, 42, 0.6);
-  border: 1px solid rgba(6, 182, 212, 0.15);
+  border: 1px solid rgba(124, 58, 237, 0.15);
   border-radius: 16px;
   text-align: center;
   transition: all 0.3s;
 }
 
-.break-card:hover { border-color: rgba(6, 182, 212, 0.4); transform: translateY(-4px); }
+.break-card:hover { border-color: rgba(124, 58, 237, 0.4); transform: translateY(-4px); }
 
 .break-icon { font-size: 24px; margin-bottom: 10px; }
-.break-value { color: #22d3ee; font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+.break-value { color: #a78bfa; font-size: 24px; font-weight: 700; margin-bottom: 4px; }
 .break-label { color: #64748b; font-size: 13px; }
 
 /* Fun Facts */
@@ -367,7 +367,7 @@ useHead({ title: 'Age Calculator - QuickHelp.lol' })
 
 .fact-emoji { font-size: 24px; }
 .fact-text { color: #94a3b8; font-size: 14px; line-height: 1.4; }
-.fact-value { color: #22d3ee; font-weight: 600; }
+.fact-value { color: #a78bfa; font-weight: 600; }
 .fact-value.birthday { color: #a78bfa; }
 
 /* Placeholder */

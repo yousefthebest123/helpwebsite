@@ -415,7 +415,7 @@ useHead({
 .orb-1 {
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(6, 182, 212, 0.4), transparent 70%);
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.4), transparent 70%);
   top: -200px;
   left: -200px;
   animation-delay: 0s;
@@ -451,8 +451,8 @@ useHead({
   position: absolute;
   inset: 0;
   background-image: 
-    linear-gradient(rgba(6, 182, 212, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(6, 182, 212, 0.03) 1px, transparent 1px);
+    linear-gradient(rgba(124, 58, 237, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124, 58, 237, 0.03) 1px, transparent 1px);
   background-size: 60px 60px;
   animation: gridMove 30s linear infinite;
 }
@@ -526,21 +526,21 @@ useHead({
 .logo-icon {
   width: 60px;
   height: 60px;
-  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  background: linear-gradient(135deg, #7c3aed, #3b82f6);
   border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 28px;
   position: relative;
-  box-shadow: 0 10px 40px rgba(6, 182, 212, 0.4);
+  box-shadow: 0 10px 40px rgba(124, 58, 237, 0.4);
 }
 
 .logo-ring {
   position: absolute;
   inset: -4px;
   border-radius: 20px;
-  border: 2px solid rgba(6, 182, 212, 0.3);
+  border: 2px solid rgba(124, 58, 237, 0.3);
   animation: ringPulse 2s ease-in-out infinite;
 }
 
@@ -556,7 +556,7 @@ useHead({
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  background: linear-gradient(135deg, #7c3aed, #3b82f6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -573,7 +573,7 @@ useHead({
 }
 
 .brand-headline .highlight {
-  background: linear-gradient(135deg, #06b6d4, #3b82f6, #8b5cf6);
+  background: linear-gradient(135deg, #7c3aed, #3b82f6, #8b5cf6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -596,7 +596,7 @@ useHead({
   gap: 12px;
   padding: 16px;
   background: rgba(15, 23, 42, 0.6);
-  border: 1px solid rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.1);
   border-radius: 12px;
   color: #e2e8f0;
   font-size: 14px;
@@ -604,7 +604,7 @@ useHead({
 }
 
 .feature-item:hover {
-  border-color: rgba(6, 182, 212, 0.3);
+  border-color: rgba(124, 58, 237, 0.3);
   transform: translateX(5px);
 }
 
@@ -614,7 +614,7 @@ useHead({
 
 .testimonial-card {
   background: rgba(15, 23, 42, 0.8);
-  border: 1px solid rgba(6, 182, 212, 0.15);
+  border: 1px solid rgba(124, 58, 237, 0.15);
   border-radius: 20px;
   padding: 24px;
   backdrop-filter: blur(10px);
@@ -642,7 +642,7 @@ useHead({
 .avatar {
   width: 44px;
   height: 44px;
-  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  background: linear-gradient(135deg, #7c3aed, #3b82f6);
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -672,7 +672,7 @@ useHead({
 
 .auth-card {
   background: rgba(15, 23, 42, 0.9);
-  border: 1px solid rgba(6, 182, 212, 0.2);
+  border: 1px solid rgba(124, 58, 237, 0.2);
   border-radius: 28px;
   padding: 40px;
   position: relative;
@@ -691,7 +691,7 @@ useHead({
   left: -50%;
   width: 200%;
   height: 200%;
-  background: conic-gradient(from 0deg, transparent, rgba(6, 182, 212, 0.1), transparent 30%);
+  background: conic-gradient(from 0deg, transparent, rgba(124, 58, 237, 0.1), transparent 30%);
   animation: glowRotate 8s linear infinite;
 }
 
@@ -705,7 +705,7 @@ useHead({
   inset: 0;
   border-radius: 28px;
   padding: 1px;
-  background: linear-gradient(135deg, rgba(6, 182, 212, 0.5), transparent 50%, rgba(139, 92, 246, 0.5));
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.5), transparent 50%, rgba(139, 92, 246, 0.5));
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -754,10 +754,10 @@ useHead({
   top: 6px;
   bottom: 6px;
   width: calc(50% - 6px);
-  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  background: linear-gradient(135deg, #7c3aed, #3b82f6);
   border-radius: 12px;
   transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 20px rgba(6, 182, 212, 0.4);
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
 }
 
 /* Form */
@@ -813,7 +813,7 @@ useHead({
 }
 
 .auth-input:focus {
-  border-color: #06b6d4;
+  border-color: #7c3aed;
   background: rgba(30, 41, 59, 0.8);
 }
 
@@ -828,7 +828,7 @@ useHead({
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.3s ease;
-  box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2), 0 0 20px rgba(6, 182, 212, 0.1);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2), 0 0 20px rgba(124, 58, 237, 0.1);
 }
 
 .input-highlight.active {
@@ -869,7 +869,7 @@ useHead({
 .strength-bar.weak { background: #ef4444; }
 .strength-bar.fair { background: #f59e0b; }
 .strength-bar.good { background: #10b981; }
-.strength-bar.strong { background: #06b6d4; }
+.strength-bar.strong { background: #7c3aed; }
 
 .strength-text {
   font-size: 12px;
@@ -908,19 +908,19 @@ useHead({
   font-size: 16px;
   font-weight: 600;
   color: white;
-  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  background: linear-gradient(135deg, #7c3aed, #3b82f6);
   border: none;
   border-radius: 14px;
   cursor: pointer;
   position: relative;
   overflow: hidden;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(6, 182, 212, 0.4);
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
 }
 
 .submit-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(6, 182, 212, 0.5);
+  box-shadow: 0 8px 30px rgba(124, 58, 237, 0.5);
 }
 
 .submit-btn:disabled {
@@ -981,7 +981,7 @@ useHead({
 }
 
 .forgot-link a:hover {
-  color: #06b6d4;
+  color: #7c3aed;
 }
 
 /* Divider */
@@ -1030,7 +1030,7 @@ useHead({
 .guest-btn:hover {
   color: white;
   background: rgba(30, 41, 59, 0.8);
-  border-color: rgba(6, 182, 212, 0.3);
+  border-color: rgba(124, 58, 237, 0.3);
 }
 
 .guest-icon {
@@ -1061,7 +1061,7 @@ useHead({
 }
 
 .staff-link a:hover {
-  color: #06b6d4;
+  color: #7c3aed;
 }
 
 /* Mobile Logo */

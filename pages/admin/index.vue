@@ -1244,7 +1244,7 @@ definePageMeta({
   z-index: 50;
   background: rgba(15, 23, 42, 0.95);
   backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(6, 182, 212, 0.2);
+  border-bottom: 1px solid rgba(124, 58, 237, 0.2);
 }
 
 .nav-content {
@@ -1272,13 +1272,13 @@ definePageMeta({
 .logo-icon {
   width: 40px;
   height: 40px;
-  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  background: linear-gradient(135deg, #7c3aed, #3b82f6);
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 20px;
-  box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.4);
 }
 
 .logo-text {
@@ -1288,7 +1288,7 @@ definePageMeta({
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  background: linear-gradient(135deg, #7c3aed, #3b82f6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -1348,7 +1348,7 @@ definePageMeta({
 }
 
 .role-badge.owner { background: rgba(139, 92, 246, 0.2); color: #a78bfa; }
-.role-badge.admin { background: rgba(6, 182, 212, 0.2); color: #22d3ee; }
+.role-badge.admin { background: rgba(124, 58, 237, 0.2); color: #a78bfa; }
 .role-badge.support { background: rgba(16, 185, 129, 0.2); color: #34d399; }
 
 .logout-btn {
@@ -1375,7 +1375,7 @@ definePageMeta({
   bottom: 0;
   width: 260px;
   background: rgba(15, 23, 42, 0.8);
-  border-right: 1px solid rgba(6, 182, 212, 0.1);
+  border-right: 1px solid rgba(124, 58, 237, 0.1);
   padding: 24px 16px;
   display: flex;
   flex-direction: column;
@@ -1411,9 +1411,9 @@ definePageMeta({
 }
 
 .nav-item.active {
-  background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(59, 130, 246, 0.2));
-  color: #22d3ee;
-  border: 1px solid rgba(6, 182, 212, 0.3);
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.2), rgba(59, 130, 246, 0.2));
+  color: #a78bfa;
+  border: 1px solid rgba(124, 58, 237, 0.3);
 }
 
 .nav-icon { font-size: 20px; }
@@ -1431,7 +1431,7 @@ definePageMeta({
 .quick-actions {
   margin-top: auto;
   padding-top: 24px;
-  border-top: 1px solid rgba(6, 182, 212, 0.1);
+  border-top: 1px solid rgba(124, 58, 237, 0.1);
 }
 
 .quick-actions h4 {
@@ -1448,7 +1448,7 @@ definePageMeta({
   padding: 12px 16px;
   margin-bottom: 8px;
   background: rgba(30, 41, 59, 0.5);
-  border: 1px solid rgba(6, 182, 212, 0.2);
+  border: 1px solid rgba(124, 58, 237, 0.2);
   border-radius: 10px;
   color: #94a3b8;
   font-size: 13px;
@@ -1459,9 +1459,9 @@ definePageMeta({
 }
 
 .action-btn:hover {
-  background: rgba(6, 182, 212, 0.1);
-  color: #22d3ee;
-  border-color: rgba(6, 182, 212, 0.3);
+  background: rgba(124, 58, 237, 0.1);
+  color: #a78bfa;
+  border-color: rgba(124, 58, 237, 0.3);
 }
 
 .main-content {
@@ -1496,7 +1496,7 @@ definePageMeta({
 
 .stat-card {
   background: rgba(15, 23, 42, 0.8);
-  border: 1px solid rgba(6, 182, 212, 0.15);
+  border: 1px solid rgba(124, 58, 237, 0.15);
   border-radius: 16px;
   padding: 24px;
   display: flex;
@@ -1507,7 +1507,7 @@ definePageMeta({
 
 .stat-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(6, 182, 212, 0.3);
+  border-color: rgba(124, 58, 237, 0.3);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
 }
 
@@ -1521,7 +1521,7 @@ definePageMeta({
   font-size: 24px;
 }
 
-.stat-card.cyan .stat-icon { background: rgba(6, 182, 212, 0.2); }
+.stat-card.cyan .stat-icon { background: rgba(124, 58, 237, 0.2); }
 .stat-card.green .stat-icon { background: rgba(16, 185, 129, 0.2); }
 .stat-card.purple .stat-icon { background: rgba(139, 92, 246, 0.2); }
 .stat-card.orange .stat-icon { background: rgba(249, 115, 22, 0.2); }
@@ -1532,8 +1532,8 @@ definePageMeta({
 
 .stat-trend {
   padding: 4px 10px;
-  background: rgba(6, 182, 212, 0.1);
-  color: #22d3ee;
+  background: rgba(124, 58, 237, 0.1);
+  color: #a78bfa;
   border-radius: 20px;
   font-size: 12px;
   font-weight: 600;
@@ -1553,14 +1553,14 @@ definePageMeta({
 
 .dashboard-card {
   background: rgba(15, 23, 42, 0.8);
-  border: 1px solid rgba(6, 182, 212, 0.15);
+  border: 1px solid rgba(124, 58, 237, 0.15);
   border-radius: 16px;
   overflow: hidden;
 }
 
 .card-header {
   padding: 20px 24px;
-  border-bottom: 1px solid rgba(6, 182, 212, 0.1);
+  border-bottom: 1px solid rgba(124, 58, 237, 0.1);
 }
 
 .card-header h3 { color: white; font-size: 16px; font-weight: 600; }
@@ -1592,7 +1592,7 @@ definePageMeta({
   flex-shrink: 0;
 }
 
-.activity-icon.ticket { background: rgba(6, 182, 212, 0.2); }
+.activity-icon.ticket { background: rgba(124, 58, 237, 0.2); }
 .activity-icon.user { background: rgba(16, 185, 129, 0.2); }
 .activity-icon.message { background: rgba(139, 92, 246, 0.2); }
 
@@ -1607,19 +1607,19 @@ definePageMeta({
   justify-content: space-between;
   align-items: center;
   padding: 14px 0;
-  border-bottom: 1px solid rgba(6, 182, 212, 0.1);
+  border-bottom: 1px solid rgba(124, 58, 237, 0.1);
 }
 
 .quick-stat-item:last-child { border-bottom: none; }
 .quick-stat-item .label { color: #94a3b8; font-size: 14px; }
-.quick-stat-item .value { color: #22d3ee; font-size: 16px; font-weight: 600; }
+.quick-stat-item .value { color: #a78bfa; font-size: 16px; font-weight: 600; }
 
 .filter-row { display: flex; gap: 12px; margin-top: 16px; }
 
 .filter-select {
   padding: 10px 16px;
   background: rgba(30, 41, 59, 0.6);
-  border: 1px solid rgba(6, 182, 212, 0.2);
+  border: 1px solid rgba(124, 58, 237, 0.2);
   border-radius: 10px;
   color: white;
   font-size: 14px;
@@ -1627,13 +1627,13 @@ definePageMeta({
   cursor: pointer;
 }
 
-.filter-select:focus { border-color: #06b6d4; }
+.filter-select:focus { border-color: #7c3aed; }
 
 .tickets-list { display: flex; flex-direction: column; gap: 16px; }
 
 .ticket-card {
   background: rgba(15, 23, 42, 0.8);
-  border: 1px solid rgba(6, 182, 212, 0.15);
+  border: 1px solid rgba(124, 58, 237, 0.15);
   border-radius: 16px;
   padding: 24px;
   cursor: pointer;
@@ -1641,7 +1641,7 @@ definePageMeta({
 }
 
 .ticket-card:hover {
-  border-color: rgba(6, 182, 212, 0.4);
+  border-color: rgba(124, 58, 237, 0.4);
   transform: translateY(-2px);
 }
 
@@ -1664,7 +1664,7 @@ definePageMeta({
 }
 
 .status-badge.open { background: rgba(16, 185, 129, 0.2); color: #34d399; }
-.status-badge.in-progress { background: rgba(6, 182, 212, 0.2); color: #22d3ee; }
+.status-badge.in-progress { background: rgba(124, 58, 237, 0.2); color: #a78bfa; }
 .status-badge.resolved { background: rgba(139, 92, 246, 0.2); color: #a78bfa; }
 .status-badge.closed { background: rgba(100, 116, 139, 0.2); color: #94a3b8; }
 
@@ -1698,7 +1698,7 @@ definePageMeta({
 
 .ticket-footer { display: flex; justify-content: space-between; align-items: center; }
 .ticket-from { color: #64748b; font-size: 13px; }
-.ticket-messages { color: #22d3ee; font-size: 13px; }
+.ticket-messages { color: #a78bfa; font-size: 13px; }
 
 .team-grid {
   display: grid;
@@ -1708,7 +1708,7 @@ definePageMeta({
 
 .member-card {
   background: rgba(15, 23, 42, 0.8);
-  border: 1px solid rgba(6, 182, 212, 0.15);
+  border: 1px solid rgba(124, 58, 237, 0.15);
   border-radius: 16px;
   padding: 24px;
   display: flex;
@@ -1719,7 +1719,7 @@ definePageMeta({
 .member-avatar {
   width: 56px;
   height: 56px;
-  background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+  background: linear-gradient(135deg, #7c3aed, #8b5cf6);
   border-radius: 16px;
   display: flex;
   align-items: center;
@@ -1738,7 +1738,7 @@ definePageMeta({
   text-transform: capitalize;
 }
 
-.role-tag.admin { background: rgba(6, 182, 212, 0.2); color: #22d3ee; }
+.role-tag.admin { background: rgba(124, 58, 237, 0.2); color: #a78bfa; }
 .role-tag.support { background: rgba(16, 185, 129, 0.2); color: #34d399; }
 
 .member-status { display: flex; align-items: center; gap: 8px; }
@@ -1786,32 +1786,32 @@ definePageMeta({
   height: calc(100vh - 240px);
   min-height: 500px;
   background: rgba(15, 23, 42, 0.8);
-  border: 1px solid rgba(6, 182, 212, 0.15);
+  border: 1px solid rgba(124, 58, 237, 0.15);
   border-radius: 16px;
   overflow: hidden;
 }
 
 .chat-sidebar {
   width: 320px;
-  border-right: 1px solid rgba(6, 182, 212, 0.1);
+  border-right: 1px solid rgba(124, 58, 237, 0.1);
   display: flex;
   flex-direction: column;
 }
 
-.chat-search { padding: 16px; border-bottom: 1px solid rgba(6, 182, 212, 0.1); }
+.chat-search { padding: 16px; border-bottom: 1px solid rgba(124, 58, 237, 0.1); }
 
 .chat-search input {
   width: 100%;
   padding: 12px 16px;
   background: rgba(30, 41, 59, 0.6);
-  border: 1px solid rgba(6, 182, 212, 0.2);
+  border: 1px solid rgba(124, 58, 237, 0.2);
   border-radius: 10px;
   color: white;
   font-size: 14px;
   outline: none;
 }
 
-.chat-search input:focus { border-color: #06b6d4; }
+.chat-search input:focus { border-color: #7c3aed; }
 
 .chat-list { flex: 1; overflow-y: auto; }
 
@@ -1822,16 +1822,16 @@ definePageMeta({
   padding: 16px;
   cursor: pointer;
   transition: background 0.2s;
-  border-bottom: 1px solid rgba(6, 182, 212, 0.05);
+  border-bottom: 1px solid rgba(124, 58, 237, 0.05);
 }
 
 .chat-item:hover { background: rgba(30, 41, 59, 0.4); }
-.chat-item.active { background: rgba(6, 182, 212, 0.1); }
+.chat-item.active { background: rgba(124, 58, 237, 0.1); }
 
 .chat-avatar {
   width: 44px;
   height: 44px;
-  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  background: linear-gradient(135deg, #7c3aed, #3b82f6);
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -1861,7 +1861,7 @@ definePageMeta({
 
 .unread-badge {
   padding: 2px 8px;
-  background: #06b6d4;
+  background: #7c3aed;
   color: white;
   border-radius: 10px;
   font-size: 11px;
@@ -1876,7 +1876,7 @@ definePageMeta({
   justify-content: space-between;
   align-items: center;
   padding: 16px 24px;
-  border-bottom: 1px solid rgba(6, 182, 212, 0.1);
+  border-bottom: 1px solid rgba(124, 58, 237, 0.1);
 }
 
 .chat-user-info { display: flex; align-items: center; gap: 14px; }
@@ -1917,7 +1917,7 @@ definePageMeta({
 
 .chat-message.sent {
   align-self: flex-end;
-  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  background: linear-gradient(135deg, #7c3aed, #3b82f6);
   color: white;
   border-bottom-right-radius: 4px;
 }
@@ -1929,25 +1929,25 @@ definePageMeta({
   display: flex;
   gap: 12px;
   padding: 16px 24px;
-  border-top: 1px solid rgba(6, 182, 212, 0.1);
+  border-top: 1px solid rgba(124, 58, 237, 0.1);
 }
 
 .chat-input input {
   flex: 1;
   padding: 14px 18px;
   background: rgba(30, 41, 59, 0.6);
-  border: 1px solid rgba(6, 182, 212, 0.2);
+  border: 1px solid rgba(124, 58, 237, 0.2);
   border-radius: 12px;
   color: white;
   font-size: 14px;
   outline: none;
 }
 
-.chat-input input:focus { border-color: #06b6d4; }
+.chat-input input:focus { border-color: #7c3aed; }
 
 .chat-input button {
   padding: 14px 24px;
-  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  background: linear-gradient(135deg, #7c3aed, #3b82f6);
   border: none;
   border-radius: 12px;
   color: white;
@@ -1959,7 +1959,7 @@ definePageMeta({
 
 .chat-input button:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 4px 20px rgba(6, 182, 212, 0.4);
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
 }
 
 .chat-input button:disabled { opacity: 0.5; cursor: not-allowed; }
@@ -1985,12 +1985,12 @@ definePageMeta({
 
 .settings-card {
   background: rgba(15, 23, 42, 0.8);
-  border: 1px solid rgba(6, 182, 212, 0.15);
+  border: 1px solid rgba(124, 58, 237, 0.15);
   border-radius: 16px;
   overflow: hidden;
 }
 
-.settings-header { padding: 20px 24px; border-bottom: 1px solid rgba(6, 182, 212, 0.1); }
+.settings-header { padding: 20px 24px; border-bottom: 1px solid rgba(124, 58, 237, 0.1); }
 .settings-header h3 { color: white; font-size: 16px; font-weight: 600; }
 .settings-options { padding: 8px; }
 
@@ -2019,7 +2019,7 @@ definePageMeta({
   transition: background 0.3s;
 }
 
-.toggle-switch.active { background: #06b6d4; }
+.toggle-switch.active { background: #7c3aed; }
 
 .toggle-slider {
   position: absolute;
@@ -2066,7 +2066,7 @@ definePageMeta({
   width: 100%;
   max-width: 480px;
   background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(30, 41, 59, 0.95));
-  border: 1px solid rgba(6, 182, 212, 0.2);
+  border: 1px solid rgba(124, 58, 237, 0.2);
   border-radius: 20px;
   overflow: hidden;
   animation: modalIn 0.3s ease;
@@ -2089,7 +2089,7 @@ definePageMeta({
   justify-content: space-between;
   align-items: center;
   padding: 24px;
-  border-bottom: 1px solid rgba(6, 182, 212, 0.1);
+  border-bottom: 1px solid rgba(124, 58, 237, 0.1);
 }
 
 .modal-header h2 { color: white; font-size: 20px; font-weight: 600; }
@@ -2117,7 +2117,7 @@ definePageMeta({
   width: 100%;
   padding: 14px 16px;
   background: rgba(30, 41, 59, 0.6);
-  border: 1px solid rgba(6, 182, 212, 0.2);
+  border: 1px solid rgba(124, 58, 237, 0.2);
   border-radius: 12px;
   color: white;
   font-size: 15px;
@@ -2126,7 +2126,7 @@ definePageMeta({
 }
 
 .form-group input:focus,
-.form-group select:focus { border-color: #06b6d4; }
+.form-group select:focus { border-color: #7c3aed; }
 
 .code-result {
   padding: 20px;
@@ -2169,7 +2169,7 @@ definePageMeta({
   padding: 14px 18px;
   background: rgba(30, 41, 59, 0.8);
   border-radius: 10px;
-  color: #22d3ee;
+  color: #a78bfa;
   font-family: 'Space Grotesk', monospace;
   font-size: 18px;
   letter-spacing: 3px;
@@ -2178,16 +2178,16 @@ definePageMeta({
 
 .copy-btn {
   padding: 14px 18px;
-  background: rgba(6, 182, 212, 0.2);
-  border: 1px solid rgba(6, 182, 212, 0.3);
+  background: rgba(124, 58, 237, 0.2);
+  border: 1px solid rgba(124, 58, 237, 0.3);
   border-radius: 10px;
-  color: #22d3ee;
+  color: #a78bfa;
   font-size: 14px;
   cursor: pointer;
   transition: all 0.2s;
 }
 
-.copy-btn:hover { background: rgba(6, 182, 212, 0.3); }
+.copy-btn:hover { background: rgba(124, 58, 237, 0.3); }
 .result-hint { color: #64748b; font-size: 12px; margin-top: 12px; }
 .modal-actions { display: flex; gap: 12px; }
 
@@ -2204,14 +2204,14 @@ definePageMeta({
 }
 
 .primary-btn {
-  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  background: linear-gradient(135deg, #7c3aed, #3b82f6);
   color: white;
-  box-shadow: 0 4px 20px rgba(6, 182, 212, 0.3);
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3);
 }
 
 .primary-btn:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(6, 182, 212, 0.4);
+  box-shadow: 0 8px 30px rgba(124, 58, 237, 0.4);
 }
 
 .primary-btn:disabled { opacity: 0.6; cursor: not-allowed; }
@@ -2219,7 +2219,7 @@ definePageMeta({
 .secondary-btn {
   background: rgba(30, 41, 59, 0.6);
   color: #94a3b8;
-  border: 1px solid rgba(6, 182, 212, 0.2);
+  border: 1px solid rgba(124, 58, 237, 0.2);
 }
 
 .secondary-btn:hover { background: rgba(30, 41, 59, 0.8); color: white; }
@@ -2249,7 +2249,7 @@ definePageMeta({
 
 .message-bubble.sent {
   align-self: flex-end;
-  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  background: linear-gradient(135deg, #7c3aed, #3b82f6);
   color: white;
   border-bottom-right-radius: 4px;
 }
@@ -2257,14 +2257,14 @@ definePageMeta({
 .message-bubble p { font-size: 14px; line-height: 1.5; margin-bottom: 6px; }
 .message-meta { font-size: 11px; opacity: 0.7; }
 
-.ticket-actions { padding: 20px 24px; border-top: 1px solid rgba(6, 182, 212, 0.1); }
+.ticket-actions { padding: 20px 24px; border-top: 1px solid rgba(124, 58, 237, 0.1); }
 .action-selects { display: flex; gap: 12px; margin-bottom: 16px; }
 
 .action-selects select {
   flex: 1;
   padding: 12px 16px;
   background: rgba(30, 41, 59, 0.6);
-  border: 1px solid rgba(6, 182, 212, 0.2);
+  border: 1px solid rgba(124, 58, 237, 0.2);
   border-radius: 10px;
   color: white;
   font-size: 14px;
@@ -2277,18 +2277,18 @@ definePageMeta({
   flex: 1;
   padding: 14px 18px;
   background: rgba(30, 41, 59, 0.6);
-  border: 1px solid rgba(6, 182, 212, 0.2);
+  border: 1px solid rgba(124, 58, 237, 0.2);
   border-radius: 12px;
   color: white;
   font-size: 14px;
   outline: none;
 }
 
-.reply-input input:focus { border-color: #06b6d4; }
+.reply-input input:focus { border-color: #7c3aed; }
 
 .reply-input button {
   padding: 14px 24px;
-  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  background: linear-gradient(135deg, #7c3aed, #3b82f6);
   border: none;
   border-radius: 12px;
   color: white;
@@ -2316,7 +2316,7 @@ definePageMeta({
     width: 100%;
     max-height: 200px;
     border-right: none;
-    border-bottom: 1px solid rgba(6, 182, 212, 0.1);
+    border-bottom: 1px solid rgba(124, 58, 237, 0.1);
   }
 }
 
@@ -2337,7 +2337,7 @@ definePageMeta({
 
 .analytics-card {
   background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.6));
-  border: 1px solid rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.1);
   border-radius: 16px;
   padding: 24px;
 }
@@ -2352,7 +2352,7 @@ definePageMeta({
 .time-filter button {
   padding: 8px 16px;
   background: rgba(30, 41, 59, 0.6);
-  border: 1px solid rgba(6, 182, 212, 0.2);
+  border: 1px solid rgba(124, 58, 237, 0.2);
   border-radius: 8px;
   color: #94a3b8;
   font-size: 13px;
@@ -2361,9 +2361,9 @@ definePageMeta({
 }
 
 .time-filter button.active {
-  background: rgba(6, 182, 212, 0.2);
-  border-color: #06b6d4;
-  color: #22d3ee;
+  background: rgba(124, 58, 237, 0.2);
+  border-color: #7c3aed;
+  color: #a78bfa;
 }
 
 .chart-container { margin-top: 24px; }
@@ -2378,7 +2378,7 @@ definePageMeta({
 
 .chart-bar {
   flex: 1;
-  background: linear-gradient(to top, #06b6d4, #3b82f6);
+  background: linear-gradient(to top, #7c3aed, #3b82f6);
   border-radius: 8px 8px 0 0;
   min-height: 20px;
   position: relative;
@@ -2392,7 +2392,7 @@ definePageMeta({
   top: -25px;
   left: 50%;
   transform: translateX(-50%);
-  color: #22d3ee;
+  color: #a78bfa;
   font-size: 12px;
   font-weight: 600;
 }
@@ -2468,7 +2468,7 @@ definePageMeta({
 
 .leaderboard-item .rank { font-size: 20px; }
 .leaderboard-item .name { flex: 1; color: white; font-weight: 500; }
-.leaderboard-item .tickets-resolved { color: #22d3ee; font-size: 13px; }
+.leaderboard-item .tickets-resolved { color: #a78bfa; font-size: 13px; }
 
 /* Knowledge Base Styles */
 .kb-grid {
@@ -2479,20 +2479,20 @@ definePageMeta({
 
 .kb-card {
   background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.6));
-  border: 1px solid rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.1);
   border-radius: 16px;
   padding: 24px;
   transition: all 0.3s;
 }
 
-.kb-card:hover { border-color: rgba(6, 182, 212, 0.3); transform: translateY(-2px); }
+.kb-card:hover { border-color: rgba(124, 58, 237, 0.3); transform: translateY(-2px); }
 
 .kb-category {
   display: inline-block;
   padding: 4px 10px;
-  background: rgba(6, 182, 212, 0.2);
+  background: rgba(124, 58, 237, 0.2);
   border-radius: 6px;
-  color: #22d3ee;
+  color: #a78bfa;
   font-size: 11px;
   font-weight: 600;
   margin-bottom: 12px;
@@ -2514,7 +2514,7 @@ definePageMeta({
 .edit-btn, .delete-btn {
   padding: 8px 14px;
   background: rgba(30, 41, 59, 0.6);
-  border: 1px solid rgba(6, 182, 212, 0.2);
+  border: 1px solid rgba(124, 58, 237, 0.2);
   border-radius: 8px;
   color: #94a3b8;
   font-size: 12px;
@@ -2522,7 +2522,7 @@ definePageMeta({
   transition: all 0.2s;
 }
 
-.edit-btn:hover { background: rgba(6, 182, 212, 0.1); color: #22d3ee; }
+.edit-btn:hover { background: rgba(124, 58, 237, 0.1); color: #a78bfa; }
 .delete-btn:hover { background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.3); color: #f87171; }
 
 .kb-card.add-new {
@@ -2535,16 +2535,16 @@ definePageMeta({
   min-height: 200px;
 }
 
-.kb-card.add-new span { font-size: 32px; color: #06b6d4; margin-bottom: 8px; }
+.kb-card.add-new span { font-size: 32px; color: #7c3aed; margin-bottom: 8px; }
 .kb-card.add-new p { color: #94a3b8; margin: 0; }
-.kb-card.add-new:hover { background: rgba(6, 182, 212, 0.05); }
+.kb-card.add-new:hover { background: rgba(124, 58, 237, 0.05); }
 
 /* System Logs Styles */
 .log-filters { display: flex; gap: 12px; }
 
 .logs-table {
   background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.6));
-  border: 1px solid rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.1);
   border-radius: 16px;
   overflow: hidden;
 }
@@ -2554,7 +2554,7 @@ definePageMeta({
   grid-template-columns: 150px 100px 80px 1fr 100px;
   gap: 16px;
   padding: 16px 20px;
-  background: rgba(6, 182, 212, 0.1);
+  background: rgba(124, 58, 237, 0.1);
   color: #94a3b8;
   font-size: 12px;
   font-weight: 600;
@@ -2566,11 +2566,11 @@ definePageMeta({
   grid-template-columns: 150px 100px 80px 1fr 100px;
   gap: 16px;
   padding: 14px 20px;
-  border-bottom: 1px solid rgba(6, 182, 212, 0.05);
+  border-bottom: 1px solid rgba(124, 58, 237, 0.05);
   transition: background 0.2s;
 }
 
-.log-row:hover { background: rgba(6, 182, 212, 0.05); }
+.log-row:hover { background: rgba(124, 58, 237, 0.05); }
 .log-row:last-child { border-bottom: none; }
 
 .log-time { color: #64748b; font-size: 12px; font-family: monospace; }
@@ -2585,7 +2585,7 @@ definePageMeta({
   text-transform: uppercase;
 }
 
-.log-level.info { background: rgba(6, 182, 212, 0.2); color: #22d3ee; }
+.log-level.info { background: rgba(124, 58, 237, 0.2); color: #a78bfa; }
 .log-level.warning { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
 .log-level.error { background: rgba(239, 68, 68, 0.2); color: #f87171; }
 

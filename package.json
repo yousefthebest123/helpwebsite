@@ -1,6 +1,6 @@
 {
   "name": "quickhelp-lol",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "private": true,
   "scripts": {
     "build": "nuxt build",
@@ -28,6 +28,7 @@
     "@types/uuid": "^9.0.7",
     "@vueuse/core": "^10.7.0",
     "@vueuse/nuxt": "^10.7.0",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "vue-tsc": "^2.2.12"
   }
 }

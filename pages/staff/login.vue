@@ -325,7 +325,7 @@ definePageMeta({
 .orb-2 {
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(6, 182, 212, 0.3), transparent);
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.3), transparent);
   bottom: -150px;
   right: -150px;
   animation-delay: -5s;
@@ -429,7 +429,7 @@ definePageMeta({
   flex: 1;
   display: none;
   padding: 60px;
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(6, 182, 212, 0.05));
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(124, 58, 237, 0.05));
   border-right: 1px solid rgba(139, 92, 246, 0.2);
 }
 
@@ -457,7 +457,7 @@ definePageMeta({
   position: relative;
   width: 64px;
   height: 64px;
-  background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
   border-radius: 20px;
   display: flex;
   align-items: center;
@@ -492,7 +492,7 @@ definePageMeta({
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -511,7 +511,7 @@ definePageMeta({
 }
 
 .brand-headline .highlight {
-  background: linear-gradient(135deg, #8b5cf6, #06b6d4, #8b5cf6);
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed, #8b5cf6);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -544,7 +544,7 @@ definePageMeta({
 .stat-value {
   font-size: 28px;
   font-weight: 700;
-  background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -634,7 +634,7 @@ definePageMeta({
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, #8b5cf6, #06b6d4, #8b5cf6);
+  background: linear-gradient(90deg, #8b5cf6, #7c3aed, #8b5cf6);
   background-size: 200% auto;
   animation: shimmer 3s linear infinite;
 }
@@ -648,7 +648,7 @@ definePageMeta({
   width: 72px;
   height: 72px;
   margin: 0 auto 20px;
-  background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
   border-radius: 20px;
   display: flex;
   align-items: center;
@@ -711,7 +711,7 @@ definePageMeta({
   top: 6px;
   bottom: 6px;
   width: 50%;
-  background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
   border-radius: 12px;
   transition: left 0.3s ease;
   box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
@@ -842,13 +842,13 @@ definePageMeta({
 }
 
 .submit-btn.staff-btn {
-  background: linear-gradient(135deg, #06b6d4, #3b82f6);
-  box-shadow: 0 4px 24px rgba(6, 182, 212, 0.4);
+  background: linear-gradient(135deg, #7c3aed, #3b82f6);
+  box-shadow: 0 4px 24px rgba(124, 58, 237, 0.4);
 }
 
 .submit-btn.staff-btn:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(6, 182, 212, 0.5);
+  box-shadow: 0 8px 32px rgba(124, 58, 237, 0.5);
 }
 
 .submit-btn:disabled {

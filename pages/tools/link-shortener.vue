@@ -188,7 +188,7 @@ useHead({ title: 'Link Shortener - QuickHelp.lol' })
   transition: color 0.3s;
 }
 
-.back-link:hover { color: #22d3ee; }
+.back-link:hover { color: #a78bfa; }
 
 .tool-badge {
   display: inline-flex;
@@ -202,15 +202,15 @@ useHead({ title: 'Link Shortener - QuickHelp.lol' })
 }
 
 .tool-badge.cyan {
-  background: linear-gradient(135deg, rgba(6, 182, 212, 0.15), rgba(59, 130, 246, 0.15));
-  border: 1px solid rgba(6, 182, 212, 0.3);
-  color: #22d3ee;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.15), rgba(59, 130, 246, 0.15));
+  border: 1px solid rgba(124, 58, 237, 0.3);
+  color: #a78bfa;
 }
 
 .page-title { font-size: 3rem; font-weight: 800; margin-bottom: 16px; }
 
 .title-gradient {
-  background: linear-gradient(135deg, #22d3ee, #3b82f6, #8b5cf6);
+  background: linear-gradient(135deg, #a78bfa, #3b82f6, #8b5cf6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -220,7 +220,7 @@ useHead({ title: 'Link Shortener - QuickHelp.lol' })
 
 .tool-card {
   background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.8));
-  border: 1px solid rgba(6, 182, 212, 0.15);
+  border: 1px solid rgba(124, 58, 237, 0.15);
   border-radius: 24px;
   overflow: hidden;
   margin-bottom: 24px;
@@ -235,7 +235,7 @@ useHead({ title: 'Link Shortener - QuickHelp.lol' })
   gap: 12px;
   padding: 8px;
   background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(6, 182, 212, 0.15);
+  border: 1px solid rgba(124, 58, 237, 0.15);
   border-radius: 16px;
 }
 
@@ -258,7 +258,7 @@ useHead({ title: 'Link Shortener - QuickHelp.lol' })
   align-items: center;
   gap: 10px;
   padding: 16px 28px;
-  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  background: linear-gradient(135deg, #7c3aed, #3b82f6);
   border: none;
   border-radius: 12px;
   color: white;
@@ -268,15 +268,15 @@ useHead({ title: 'Link Shortener - QuickHelp.lol' })
   transition: all 0.3s;
 }
 
-.shorten-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(6, 182, 212, 0.4); }
+.shorten-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4); }
 .shorten-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
 
 /* Result */
 .result-box {
   margin-top: 24px;
   padding: 24px;
-  background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(59, 130, 246, 0.1));
-  border: 1px solid rgba(6, 182, 212, 0.3);
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(59, 130, 246, 0.1));
+  border: 1px solid rgba(124, 58, 237, 0.3);
   border-radius: 16px;
 }
 
@@ -291,24 +291,24 @@ useHead({ title: 'Link Shortener - QuickHelp.lol' })
   padding: 16px 20px;
   background: rgba(0, 0, 0, 0.4);
   border-radius: 12px;
-  color: #22d3ee;
+  color: #a78bfa;
   font-size: 18px;
   font-family: 'Fira Code', monospace;
 }
 
 .copy-btn {
   padding: 14px 24px;
-  background: rgba(6, 182, 212, 0.15);
-  border: 1px solid rgba(6, 182, 212, 0.3);
+  background: rgba(124, 58, 237, 0.15);
+  border: 1px solid rgba(124, 58, 237, 0.3);
   border-radius: 12px;
-  color: #22d3ee;
+  color: #a78bfa;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s;
 }
 
-.copy-btn:hover { background: rgba(6, 182, 212, 0.25); }
+.copy-btn:hover { background: rgba(124, 58, 237, 0.25); }
 .copy-btn.copied { background: rgba(16, 185, 129, 0.2); border-color: rgba(16, 185, 129, 0.4); color: #34d399; }
 
 /* Recent Links */
@@ -334,12 +334,12 @@ useHead({ title: 'Link Shortener - QuickHelp.lol' })
   gap: 16px;
   padding: 16px 20px;
   background: rgba(15, 23, 42, 0.6);
-  border: 1px solid rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.1);
   border-radius: 14px;
   transition: all 0.3s;
 }
 
-.link-item:hover { border-color: rgba(6, 182, 212, 0.3); }
+.link-item:hover { border-color: rgba(124, 58, 237, 0.3); }
 
 .link-icon-box {
   width: 44px;
@@ -347,13 +347,13 @@ useHead({ title: 'Link Shortener - QuickHelp.lol' })
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(6, 182, 212, 0.15);
+  background: rgba(124, 58, 237, 0.15);
   border-radius: 12px;
   font-size: 20px;
 }
 
 .link-info { flex: 1; min-width: 0; }
-.link-short { color: #22d3ee; font-family: 'Fira Code', monospace; font-size: 14px; margin-bottom: 4px; }
+.link-short { color: #a78bfa; font-family: 'Fira Code', monospace; font-size: 14px; margin-bottom: 4px; }
 .link-original { color: #64748b; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 .link-stats { text-align: center; }
@@ -366,14 +366,14 @@ useHead({ title: 'Link Shortener - QuickHelp.lol' })
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(6, 182, 212, 0.1);
-  border: 1px solid rgba(6, 182, 212, 0.2);
+  background: rgba(124, 58, 237, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.2);
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.3s;
 }
 
-.link-copy-btn:hover { background: rgba(6, 182, 212, 0.2); }
+.link-copy-btn:hover { background: rgba(124, 58, 237, 0.2); }
 
 /* Empty State */
 .empty-state { text-align: center; padding: 48px 24px; }
@@ -387,13 +387,13 @@ useHead({ title: 'Link Shortener - QuickHelp.lol' })
 .feature-card {
   padding: 24px;
   background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.6));
-  border: 1px solid rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.1);
   border-radius: 16px;
   text-align: center;
   transition: all 0.3s;
 }
 
-.feature-card:hover { border-color: rgba(6, 182, 212, 0.3); transform: translateY(-4px); }
+.feature-card:hover { border-color: rgba(124, 58, 237, 0.3); transform: translateY(-4px); }
 .feature-icon { font-size: 28px; display: block; margin-bottom: 12px; }
 .feature-title { color: white; font-size: 15px; font-weight: 600; margin-bottom: 6px; }
 .feature-text { color: #64748b; font-size: 13px; }

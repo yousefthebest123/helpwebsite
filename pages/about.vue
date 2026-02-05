@@ -85,11 +85,11 @@
       <div class="container">
         <div class="stats-grid">
           <div class="stat-card">
-            <span class="stat-value">35+</span>
+            <span class="stat-value">40+</span>
             <span class="stat-label">Free Tools</span>
           </div>
           <div class="stat-card">
-            <span class="stat-value">4</span>
+            <span class="stat-value">6</span>
             <span class="stat-label">Categories</span>
           </div>
           <div class="stat-card">
@@ -193,25 +193,17 @@ useHead({
 .hero {
   padding: 120px 0 80px;
   text-align: center;
-  background: linear-gradient(180deg, rgba(99, 102, 241, 0.1) 0%, transparent 100%);
 }
 
 .hero h1 {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 56px;
+  font-size: clamp(36px, 5vw, 56px);
   font-weight: 700;
   margin-bottom: 20px;
 }
 
-.gradient-text {
-  background: linear-gradient(135deg, var(--primary), var(--accent));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
 .hero p {
-  font-size: 20px;
+  font-size: 18px;
   color: var(--text-muted);
   max-width: 600px;
   margin: 0 auto;
@@ -228,12 +220,12 @@ useHead({
 
 .mission-content h2 {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 36px;
+  font-size: 32px;
   margin-bottom: 24px;
 }
 
 .mission-content p {
-  font-size: 18px;
+  font-size: 16px;
   color: var(--text-muted);
   line-height: 1.8;
   margin-bottom: 16px;
@@ -271,32 +263,33 @@ useHead({
 .features-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 20px;
 }
 
 .feature-card {
   padding: 32px;
   background: var(--surface);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 20px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
   text-align: center;
-  transition: all 0.3s ease;
+  transition: all 0.4s var(--ease-out-expo);
 }
 
 .feature-card:hover {
-  border-color: var(--primary);
-  transform: translateY(-4px);
+  border-color: rgba(124, 58, 237, 0.3);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(124, 58, 237, 0.1);
 }
 
 .feature-icon {
-  font-size: 48px;
+  font-size: 40px;
   margin-bottom: 16px;
 }
 
 .feature-card h3 {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .feature-card p {
@@ -306,27 +299,26 @@ useHead({
 }
 
 /* Stats */
-.stats {
-  background: var(--surface);
-}
-
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  gap: 20px;
 }
 
 .stat-card {
   text-align: center;
-  padding: 40px 24px;
+  padding: 36px 24px;
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
 }
 
 .stat-value {
   display: block;
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 56px;
+  font-size: 48px;
   font-weight: 700;
-  background: linear-gradient(135deg, var(--primary), var(--accent));
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -334,7 +326,7 @@ useHead({
 }
 
 .stat-label {
-  font-size: 16px;
+  font-size: 14px;
   color: var(--text-muted);
 }
 
@@ -342,7 +334,8 @@ useHead({
 .tech-grid {
   display: flex;
   justify-content: center;
-  gap: 40px;
+  gap: 24px;
+  flex-wrap: wrap;
 }
 
 .tech-item {
@@ -352,17 +345,18 @@ useHead({
   gap: 12px;
   padding: 24px 40px;
   background: var(--surface);
-  border-radius: 16px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  transition: all 0.3s ease;
 }
 
-.tech-logo {
-  font-size: 48px;
+.tech-item:hover {
+  border-color: rgba(124, 58, 237, 0.25);
+  transform: translateY(-3px);
 }
 
-.tech-name {
-  font-size: 16px;
-  font-weight: 600;
-}
+.tech-logo { font-size: 40px; }
+.tech-name { font-size: 15px; font-weight: 600; }
 
 /* CTA */
 .cta-card {
@@ -370,23 +364,25 @@ useHead({
   margin: 0 auto;
   padding: 60px;
   text-align: center;
+  border: 1px solid rgba(124, 58, 237, 0.15);
+  border-radius: var(--radius-xl);
 }
 
 .cta-card h2 {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 36px;
-  margin-bottom: 16px;
+  font-size: 32px;
+  margin-bottom: 12px;
 }
 
 .cta-card p {
-  font-size: 18px;
+  font-size: 16px;
   color: var(--text-muted);
-  margin-bottom: 32px;
+  margin-bottom: 28px;
 }
 
 .cta-buttons {
   display: flex;
-  gap: 16px;
+  gap: 14px;
   justify-content: center;
 }
 
@@ -394,7 +390,7 @@ useHead({
 .contact-options {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 20px;
   max-width: 800px;
   margin: 0 auto;
 }
@@ -405,67 +401,44 @@ useHead({
   align-items: center;
   padding: 32px;
   background: var(--surface);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 20px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: all 0.4s var(--ease-out-expo);
 }
 
 .contact-card:hover {
-  border-color: var(--primary);
-  transform: translateY(-2px);
+  border-color: rgba(124, 58, 237, 0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(124, 58, 237, 0.1);
 }
 
 .contact-icon {
-  font-size: 36px;
-  margin-bottom: 16px;
+  font-size: 32px;
+  margin-bottom: 14px;
 }
 
 .contact-card h4 {
-  font-size: 18px;
+  font-size: 16px;
   color: white;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .contact-card p {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-muted);
 }
 
 @media (max-width: 900px) {
-  .mission-grid {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-
-  .features-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .tech-grid {
-    flex-wrap: wrap;
-  }
-
-  .contact-options {
-    grid-template-columns: 1fr;
-  }
+  .mission-grid { grid-template-columns: 1fr; text-align: center; }
+  .features-grid { grid-template-columns: repeat(2, 1fr); }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .contact-options { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 600px) {
-  .hero h1 {
-    font-size: 36px;
-  }
-
-  .features-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .cta-buttons {
-    flex-direction: column;
-  }
+  .features-grid { grid-template-columns: 1fr; }
+  .cta-buttons { flex-direction: column; }
+  .cta-card { padding: 40px 24px; }
 }
 </style>

@@ -315,7 +315,7 @@ useHead({
 
 <style scoped>
 .gradient-text {
-  background: linear-gradient(135deg, #0ea5e9, #06b6d4, #14b8a6);
+  background: linear-gradient(135deg, #0ea5e9, #7c3aed, #14b8a6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -427,7 +427,7 @@ useHead({
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #0ea5e9, #06b6d4);
+  background: linear-gradient(135deg, #0ea5e9, #7c3aed);
   color: white;
   box-shadow: 0 4px 20px rgba(14, 165, 233, 0.4);
 }
@@ -652,7 +652,7 @@ useHead({
   left: 50%;
   transform: translateX(-50%);
   padding: 14px 28px;
-  background: linear-gradient(135deg, #0ea5e9, #06b6d4);
+  background: linear-gradient(135deg, #0ea5e9, #7c3aed);
   border-radius: 12px;
   color: white;
   font-weight: 600;

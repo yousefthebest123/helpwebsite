@@ -274,7 +274,7 @@ useHead({ title: 'Lorem Ipsum Generator - QuickHelp.lol' })
 .section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
 .section-icon { font-size: 24px; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border-radius: 14px; }
 .section-icon.orange { background: rgba(249, 115, 22, 0.15); }
-.section-icon.cyan { background: rgba(6, 182, 212, 0.15); }
+.section-icon.cyan { background: rgba(124, 58, 237, 0.15); }
 .section-title { color: white; font-size: 18px; font-weight: 600; }
 
 /* Options Grid */
@@ -376,23 +376,23 @@ useHead({ title: 'Lorem Ipsum Generator - QuickHelp.lol' })
 
 .copy-btn {
   padding: 12px 24px;
-  background: rgba(6, 182, 212, 0.1);
-  border: 1px solid rgba(6, 182, 212, 0.3);
+  background: rgba(124, 58, 237, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.3);
   border-radius: 12px;
-  color: #22d3ee;
+  color: #a78bfa;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s;
 }
 
-.copy-btn:hover { background: rgba(6, 182, 212, 0.2); }
+.copy-btn:hover { background: rgba(124, 58, 237, 0.2); }
 .copy-btn.copied { background: rgba(16, 185, 129, 0.2); border-color: rgba(16, 185, 129, 0.4); color: #34d399; }
 
 .output-box {
   padding: 24px;
   background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.1);
   border-radius: 16px;
   max-height: 400px;
   overflow-y: auto;

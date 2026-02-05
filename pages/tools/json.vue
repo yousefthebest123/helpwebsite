@@ -726,7 +726,7 @@ watch(inputJson, validateJson)
 }
 
 :deep(.tree-value:hover) {
-  background: rgba(99, 102, 241, 0.2);
+  background: rgba(124, 58, 237, 0.2);
 }
 
 :deep(.tree-value.string) {

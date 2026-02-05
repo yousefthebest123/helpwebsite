@@ -236,7 +236,7 @@ useHead({ title: 'UUID Generator - QuickHelp.lol' })
 }
 
 .tool-badge.teal {
-  background: linear-gradient(135deg, rgba(20, 184, 166, 0.15), rgba(6, 182, 212, 0.15));
+  background: linear-gradient(135deg, rgba(20, 184, 166, 0.15), rgba(124, 58, 237, 0.15));
   border: 1px solid rgba(20, 184, 166, 0.3);
   color: #2dd4bf;
 }
@@ -248,7 +248,7 @@ useHead({ title: 'UUID Generator - QuickHelp.lol' })
 }
 
 .title-gradient {
-  background: linear-gradient(135deg, #2dd4bf, #06b6d4, #8b5cf6);
+  background: linear-gradient(135deg, #2dd4bf, #7c3aed, #8b5cf6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -264,14 +264,14 @@ useHead({ title: 'UUID Generator - QuickHelp.lol' })
 
 .tool-card {
   background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.8));
-  border: 1px solid rgba(6, 182, 212, 0.15);
+  border: 1px solid rgba(124, 58, 237, 0.15);
   border-radius: 24px;
   overflow: hidden;
 }
 
 .card-section {
   padding: 32px;
-  border-bottom: 1px solid rgba(6, 182, 212, 0.1);
+  border-bottom: 1px solid rgba(124, 58, 237, 0.1);
 }
 
 .card-section:last-child { border-bottom: none; }
@@ -294,7 +294,7 @@ useHead({ title: 'UUID Generator - QuickHelp.lol' })
 }
 
 .section-icon.teal { background: rgba(20, 184, 166, 0.15); border: 1px solid rgba(20, 184, 166, 0.3); }
-.section-icon.cyan { background: rgba(6, 182, 212, 0.15); border: 1px solid rgba(6, 182, 212, 0.3); }
+.section-icon.cyan { background: rgba(124, 58, 237, 0.15); border: 1px solid rgba(124, 58, 237, 0.3); }
 .section-icon.purple { background: rgba(139, 92, 246, 0.15); border: 1px solid rgba(139, 92, 246, 0.3); }
 
 .section-title { color: white; font-size: 18px; font-weight: 600; margin-bottom: 4px; }
@@ -313,7 +313,7 @@ useHead({ title: 'UUID Generator - QuickHelp.lol' })
 .option-select {
   padding: 14px 18px;
   background: rgba(15, 23, 42, 0.8);
-  border: 1px solid rgba(6, 182, 212, 0.2);
+  border: 1px solid rgba(124, 58, 237, 0.2);
   border-radius: 12px;
   color: white;
   font-size: 15px;
@@ -336,7 +336,7 @@ useHead({ title: 'UUID Generator - QuickHelp.lol' })
   gap: 16px;
   padding: 24px;
   background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(6, 182, 212, 0.15);
+  border: 1px solid rgba(124, 58, 237, 0.15);
   border-radius: 16px;
 }
 
@@ -358,17 +358,17 @@ useHead({ title: 'UUID Generator - QuickHelp.lol' })
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(6, 182, 212, 0.1);
-  border: 1px solid rgba(6, 182, 212, 0.3);
+  background: rgba(124, 58, 237, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.3);
   border-radius: 12px;
   font-size: 18px;
   cursor: pointer;
   transition: all 0.3s;
 }
 
-.action-btn:hover { background: rgba(6, 182, 212, 0.2); transform: scale(1.05); }
+.action-btn:hover { background: rgba(124, 58, 237, 0.2); transform: scale(1.05); }
 .action-btn.copied { background: rgba(16, 185, 129, 0.2); border-color: rgba(16, 185, 129, 0.4); }
-.action-btn.refresh { background: linear-gradient(135deg, #2dd4bf, #06b6d4); border-color: transparent; }
+.action-btn.refresh { background: linear-gradient(135deg, #2dd4bf, #7c3aed); border-color: transparent; }
 .action-btn.refresh:hover { transform: scale(1.05) rotate(180deg); }
 
 .bulk-controls {
@@ -383,7 +383,7 @@ useHead({ title: 'UUID Generator - QuickHelp.lol' })
   width: 100px;
   padding: 14px 18px;
   background: rgba(15, 23, 42, 0.8);
-  border: 1px solid rgba(6, 182, 212, 0.2);
+  border: 1px solid rgba(124, 58, 237, 0.2);
   border-radius: 12px;
   color: white;
   font-size: 16px;
@@ -400,7 +400,7 @@ useHead({ title: 'UUID Generator - QuickHelp.lol' })
   justify-content: center;
   gap: 10px;
   padding: 14px 24px;
-  background: linear-gradient(135deg, #2dd4bf, #06b6d4);
+  background: linear-gradient(135deg, #2dd4bf, #7c3aed);
   border: none;
   border-radius: 12px;
   color: white;
@@ -410,7 +410,7 @@ useHead({ title: 'UUID Generator - QuickHelp.lol' })
   transition: all 0.3s;
 }
 
-.generate-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(6, 182, 212, 0.4); }
+.generate-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(124, 58, 237, 0.4); }
 
 .bulk-results { margin-top: 24px; }
 
@@ -425,16 +425,16 @@ useHead({ title: 'UUID Generator - QuickHelp.lol' })
 
 .copy-all-btn {
   padding: 10px 20px;
-  background: rgba(6, 182, 212, 0.1);
-  border: 1px solid rgba(6, 182, 212, 0.3);
+  background: rgba(124, 58, 237, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.3);
   border-radius: 10px;
-  color: #22d3ee;
+  color: #a78bfa;
   font-size: 14px;
   cursor: pointer;
   transition: all 0.3s;
 }
 
-.copy-all-btn:hover { background: rgba(6, 182, 212, 0.2); }
+.copy-all-btn:hover { background: rgba(124, 58, 237, 0.2); }
 .copy-all-btn.copied { background: rgba(16, 185, 129, 0.2); border-color: rgba(16, 185, 129, 0.4); color: #34d399; }
 
 .uuid-list {
@@ -452,12 +452,12 @@ useHead({ title: 'UUID Generator - QuickHelp.lol' })
   gap: 16px;
   padding: 14px 18px;
   background: rgba(15, 23, 42, 0.6);
-  border: 1px solid rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.1);
   border-radius: 12px;
   transition: all 0.3s;
 }
 
-.uuid-item:hover { border-color: rgba(6, 182, 212, 0.25); }
+.uuid-item:hover { border-color: rgba(124, 58, 237, 0.25); }
 
 .uuid-index {
   width: 32px;
@@ -465,9 +465,9 @@ useHead({ title: 'UUID Generator - QuickHelp.lol' })
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(6, 182, 212, 0.1);
+  background: rgba(124, 58, 237, 0.1);
   border-radius: 8px;
-  color: #22d3ee;
+  color: #a78bfa;
   font-size: 13px;
   font-weight: 600;
 }
@@ -481,16 +481,16 @@ useHead({ title: 'UUID Generator - QuickHelp.lol' })
 
 .copy-item-btn {
   padding: 8px 12px;
-  background: rgba(6, 182, 212, 0.1);
-  border: 1px solid rgba(6, 182, 212, 0.2);
+  background: rgba(124, 58, 237, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.2);
   border-radius: 8px;
-  color: #22d3ee;
+  color: #a78bfa;
   font-size: 13px;
   cursor: pointer;
   transition: all 0.3s;
 }
 
-.copy-item-btn:hover { background: rgba(6, 182, 212, 0.2); }
+.copy-item-btn:hover { background: rgba(124, 58, 237, 0.2); }
 .copy-item-btn.copied { background: rgba(16, 185, 129, 0.2); border-color: rgba(16, 185, 129, 0.4); color: #34d399; }
 
 .info-box {
@@ -498,7 +498,7 @@ useHead({ title: 'UUID Generator - QuickHelp.lol' })
   gap: 16px;
   margin: 32px;
   padding: 20px 24px;
-  background: linear-gradient(135deg, rgba(20, 184, 166, 0.1), rgba(6, 182, 212, 0.1));
+  background: linear-gradient(135deg, rgba(20, 184, 166, 0.1), rgba(124, 58, 237, 0.1));
   border: 1px solid rgba(20, 184, 166, 0.2);
   border-radius: 16px;
 }

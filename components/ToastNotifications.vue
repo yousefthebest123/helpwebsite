@@ -65,7 +65,7 @@ provide('toast', addToast)
   gap: 12px;
   padding: 14px 18px;
   background: var(--surface);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-light);
   border-radius: 12px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
   min-width: 280px;
@@ -100,7 +100,7 @@ provide('toast', addToast)
 }
 
 .toast.info .toast-icon {
-  background: rgba(99, 102, 241, 0.2);
+  background: rgba(124, 58, 237, 0.2);
   color: #a5b4fc;
 }
 
