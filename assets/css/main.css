@@ -20,6 +20,7 @@
   --text-dim: #64748b;
   --border: rgba(6, 182, 212, 0.2);
   --glow: rgba(6, 182, 212, 0.5);
+  --navbar-height: 72px;
   --gradient-1: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
   --gradient-2: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
   --gradient-3: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
@@ -43,6 +44,11 @@ body {
   color: var(--text);
   min-height: 100vh;
   overflow-x: hidden;
+}
+
+/* Ensure main content sits beneath the fixed navbar */
+main.container {
+  padding-top: var(--navbar-height) !important;
 }
 
 /* Selection */
