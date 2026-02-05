@@ -1,83 +1,126 @@
 <template>
-  <div class="min-h-screen">
-    
-    <main class="container mx-auto px-6 pt-20 pb-16">
-      <div class="text-center mb-12">
-        <div class="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/10 border border-purple-500/30 rounded-full text-purple-400 text-sm mb-6">
+  <div class="tool-page min-h-screen">
+    <div class="cyber-grid"></div>
+    <div class="animated-bg"></div>
+
+    <main class="container mx-auto px-6 pt-24 pb-16 relative z-10">
+      <!-- Header -->
+      <div class="text-center mb-12 animate-fade-in-up">
+        <NuxtLink to="/tools" class="back-link">
+          <span>←</span> Back to Tools
+        </NuxtLink>
+        <div class="tool-badge purple">
           <span>📅</span>
           <span>Calculator</span>
         </div>
-        <h1 class="text-4xl md:text-5xl font-bold mb-4">
-          <span class="gradient-text">Age Calculator</span>
+        <h1 class="page-title">
+          <span class="title-gradient">Age Calculator</span>
         </h1>
-        <p class="text-slate-400 text-lg">
-          Find out your exact age in years, months, days, and more!
+        <p class="page-subtitle">
+          Find out your exact age in years, months, days, and more fun statistics!
         </p>
       </div>
 
-      <div class="max-w-2xl mx-auto">
-        <div class="glass-card p-8">
-          <div class="grid md:grid-cols-2 gap-6 mb-8">
-            <div>
-              <label class="block text-sm font-medium text-slate-300 mb-2">Birth Date</label>
-              <input
-                v-model="birthDate"
-                type="date"
-                class="input"
-                :max="today"
-              />
+      <div class="max-w-3xl mx-auto">
+        <div class="tool-card">
+          <!-- Date Inputs -->
+          <div class="card-section">
+            <div class="dates-grid">
+              <div class="date-group">
+                <label class="date-label">
+                  <span class="label-icon">🎂</span>
+                  Birth Date
+                </label>
+                <input
+                  v-model="birthDate"
+                  type="date"
+                  class="date-input"
+                  :max="today"
+                />
+              </div>
+              <div class="date-group">
+                <label class="date-label">
+                  <span class="label-icon">📆</span>
+                  Calculate Age On
+                </label>
+                <input
+                  v-model="targetDate"
+                  type="date"
+                  class="date-input"
+                />
+              </div>
             </div>
-            <div>
-              <label class="block text-sm font-medium text-slate-300 mb-2">Calculate Age On</label>
-              <input
-                v-model="targetDate"
-                type="date"
-                class="input"
-              />
-            </div>
+
+            <button @click="calculateAge" class="calculate-btn">
+              <span>🎉</span>
+              Calculate My Age
+            </button>
           </div>
 
-          <button @click="calculateAge" class="w-full btn btn-primary btn-lg mb-8">
-            Calculate Age 🎂
-          </button>
-
-          <div v-if="result" class="space-y-6">
+          <!-- Results -->
+          <div v-if="result" class="card-section results">
             <!-- Main Age Display -->
-            <div class="text-center p-8 bg-gradient-to-r from-purple-500/10 to-cyan-500/10 rounded-2xl border border-purple-500/30">
-              <p class="text-6xl font-bold gradient-text mb-2">{{ result.years }}</p>
-              <p class="text-slate-400">Years Old</p>
+            <div class="age-hero">
+              <div class="age-number">{{ result.years }}</div>
+              <div class="age-label">Years Old</div>
+              <div class="age-cake">🎂</div>
             </div>
 
-            <!-- Detailed Breakdown -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div class="text-center p-4 bg-slate-800/50 rounded-xl">
-                <p class="text-2xl font-bold text-cyan-400">{{ result.months }}</p>
-                <p class="text-slate-500 text-sm">Months</p>
+            <!-- Breakdown Grid -->
+            <div class="breakdown-grid">
+              <div class="break-card">
+                <div class="break-icon">📅</div>
+                <div class="break-value">{{ result.months }}</div>
+                <div class="break-label">Months</div>
               </div>
-              <div class="text-center p-4 bg-slate-800/50 rounded-xl">
-                <p class="text-2xl font-bold text-cyan-400">{{ result.days }}</p>
-                <p class="text-slate-500 text-sm">Days</p>
+              <div class="break-card">
+                <div class="break-icon">☀️</div>
+                <div class="break-value">{{ result.days }}</div>
+                <div class="break-label">Days</div>
               </div>
-              <div class="text-center p-4 bg-slate-800/50 rounded-xl">
-                <p class="text-2xl font-bold text-cyan-400">{{ result.weeks }}</p>
-                <p class="text-slate-500 text-sm">Weeks</p>
+              <div class="break-card">
+                <div class="break-icon">📆</div>
+                <div class="break-value">{{ result.weeks.toLocaleString() }}</div>
+                <div class="break-label">Weeks</div>
               </div>
-              <div class="text-center p-4 bg-slate-800/50 rounded-xl">
-                <p class="text-2xl font-bold text-cyan-400">{{ result.hours.toLocaleString() }}</p>
-                <p class="text-slate-500 text-sm">Hours</p>
+              <div class="break-card">
+                <div class="break-icon">⏰</div>
+                <div class="break-value">{{ result.hours.toLocaleString() }}</div>
+                <div class="break-label">Hours</div>
               </div>
             </div>
 
             <!-- Fun Facts -->
-            <div class="p-6 bg-slate-800/30 rounded-xl">
-              <h3 class="font-semibold text-white mb-4">Fun Facts 🎉</h3>
-              <ul class="space-y-2 text-slate-400">
-                <li>• You've lived approximately <span class="text-cyan-400">{{ result.minutes.toLocaleString() }}</span> minutes</li>
-                <li>• Your heart has beaten about <span class="text-cyan-400">{{ result.heartbeats.toLocaleString() }}</span> times</li>
-                <li>• You've taken around <span class="text-cyan-400">{{ result.breaths.toLocaleString() }}</span> breaths</li>
-                <li>• Next birthday in <span class="text-purple-400">{{ result.daysUntilBirthday }}</span> days</li>
-              </ul>
+            <div class="fun-facts">
+              <div class="facts-header">
+                <span class="facts-icon">🎉</span>
+                <h3 class="facts-title">Fun Facts About You</h3>
+              </div>
+              <div class="facts-grid">
+                <div class="fact-item">
+                  <span class="fact-emoji">⏱️</span>
+                  <p class="fact-text">You've lived approximately <span class="fact-value">{{ result.minutes.toLocaleString() }}</span> minutes</p>
+                </div>
+                <div class="fact-item">
+                  <span class="fact-emoji">💓</span>
+                  <p class="fact-text">Your heart has beaten about <span class="fact-value">{{ result.heartbeats.toLocaleString() }}</span> times</p>
+                </div>
+                <div class="fact-item">
+                  <span class="fact-emoji">🌬️</span>
+                  <p class="fact-text">You've taken around <span class="fact-value">{{ result.breaths.toLocaleString() }}</span> breaths</p>
+                </div>
+                <div class="fact-item highlight">
+                  <span class="fact-emoji">🎁</span>
+                  <p class="fact-text">Next birthday in <span class="fact-value birthday">{{ result.daysUntilBirthday }}</span> days!</p>
+                </div>
+              </div>
             </div>
+          </div>
+
+          <!-- Placeholder -->
+          <div v-else class="card-section placeholder">
+            <div class="placeholder-icon">🎂</div>
+            <p class="placeholder-text">Enter your birth date and click calculate to see your age details!</p>
           </div>
         </div>
       </div>
@@ -116,7 +159,6 @@ const calculateAge = () => {
   const totalHours = totalDays * 24
   const totalMinutes = totalHours * 60
 
-  // Next birthday calculation
   const nextBirthday = new Date(target.getFullYear(), birth.getMonth(), birth.getDate())
   if (nextBirthday <= target) {
     nextBirthday.setFullYear(nextBirthday.getFullYear() + 1)
@@ -140,5 +182,204 @@ useHead({ title: 'Age Calculator - QuickHelp.lol' })
 </script>
 
 <style scoped>
-/* Uses global .glass-card and .gradient-text from main.css */
+.tool-page {
+  position: relative;
+  background: linear-gradient(180deg, #030712 0%, #0a1628 50%, #030712 100%);
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #64748b;
+  font-size: 14px;
+  text-decoration: none;
+  margin-bottom: 24px;
+  transition: color 0.3s;
+}
+
+.back-link:hover { color: #a78bfa; }
+
+.tool-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+.tool-badge.purple {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(168, 85, 247, 0.15));
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  color: #a78bfa;
+}
+
+.page-title { font-size: 3rem; font-weight: 800; margin-bottom: 16px; }
+
+.title-gradient {
+  background: linear-gradient(135deg, #a78bfa, #f472b6, #fb923c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.page-subtitle { color: #94a3b8; font-size: 18px; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+
+.tool-card {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.8));
+  border: 1px solid rgba(139, 92, 246, 0.15);
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.card-section { padding: 32px; border-bottom: 1px solid rgba(139, 92, 246, 0.1); }
+.card-section:last-child { border-bottom: none; }
+
+/* Date Inputs */
+.dates-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 28px; }
+
+.date-group { display: flex; flex-direction: column; gap: 10px; }
+
+.date-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #94a3b8;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.label-icon { font-size: 16px; }
+
+.date-input {
+  padding: 16px 20px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 14px;
+  color: white;
+  font-size: 16px;
+}
+
+.date-input:focus { outline: none; border-color: #a78bfa; }
+
+.calculate-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 18px 32px;
+  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+  border: none;
+  border-radius: 16px;
+  color: white;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.calculate-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(139, 92, 246, 0.4); }
+
+/* Age Hero */
+.age-hero {
+  text-align: center;
+  padding: 48px 24px;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1));
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 24px;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+.age-number {
+  font-size: 96px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #a78bfa, #f472b6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.age-label { color: #94a3b8; font-size: 20px; font-weight: 500; }
+
+.age-cake {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  font-size: 40px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Breakdown Grid */
+.breakdown-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
+
+.break-card {
+  padding: 24px 16px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(6, 182, 212, 0.15);
+  border-radius: 16px;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.break-card:hover { border-color: rgba(6, 182, 212, 0.4); transform: translateY(-4px); }
+
+.break-icon { font-size: 24px; margin-bottom: 10px; }
+.break-value { color: #22d3ee; font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+.break-label { color: #64748b; font-size: 13px; }
+
+/* Fun Facts */
+.fun-facts {
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+}
+
+.facts-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.facts-icon { font-size: 24px; }
+.facts-title { color: white; font-size: 18px; font-weight: 600; }
+
+.facts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+.fact-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(100, 116, 139, 0.15);
+  border-radius: 14px;
+}
+
+.fact-item.highlight { background: rgba(139, 92, 246, 0.1); border-color: rgba(139, 92, 246, 0.3); }
+
+.fact-emoji { font-size: 24px; }
+.fact-text { color: #94a3b8; font-size: 14px; line-height: 1.4; }
+.fact-value { color: #22d3ee; font-weight: 600; }
+.fact-value.birthday { color: #a78bfa; }
+
+/* Placeholder */
+.placeholder { text-align: center; padding: 60px 32px !important; }
+.placeholder-icon { font-size: 64px; margin-bottom: 20px; }
+.placeholder-text { color: #64748b; font-size: 16px; }
+
+@media (max-width: 768px) {
+  .page-title { font-size: 2rem; }
+  .dates-grid { grid-template-columns: 1fr; }
+  .breakdown-grid { grid-template-columns: repeat(2, 1fr); }
+  .facts-grid { grid-template-columns: 1fr; }
+  .age-number { font-size: 64px; }
+}
 </style>

@@ -1812,14 +1812,14 @@ definePageMeta({
   justify-content: center;
   padding: 32px;
   text-align: center;
-  color: #64748b;
+  color: #94a3b8;
 }
 
 .empty-state span { font-size: 32px; margin-bottom: 12px; }
 .empty-state.large { padding: 64px; }
 .empty-state.large span { font-size: 48px; }
 .empty-state h3 { color: white; font-size: 18px; margin-bottom: 8px; }
-.empty-state p { max-width: 300px; margin-bottom: 20px; }
+.empty-state p { max-width: 300px; margin-bottom: 20px; color: #64748b; }
 
 .modal-overlay {
   position: fixed;
