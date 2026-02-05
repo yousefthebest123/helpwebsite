@@ -140,10 +140,12 @@ body {
 .glass-card {
   background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.7));
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(6, 182, 212, 0.2);
   border-radius: 20px;
   position: relative;
   overflow: hidden;
+  transition: all 0.3s ease;
 }
 
 .glass-card::before {
@@ -154,6 +156,76 @@ body {
   right: 0;
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--primary), transparent);
+}
+
+.glass-card:hover {
+  border-color: rgba(6, 182, 212, 0.35);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 0 0 30px rgba(6, 182, 212, 0.1);
+}
+
+/* Tool page specific styling */
+.tool-page-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.tool-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+.tool-badge.cyan {
+  background: rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  color: #22d3ee;
+}
+
+.tool-badge.blue {
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  color: #60a5fa;
+}
+
+.tool-badge.purple {
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  color: #a78bfa;
+}
+
+.tool-badge.green {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #34d399;
+}
+
+.tool-badge.pink {
+  background: rgba(236, 72, 153, 0.1);
+  border: 1px solid rgba(236, 72, 153, 0.3);
+  color: #f472b6;
+}
+
+.tool-badge.orange {
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: #fbbf24;
+}
+
+.tool-badge.red {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #f87171;
+}
+
+.tool-badge.teal {
+  background: rgba(20, 184, 166, 0.1);
+  border: 1px solid rgba(20, 184, 166, 0.3);
+  color: #2dd4bf;
 }
 
 /* Neon Glow Effects */
@@ -183,6 +255,19 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
   text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-sm {
+  padding: 8px 16px;
+  font-size: 13px;
+  border-radius: 8px;
+}
+
+.btn-lg {
+  padding: 16px 32px;
+  font-size: 16px;
+  border-radius: 14px;
 }
 
 .btn-primary {
@@ -194,6 +279,12 @@ body {
 .btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 30px rgba(6, 182, 212, 0.5);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .btn-secondary {
@@ -211,6 +302,7 @@ body {
 .btn-ghost {
   background: transparent;
   color: var(--text-muted);
+  padding: 8px 12px;
 }
 
 .btn-ghost:hover {
@@ -289,6 +381,11 @@ body {
   box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2), 0 0 20px rgba(6, 182, 212, 0.1);
 }
 
+.input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .input::placeholder {
   color: var(--text-muted);
 }
@@ -296,6 +393,44 @@ body {
 textarea.input {
   resize: vertical;
   min-height: 120px;
+  line-height: 1.6;
+}
+
+/* Select with custom styling */
+select.input {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 18px;
+  padding-right: 48px;
+  cursor: pointer;
+}
+
+/* Stat card styling */
+.stat-card {
+  padding: 1.5rem;
+  background: var(--surface);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  border-color: rgba(6, 182, 212, 0.2);
+  transform: translateY(-2px);
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: var(--text-muted);
 }
 
 /* Select dropdown */
@@ -768,16 +903,36 @@ textarea.input {
 .drop-zone {
   border: 2px dashed rgba(6, 182, 212, 0.3);
   border-radius: 16px;
-  padding: 48px;
+  padding: 48px 24px;
   text-align: center;
   transition: all 0.3s ease;
   cursor: pointer;
+  background: rgba(6, 182, 212, 0.02);
 }
 
 .drop-zone:hover,
-.drop-zone.active {
+.drop-zone.active,
+.drop-zone.dragging {
   border-color: var(--primary);
   background: rgba(6, 182, 212, 0.1);
+  box-shadow: 0 0 30px rgba(6, 182, 212, 0.15);
+}
+
+.drop-zone-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.drop-zone-text {
+  color: white;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.drop-zone-hint {
+  color: var(--text-muted);
+  font-size: 0.875rem;
 }
 
 /* Slider range */

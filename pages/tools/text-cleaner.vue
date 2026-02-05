@@ -1,32 +1,44 @@
 <template>
-  <div class="tool-page">
-    <div class="container">
-      <div class="tool-header">
-        <NuxtLink to="/tools" class="back-link">← Back to Tools</NuxtLink>
-        <h1><span>✨</span> Text Cleaner</h1>
-        <p>Remove formatting, fix whitespace, convert case, and clean up messy text instantly.</p>
+  <div class="min-h-screen">
+    <main class="container mx-auto px-6 pt-20 pb-16">
+      <!-- Header -->
+      <div class="text-center mb-10">
+        <NuxtLink to="/tools" class="inline-flex items-center gap-2 text-slate-400 hover:text-cyan-400 text-sm mb-6 transition-colors">
+          <span>←</span> Back to Tools
+        </NuxtLink>
+        <div class="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/10 border border-purple-500/30 rounded-full text-purple-400 text-sm mb-6 mx-auto block w-fit">
+          <span>✨</span>
+          <span>Text Tool</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">
+          <span class="gradient-text">Text Cleaner</span>
+        </h1>
+        <p class="text-slate-400 text-lg max-w-2xl mx-auto">
+          Remove formatting, fix whitespace, convert case, and clean up messy text instantly.
+        </p>
       </div>
 
-      <div class="cleaner-layout">
-        <!-- Input -->
-        <div class="input-section glass">
-          <div class="section-header">
-            <h3>Input Text</h3>
-            <div class="header-actions">
-              <button class="btn btn-ghost btn-sm" @click="pasteFromClipboard">
+      <!-- Main Content -->
+      <div class="grid lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+        <!-- Input Section -->
+        <div class="glass-card p-6">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold text-white">Input Text</h3>
+            <div class="flex gap-2">
+              <button class="btn btn-ghost btn-sm text-cyan-400" @click="pasteFromClipboard">
                 📋 Paste
               </button>
-              <button class="btn btn-ghost btn-sm" @click="clearInput">
+              <button class="btn btn-ghost btn-sm text-slate-400" @click="clearInput">
                 🗑️ Clear
               </button>
             </div>
           </div>
           <textarea 
             v-model="inputText"
-            class="text-area"
+            class="input min-h-[350px] font-mono text-sm resize-none"
             placeholder="Paste or type your messy text here..."
           ></textarea>
-          <div class="input-stats">
+          <div class="mt-3 flex gap-4 text-xs text-slate-500">
             <span>{{ inputText.length }} characters</span>
             <span>•</span>
             <span>{{ wordCount }} words</span>
@@ -35,78 +47,101 @@
           </div>
         </div>
 
-        <!-- Tools -->
-        <div class="tools-section">
-          <div class="tools-category">
-            <h4>✂️ Remove</h4>
-            <div class="tools-grid">
+        <!-- Tools Section -->
+        <div class="space-y-6">
+          <!-- Remove Tools -->
+          <div class="glass-card p-5">
+            <h4 class="text-sm font-semibold text-slate-300 mb-4 flex items-center gap-2">
+              <span class="text-red-400">✂️</span> Remove
+            </h4>
+            <div class="flex flex-wrap gap-2">
               <button 
                 v-for="tool in removeTools"
                 :key="tool.id"
-                :class="['tool-btn', { active: activeTools.includes(tool.id) }]"
+                :class="[
+                  'px-3 py-2 rounded-lg text-xs font-medium transition-all border',
+                  activeTools.includes(tool.id) 
+                    ? 'bg-cyan-500/20 border-cyan-500/50 text-cyan-400' 
+                    : 'bg-slate-800/50 border-slate-700 text-slate-400 hover:border-slate-600'
+                ]"
                 @click="toggleTool(tool.id)"
               >
-                <span class="tool-icon">{{ tool.icon }}</span>
-                <span class="tool-name">{{ tool.name }}</span>
+                <span class="mr-1">{{ tool.icon }}</span>
+                {{ tool.name }}
               </button>
             </div>
           </div>
 
-          <div class="tools-category">
-            <h4>🔤 Transform Case</h4>
-            <div class="tools-grid">
+          <!-- Case Tools -->
+          <div class="glass-card p-5">
+            <h4 class="text-sm font-semibold text-slate-300 mb-4 flex items-center gap-2">
+              <span class="text-blue-400">🔤</span> Transform Case
+            </h4>
+            <div class="flex flex-wrap gap-2">
               <button 
                 v-for="tool in caseTools"
                 :key="tool.id"
-                :class="['tool-btn', { active: selectedCase === tool.id }]"
+                :class="[
+                  'px-3 py-2 rounded-lg text-xs font-medium transition-all border',
+                  selectedCase === tool.id 
+                    ? 'bg-blue-500/20 border-blue-500/50 text-blue-400' 
+                    : 'bg-slate-800/50 border-slate-700 text-slate-400 hover:border-slate-600'
+                ]"
                 @click="selectCase(tool.id)"
               >
-                <span class="tool-icon">{{ tool.icon }}</span>
-                <span class="tool-name">{{ tool.name }}</span>
+                {{ tool.name }}
               </button>
             </div>
           </div>
 
-          <div class="tools-category">
-            <h4>🔧 Fix & Format</h4>
-            <div class="tools-grid">
+          <!-- Format Tools -->
+          <div class="glass-card p-5">
+            <h4 class="text-sm font-semibold text-slate-300 mb-4 flex items-center gap-2">
+              <span class="text-green-400">🔧</span> Fix & Format
+            </h4>
+            <div class="flex flex-wrap gap-2">
               <button 
                 v-for="tool in formatTools"
                 :key="tool.id"
-                :class="['tool-btn', { active: activeTools.includes(tool.id) }]"
+                :class="[
+                  'px-3 py-2 rounded-lg text-xs font-medium transition-all border',
+                  activeTools.includes(tool.id) 
+                    ? 'bg-green-500/20 border-green-500/50 text-green-400' 
+                    : 'bg-slate-800/50 border-slate-700 text-slate-400 hover:border-slate-600'
+                ]"
                 @click="toggleTool(tool.id)"
               >
-                <span class="tool-icon">{{ tool.icon }}</span>
-                <span class="tool-name">{{ tool.name }}</span>
+                <span class="mr-1">{{ tool.icon }}</span>
+                {{ tool.name }}
               </button>
             </div>
           </div>
 
-          <button class="btn btn-primary btn-lg apply-btn" @click="applyAll">
+          <button class="w-full btn btn-primary btn-lg" @click="applyAll">
             ✨ Apply Transformations
           </button>
         </div>
 
-        <!-- Output -->
-        <div class="output-section glass">
-          <div class="section-header">
-            <h3>Cleaned Output</h3>
-            <div class="header-actions">
-              <button class="btn btn-ghost btn-sm" @click="copyOutput">
+        <!-- Output Section -->
+        <div class="glass-card p-6">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold text-white">Cleaned Output</h3>
+            <div class="flex gap-2">
+              <button class="btn btn-ghost btn-sm text-cyan-400" @click="copyOutput">
                 📋 Copy
               </button>
-              <button class="btn btn-ghost btn-sm" @click="downloadOutput">
+              <button class="btn btn-ghost btn-sm text-slate-400" @click="downloadOutput">
                 📥 Download
               </button>
             </div>
           </div>
           <textarea 
             v-model="outputText"
-            class="text-area"
+            class="input min-h-[350px] font-mono text-sm resize-none"
             readonly
             placeholder="Your cleaned text will appear here..."
           ></textarea>
-          <div class="output-stats">
+          <div class="mt-3 flex gap-4 text-xs text-slate-500">
             <span>{{ outputText.length }} characters</span>
             <span v-if="inputText && outputText">
               ({{ Math.abs(inputText.length - outputText.length) }} {{ inputText.length > outputText.length ? 'removed' : 'added' }})
@@ -116,74 +151,70 @@
       </div>
 
       <!-- Quick Actions -->
-      <div class="quick-actions">
-        <h3>⚡ Quick Actions</h3>
-        <div class="quick-btns">
-          <button class="btn btn-secondary" @click="quickAction('prettifyJson')">
-            Format JSON
-          </button>
-          <button class="btn btn-secondary" @click="quickAction('minifyJson')">
-            Minify JSON
-          </button>
-          <button class="btn btn-secondary" @click="quickAction('sortLines')">
-            Sort Lines A-Z
-          </button>
-          <button class="btn btn-secondary" @click="quickAction('reverseLines')">
-            Reverse Lines
-          </button>
-          <button class="btn btn-secondary" @click="quickAction('uniqueLines')">
-            Remove Duplicate Lines
-          </button>
-          <button class="btn btn-secondary" @click="quickAction('numberLines')">
-            Number Lines
-          </button>
-          <button class="btn btn-secondary" @click="quickAction('shuffleLines')">
-            Shuffle Lines
-          </button>
+      <div class="max-w-4xl mx-auto mt-10">
+        <div class="glass-card p-6">
+          <h3 class="text-lg font-semibold text-white mb-5 flex items-center gap-2">
+            <span>⚡</span> Quick Actions
+          </h3>
+          <div class="flex flex-wrap justify-center gap-3">
+            <button class="btn btn-secondary" @click="quickAction('prettifyJson')">Format JSON</button>
+            <button class="btn btn-secondary" @click="quickAction('minifyJson')">Minify JSON</button>
+            <button class="btn btn-secondary" @click="quickAction('sortLines')">Sort Lines A-Z</button>
+            <button class="btn btn-secondary" @click="quickAction('reverseLines')">Reverse Lines</button>
+            <button class="btn btn-secondary" @click="quickAction('uniqueLines')">Remove Duplicates</button>
+            <button class="btn btn-secondary" @click="quickAction('numberLines')">Number Lines</button>
+            <button class="btn btn-secondary" @click="quickAction('shuffleLines')">Shuffle Lines</button>
+          </div>
         </div>
       </div>
 
       <!-- Find & Replace -->
-      <div class="find-replace glass">
-        <h3>🔍 Find & Replace</h3>
-        <div class="find-replace-inputs">
-          <div class="input-group">
-            <label>Find</label>
-            <input 
-              type="text"
-              v-model="findText"
-              class="input"
-              placeholder="Text to find..."
-            />
+      <div class="max-w-3xl mx-auto mt-8">
+        <div class="glass-card p-6">
+          <h3 class="text-lg font-semibold text-white mb-5 flex items-center gap-2">
+            <span>🔍</span> Find & Replace
+          </h3>
+          <div class="grid md:grid-cols-2 gap-4 mb-4">
+            <div>
+              <label class="block text-sm font-medium text-slate-300 mb-2">Find</label>
+              <input 
+                type="text"
+                v-model="findText"
+                class="input"
+                placeholder="Text to find..."
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-300 mb-2">Replace with</label>
+              <input 
+                type="text"
+                v-model="replaceText"
+                class="input"
+                placeholder="Replacement text..."
+              />
+            </div>
           </div>
-          <div class="input-group">
-            <label>Replace with</label>
-            <input 
-              type="text"
-              v-model="replaceText"
-              class="input"
-              placeholder="Replacement text..."
-            />
+          <div class="flex items-center justify-between">
+            <div class="flex gap-4">
+              <label class="flex items-center gap-2 text-sm text-slate-400 cursor-pointer">
+                <input type="checkbox" v-model="findCaseSensitive" class="rounded" />
+                Case sensitive
+              </label>
+              <label class="flex items-center gap-2 text-sm text-slate-400 cursor-pointer">
+                <input type="checkbox" v-model="findRegex" class="rounded" />
+                Use regex
+              </label>
+            </div>
+            <button class="btn btn-primary" @click="findAndReplace">
+              Replace All
+            </button>
           </div>
-          <div class="find-options">
-            <label class="checkbox-label">
-              <input type="checkbox" v-model="findCaseSensitive" />
-              Case sensitive
-            </label>
-            <label class="checkbox-label">
-              <input type="checkbox" v-model="findRegex" />
-              Use regex
-            </label>
-          </div>
-          <button class="btn btn-primary" @click="findAndReplace">
-            Replace All
-          </button>
-        </div>
-        <div class="match-count" v-if="findText">
-          {{ matchCount }} matches found
+          <p v-if="findText" class="text-center text-sm text-slate-500 mt-4">
+            {{ matchCount }} matches found
+          </p>
         </div>
       </div>
-    </div>
+    </main>
   </div>
 </template>
 
@@ -445,236 +476,17 @@ watch([inputText, activeTools, selectedCase], () => {
 </script>
 
 <style scoped>
-.tool-page {
-  padding: 120px 0 80px;
-  min-height: 100vh;
+.gradient-text {
+  background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.tool-header {
-  text-align: center;
-  margin-bottom: 48px;
-}
-
-.back-link {
-  display: inline-block;
-  margin-bottom: 16px;
-  font-size: 14px;
-  color: var(--text-muted);
-  text-decoration: none;
-}
-
-.back-link:hover {
-  color: var(--primary);
-}
-
-.tool-header h1 {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 42px;
-  font-weight: 700;
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-}
-
-.tool-header p {
-  font-size: 16px;
-  color: var(--text-muted);
-}
-
-.cleaner-layout {
-  display: grid;
-  grid-template-columns: 1fr 300px 1fr;
-  gap: 24px;
-  margin-bottom: 40px;
-}
-
-.input-section,
-.output-section {
-  padding: 24px;
-}
-
-.section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
-}
-
-.section-header h3 {
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.header-actions {
-  display: flex;
-  gap: 8px;
-}
-
-.text-area {
-  width: 100%;
-  height: 350px;
-  padding: 16px;
-  font-size: 14px;
-  font-family: monospace;
-  line-height: 1.6;
-  background: var(--surface);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  color: white;
-  resize: vertical;
-}
-
-.text-area:focus {
-  outline: none;
-  border-color: var(--primary);
-}
-
-.input-stats,
-.output-stats {
-  margin-top: 12px;
-  font-size: 12px;
-  color: var(--text-muted);
-  display: flex;
-  gap: 8px;
-}
-
-.tools-section {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.tools-category h4 {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-muted);
-  margin-bottom: 12px;
-}
-
-.tools-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.tool-btn {
-  padding: 10px 14px;
-  background: var(--surface);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.tool-btn:hover {
-  border-color: var(--primary);
-}
-
-.tool-btn.active {
-  background: rgba(99, 102, 241, 0.2);
-  border-color: var(--primary);
-}
-
-.tool-icon {
-  font-size: 14px;
-}
-
-.tool-name {
-  font-size: 12px;
-  color: white;
-}
-
-.apply-btn {
-  margin-top: auto;
-}
-
-.quick-actions {
-  margin-bottom: 40px;
-  text-align: center;
-}
-
-.quick-actions h3 {
-  font-size: 18px;
-  margin-bottom: 20px;
-}
-
-.quick-btns {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-}
-
-.find-replace {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 32px;
-}
-
-.find-replace h3 {
-  font-size: 18px;
-  margin-bottom: 24px;
-}
-
-.find-replace-inputs {
-  display: grid;
-  grid-template-columns: 1fr 1fr auto auto;
-  gap: 16px;
-  align-items: end;
-}
-
-.input-group label {
-  display: block;
-  font-size: 13px;
-  color: var(--text-muted);
-  margin-bottom: 8px;
-}
-
-.find-options {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.checkbox-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-  color: var(--text-muted);
-  cursor: pointer;
-}
-
-.checkbox-label input {
-  width: 16px;
-  height: 16px;
-}
-
-.match-count {
-  margin-top: 16px;
-  font-size: 14px;
-  color: var(--text-muted);
-  text-align: center;
-}
-
-@media (max-width: 1100px) {
-  .cleaner-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .tools-section {
-    order: -1;
-  }
-}
-
-@media (max-width: 700px) {
-  .find-replace-inputs {
-    grid-template-columns: 1fr;
-  }
+.glass-card {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.7));
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(139, 92, 246, 0.15);
+  border-radius: 20px;
 }
 </style>

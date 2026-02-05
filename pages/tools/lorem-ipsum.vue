@@ -138,15 +138,5 @@ useHead({ title: 'Lorem Ipsum Generator - QuickHelp.lol' })
 </script>
 
 <style scoped>
-.gradient-text {
-  background: linear-gradient(135deg, #ef4444, #f97316);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.glass-card {
-  background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.7));
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(239, 68, 68, 0.15);
-  border-radius: 20px;
-}
+/* Uses global .glass-card and .gradient-text from main.css */
 </style>

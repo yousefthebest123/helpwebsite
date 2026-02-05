@@ -184,21 +184,5 @@ useHead({ title: 'Image to Base64 - QuickHelp.lol' })
 </script>
 
 <style scoped>
-.gradient-text {
-  background: linear-gradient(135deg, #ec4899, #8b5cf6);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.glass-card {
-  background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.7));
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(236, 72, 153, 0.15);
-  border-radius: 20px;
-}
-.drop-zone {
-  border: 2px dashed rgba(6, 182, 212, 0.3);
-  border-radius: 16px;
-  padding: 48px;
-  cursor: pointer;
-}
+/* Uses global .glass-card, .gradient-text, and .drop-zone from main.css */
 </style>

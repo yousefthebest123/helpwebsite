@@ -66,6 +66,14 @@
 const inputText = ref('')
 const copiedHash = ref('')
 
+// Reactive hash values
+const hashValues = reactive({
+  md5: '',
+  sha1: '',
+  sha256: '',
+  sha512: ''
+})
+
 // Simple hash functions using Web Crypto API
 const generateHash = async (algorithm: string, text: string): Promise<string> => {
   if (!text) return ''
@@ -139,20 +147,24 @@ const md5 = (string: string): string => {
 }
 
 const hashes = computed(() => [
-  { name: 'MD5', value: md5(inputText.value) },
-  { name: 'SHA-1', value: '' },
-  { name: 'SHA-256', value: '' },
-  { name: 'SHA-512', value: '' }
+  { name: 'MD5', value: hashValues.md5 },
+  { name: 'SHA-1', value: hashValues.sha1 },
+  { name: 'SHA-256', value: hashValues.sha256 },
+  { name: 'SHA-512', value: hashValues.sha512 }
 ])
 
-// Update SHA hashes when input changes
+// Update all hashes when input changes
 watch(inputText, async (text) => {
   if (text) {
-    hashes.value[1].value = await generateHash('SHA-1', text)
-    hashes.value[2].value = await generateHash('SHA-256', text)
-    hashes.value[3].value = await generateHash('SHA-512', text)
+    hashValues.md5 = md5(text)
+    hashValues.sha1 = await generateHash('SHA-1', text)
+    hashValues.sha256 = await generateHash('SHA-256', text)
+    hashValues.sha512 = await generateHash('SHA-512', text)
   } else {
-    hashes.value.forEach(h => h.value = '')
+    hashValues.md5 = ''
+    hashValues.sha1 = ''
+    hashValues.sha256 = ''
+    hashValues.sha512 = ''
   }
 }, { immediate: true })
 
@@ -170,15 +182,5 @@ useHead({ title: 'Hash Generator - QuickHelp.lol' })
 </script>
 
 <style scoped>
-.gradient-text {
-  background: linear-gradient(135deg, #3b82f6, #06b6d4);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.glass-card {
-  background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.7));
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(59, 130, 246, 0.15);
-  border-radius: 20px;
-}
+/* Uses global .glass-card and .gradient-text from main.css */
 </style>

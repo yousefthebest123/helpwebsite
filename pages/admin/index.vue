@@ -628,7 +628,7 @@
       <div class="modal-card">
         <div class="modal-header">
           <h2>➕ Generate Access Code</h2>
-          <button @click="showCodeModal = false; generatedCode = ''" class="modal-close">✕</button>
+          <button @click="closeCodeModal" class="modal-close">✕</button>
         </div>
         
         <form @submit.prevent="handleGenerateCode" class="modal-form">
@@ -650,6 +650,10 @@
             </select>
           </div>
 
+          <div v-if="codeError" class="code-error">
+            <p class="error-label">❌ {{ codeError }}</p>
+          </div>
+
           <div v-if="generatedCode" class="code-result">
             <p class="result-label">✅ Access code generated!</p>
             <div class="code-display">
@@ -660,11 +664,12 @@
           </div>
 
           <div class="modal-actions">
-            <button type="button" @click="showCodeModal = false; generatedCode = ''" class="secondary-btn">
+            <button type="button" @click="closeCodeModal" class="secondary-btn">
               Close
             </button>
-            <button type="submit" :disabled="isLoading" class="primary-btn">
-              {{ isLoading ? 'Generating...' : 'Generate Code' }}
+            <button type="submit" :disabled="codeLoading || !codeForm.username" class="primary-btn">
+              <span v-if="codeLoading" class="loading-spinner"></span>
+              {{ codeLoading ? 'Generating...' : 'Generate Code' }}
             </button>
           </div>
         </form>
@@ -749,6 +754,8 @@ const { tickets, fetchTickets, sendMessage, updateTicket } = useTickets()
 const activeSection = ref('dashboard')
 const showCodeModal = ref(false)
 const generatedCode = ref('')
+const codeError = ref('')
+const codeLoading = ref(false)
 const selectedTicket = ref<any>(null)
 const replyMessage = ref('')
 const members = ref<any[]>([])
@@ -873,12 +880,34 @@ const handleLogout = () => {
 }
 
 const handleGenerateCode = async () => {
-  const result = await generateStaffCode(codeForm.value.role, codeForm.value.username)
-  if (result.success && 'code' in result) {
-    generatedCode.value = result.code
-    codeForm.value = { username: '', role: 'support' }
-    await loadData()
+  if (!codeForm.value.username.trim()) {
+    codeError.value = 'Please enter a username'
+    return
   }
+  
+  codeLoading.value = true
+  codeError.value = ''
+  
+  try {
+    const result = await generateStaffCode(codeForm.value.role, codeForm.value.username)
+    if (result.success && 'code' in result) {
+      generatedCode.value = result.code
+      codeForm.value = { username: '', role: 'support' }
+      await loadData()
+    } else {
+      codeError.value = result.error || 'Failed to generate code'
+    }
+  } catch (error: any) {
+    codeError.value = error.message || 'An unexpected error occurred'
+  } finally {
+    codeLoading.value = false
+  }
+}
+
+const closeCodeModal = () => {
+  showCodeModal.value = false
+  generatedCode.value = ''
+  codeError.value = ''
 }
 
 const copyCode = () => {
@@ -1876,6 +1905,31 @@ definePageMeta({
   border: 1px solid rgba(16, 185, 129, 0.3);
   border-radius: 12px;
   margin-bottom: 20px;
+}
+
+.code-error {
+  padding: 16px 20px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.error-label { color: #f87171; font-size: 14px; font-weight: 500; }
+
+.loading-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 .result-label { color: #34d399; font-size: 14px; font-weight: 500; margin-bottom: 12px; }
