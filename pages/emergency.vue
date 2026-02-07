@@ -173,7 +173,6 @@ const hotlines = [
   { icon: '📞', name: '988 Suicide & Crisis Lifeline', desc: 'Free 24/7 support for anyone in emotional distress', number: 'Call or Text 988', link: 'tel:988' },
   { icon: '💬', name: 'Crisis Text Line', desc: 'Free 24/7 crisis counseling via text', number: 'Text HOME to 741741', link: 'sms:741741' },
   { icon: '🌍', name: 'International Association for Suicide Prevention', desc: 'Find a crisis center in your country', number: 'Visit IASP', link: 'https://www.iasp.info/resources/Crisis_Centres/' },
-  { icon: '🏳️‍🌈', name: 'Trevor Project (LGBTQ+)', desc: 'Crisis support for LGBTQ+ young people', number: 'Call 1-866-488-7386', link: 'tel:18664887386' },
   { icon: '🧒', name: 'Childhelp National Hotline', desc: 'Help for children and young people', number: 'Call 1-800-422-4453', link: 'tel:18004224453' },
   { icon: '🤝', name: 'SAMHSA National Helpline', desc: 'Substance abuse treatment referrals', number: 'Call 1-800-662-4357', link: 'tel:18006624357' },
 ]
