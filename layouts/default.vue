@@ -64,7 +64,7 @@ onMounted(() => {
 .aurora-1 {
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.35), transparent 70%);
+  background: radial-gradient(circle, var(--aurora-1, rgba(124, 58, 237, 0.35)), transparent 70%);
   top: -200px;
   left: -100px;
   animation: floatSphere 20s ease-in-out infinite;
@@ -73,7 +73,7 @@ onMounted(() => {
 .aurora-2 {
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(6, 182, 212, 0.25), transparent 70%);
+  background: radial-gradient(circle, var(--aurora-2, rgba(6, 182, 212, 0.25)), transparent 70%);
   top: 40%;
   right: -150px;
   animation: floatSphere 25s ease-in-out infinite reverse;
@@ -82,7 +82,7 @@ onMounted(() => {
 .aurora-3 {
   width: 400px;
   height: 400px;
-  background: radial-gradient(circle, rgba(236, 72, 153, 0.2), transparent 70%);
+  background: radial-gradient(circle, var(--aurora-3, rgba(236, 72, 153, 0.2)), transparent 70%);
   bottom: -100px;
   left: 30%;
   animation: floatSphere 30s ease-in-out infinite;
@@ -92,8 +92,8 @@ onMounted(() => {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(124, 58, 237, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(124, 58, 237, 0.03) 1px, transparent 1px);
+    linear-gradient(var(--grid-tint, rgba(124, 58, 237, 0.03)) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-tint, rgba(124, 58, 237, 0.03)) 1px, transparent 1px);
   background-size: 60px 60px;
 }
 
