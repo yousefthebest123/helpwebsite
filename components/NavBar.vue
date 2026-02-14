@@ -85,6 +85,10 @@
           <span class="nav-link-icon">✨</span>
           <span>About</span>
         </NuxtLink>
+        <NuxtLink to="/settings" class="nav-link">
+          <span class="nav-link-icon">⚙️</span>
+          <span>Settings</span>
+        </NuxtLink>
       </div>
 
       <!-- Actions -->
@@ -151,6 +155,9 @@
         </NuxtLink>
         <NuxtLink to="/about" class="mobile-link" @click="menuOpen = false">
           <span>✨</span> About
+        </NuxtLink>
+        <NuxtLink to="/settings" class="mobile-link" @click="menuOpen = false">
+          <span>⚙️</span> Settings
         </NuxtLink>
         <div class="mobile-divider"></div>
         <NuxtLink to="/support" class="mobile-link cta" @click="menuOpen = false">

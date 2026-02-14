@@ -1453,6 +1453,43 @@ input[type="range"]::-webkit-slider-thumb:hover {
 /* ============================================
    RESPONSIVE
    ============================================ */
+/* ============================================
+   SETTINGS UTILITY CLASSES
+   ============================================ */
+
+/* No animations mode */
+.no-animations,
+.no-animations *,
+.no-animations *::before,
+.no-animations *::after {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+}
+
+/* Compact mode */
+.compact-mode .container {
+  max-width: 1100px;
+}
+
+.compact-mode section {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.compact-mode .glass {
+  padding: 16px;
+}
+
+.compact-mode .hero {
+  padding: 40px 0 20px;
+}
+
+.compact-mode .hero h1 {
+  font-size: 32px;
+}
+
 @media (max-width: 768px) {
   .chat-bubble { max-width: 90%; }
   .container { padding: 0 16px; }

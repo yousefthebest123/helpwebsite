@@ -22,6 +22,13 @@
 </template>
 
 <script setup>
+import { useSettings } from '~/composables/useSettings'
+
+// Apply saved theme on layout mount
+const { applyTheme } = useSettings()
+onMounted(() => {
+  applyTheme()
+})
 </script>
 
 <style scoped>
