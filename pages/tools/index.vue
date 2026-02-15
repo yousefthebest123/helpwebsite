@@ -14,7 +14,7 @@
       <header class="page-hero">
         <div class="hero-badge animate-float">
           <span class="pulse-dot"></span>
-          <span>35+ Powerful Tools</span>
+          <span>40+ Powerful Tools</span>
         </div>
         
         <h1 class="hero-title">
@@ -228,6 +228,18 @@ const tools = [
   { name: 'Scientific Calculator', icon: '🧮', path: '/tools/calculator', desc: 'Advanced scientific calculator', color: 'purple', category: 'learning' },
   { name: 'Word Counter', icon: '📊', path: '/tools/word-counter', desc: 'Count words, characters, sentences', color: 'blue', category: 'learning' },
   { name: 'Grade Calculator', icon: '📝', path: '/tools/grade', desc: 'Calculate your GPA', color: 'pink', category: 'learning' },
+  { name: 'BMI Calculator', icon: '⚖️', path: '/tools/bmi-calculator', desc: 'Calculate your Body Mass Index', color: 'teal', category: 'daily' },
+  { name: 'Breathing Exercise', icon: '🫁', path: '/tools/breathing', desc: 'Guided breathing exercises for relaxation', color: 'sky', category: 'brain' },
+  { name: 'Habit Tracker', icon: '✅', path: '/tools/habit-tracker', desc: 'Track and build daily habits', color: 'green', category: 'brain' },
+
+  // New Tools
+  { name: 'Text to Speech', icon: '🗣️', path: '/tools/text-to-speech', desc: 'Convert text to speech with voice controls', color: 'violet', category: 'creator', badge: 'New' },
+  { name: 'Typing Speed Test', icon: '⌨️', path: '/tools/typing-test', desc: 'Test your typing speed and accuracy', color: 'orange', category: 'learning', badge: 'New' },
+  { name: 'Stopwatch', icon: '⏱️', path: '/tools/stopwatch', desc: 'Precision stopwatch with lap tracking', color: 'emerald', category: 'daily', badge: 'New' },
+  { name: 'Morse Code', icon: '📡', path: '/tools/morse-code', desc: 'Translate text to Morse code and back', color: 'amber', category: 'learning', badge: 'New' },
+  { name: 'Color Blindness Sim', icon: '👁️', path: '/tools/color-blindness', desc: 'Simulate color vision deficiencies', color: 'fuchsia', category: 'creator', badge: 'New' },
+  { name: 'Screen Ruler', icon: '📏', path: '/tools/screen-ruler', desc: 'Measure anything on your screen', color: 'cyan', category: 'creator', badge: 'New' },
+  { name: 'Emoji Picker', icon: '😀', path: '/tools/emoji-picker', desc: 'Browse and copy thousands of emojis', color: 'pink', category: 'creator', badge: 'New' },
 ]
 
 const newToolsCount = computed(() => tools.filter(t => t.badge === 'New').length)

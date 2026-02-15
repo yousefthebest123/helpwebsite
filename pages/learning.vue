@@ -338,6 +338,10 @@
               <div class="flashcard-front">
                 <div class="card-number">Card {{ currentCardIndex + 1 }}</div>
                 <span>{{ currentCard?.front }}</span>
+                <button class="tts-btn" @click.stop="speak(currentCard?.front)" title="Read aloud">
+                  <span v-if="!isSpeaking">🔊</span>
+                  <span v-else>⏹️</span>
+                </button>
                 <p class="flip-hint">Click to reveal answer</p>
                 <div class="card-meta-study" v-if="currentCard">
                   <span v-if="currentCard.tag" class="tag sm">🏷️ {{ currentCard.tag }}</span>
@@ -346,6 +350,10 @@
               </div>
               <div class="flashcard-back">
                 <span>{{ currentCard?.back }}</span>
+                <button class="tts-btn tts-btn-back" @click.stop="speak(currentCard?.back)" title="Read aloud">
+                  <span v-if="!isSpeaking">🔊</span>
+                  <span v-else>⏹️</span>
+                </button>
               </div>
             </div>
           </div>
@@ -362,8 +370,15 @@
             </button>
           </div>
 
+          <div class="tts-controls">
+            <label class="checkbox-label">
+              <input type="checkbox" v-model="autoSpeak" />
+              🔊 Auto-speak cards
+            </label>
+          </div>
+
           <div class="keyboard-hint">
-            💡 Keyboard: <kbd>Space</kbd> flip · <kbd>1</kbd> hard · <kbd>2</kbd> okay · <kbd>3</kbd> easy
+            💡 Keyboard: <kbd>Space</kbd> flip · <kbd>1</kbd> hard · <kbd>2</kbd> okay · <kbd>3</kbd> easy · <kbd>S</kbd> speak
           </div>
           
           <button class="btn btn-ghost" @click="endStudySession">
@@ -490,6 +505,10 @@
 
           <div class="quiz-question glass">
             <h3>{{ quizQuestions[quizIndex]?.front }}</h3>
+            <button class="tts-btn tts-quiz" @click="speak(quizQuestions[quizIndex]?.front)" title="Read aloud">
+              <span v-if="!isSpeaking">🔊</span>
+              <span v-else>⏹️</span>
+            </button>
           </div>
 
           <div class="quiz-answers">
@@ -1348,6 +1367,48 @@ const loadAll = () => {
   }
 }
 
+// ─── Text-to-Speech ────────────────────────────
+const isSpeaking = ref(false)
+const autoSpeak = ref(false)
+
+const speak = (text) => {
+  if (!text) return
+  if (isSpeaking.value) {
+    window.speechSynthesis.cancel()
+    isSpeaking.value = false
+    return
+  }
+  const utter = new SpeechSynthesisUtterance(text)
+  // Auto-detect language
+  utter.lang = ''
+  utter.rate = 0.9
+  utter.pitch = 1
+  utter.onend = () => { isSpeaking.value = false }
+  utter.onerror = () => { isSpeaking.value = false }
+  isSpeaking.value = true
+  window.speechSynthesis.speak(utter)
+}
+
+const stopSpeaking = () => {
+  window.speechSynthesis.cancel()
+  isSpeaking.value = false
+}
+
+// Auto-speak when card changes
+watch(currentCardIndex, () => {
+  stopSpeaking()
+  if (autoSpeak.value && currentCard.value) {
+    nextTick(() => speak(currentCard.value.front))
+  }
+})
+
+watch(isFlipped, (flipped) => {
+  stopSpeaking()
+  if (autoSpeak.value && flipped && currentCard.value) {
+    nextTick(() => speak(currentCard.value.back))
+  }
+})
+
 // Writing
 const writingText = ref('')
 
@@ -1373,6 +1434,10 @@ const handleKeydown = (e) => {
     if (e.key === '2') markCard('okay')
     if (e.key === '3') markCard('easy')
   }
+  if (e.key === 's' || e.key === 'S') {
+    const text = isFlipped.value ? currentCard.value?.back : currentCard.value?.front
+    speak(text)
+  }
 }
 
 onMounted(() => {
@@ -1383,6 +1448,7 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('keydown', handleKeydown)
   clearInterval(quizTimerInterval)
+  stopSpeaking()
 })
 </script>
 
@@ -1974,6 +2040,53 @@ onUnmounted(() => {
   bottom: 20px;
   font-size: 14px;
   color: var(--text-muted);
+}
+
+/* TTS Button */
+.tts-btn {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(124, 58, 237, 0.2);
+  border: 1px solid rgba(124, 58, 237, 0.3);
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 5;
+}
+
+.tts-btn:hover {
+  background: rgba(124, 58, 237, 0.4);
+  transform: scale(1.1);
+}
+
+.tts-btn-back {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.tts-btn-back:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.tts-quiz {
+  position: relative;
+  top: auto;
+  right: auto;
+  margin-top: 16px;
+}
+
+.tts-controls {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 12px;
 }
 
 .study-controls {
