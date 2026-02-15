@@ -375,6 +375,22 @@
               <input type="checkbox" v-model="autoSpeak" />
               🔊 Auto-speak cards
             </label>
+            <div class="tts-lang-select">
+              <label>🌐</label>
+              <select v-model="ttsLang">
+                <option value="">Auto-detect</option>
+                <option value="he-IL">🇮🇱 Hebrew (עברית)</option>
+                <option value="en-US">🇺🇸 English</option>
+                <option value="es-ES">🇪🇸 Spanish</option>
+                <option value="fr-FR">🇫🇷 French</option>
+                <option value="de-DE">🇩🇪 German</option>
+                <option value="ar-SA">🇸🇦 Arabic</option>
+                <option value="zh-CN">🇨🇳 Chinese</option>
+                <option value="ja-JP">🇯🇵 Japanese</option>
+                <option value="ru-RU">🇷🇺 Russian</option>
+                <option value="pt-BR">🇧🇷 Portuguese</option>
+              </select>
+            </div>
           </div>
 
           <div class="keyboard-hint">
@@ -1370,6 +1386,18 @@ const loadAll = () => {
 // ─── Text-to-Speech ────────────────────────────
 const isSpeaking = ref(false)
 const autoSpeak = ref(false)
+const ttsLang = ref('')
+
+// Detect Hebrew characters in text
+const detectLang = (text) => {
+  if (ttsLang.value) return ttsLang.value
+  if (/[\u0590-\u05FF]/.test(text)) return 'he-IL'
+  if (/[\u0600-\u06FF]/.test(text)) return 'ar-SA'
+  if (/[\u4E00-\u9FFF]/.test(text)) return 'zh-CN'
+  if (/[\u3040-\u309F\u30A0-\u30FF]/.test(text)) return 'ja-JP'
+  if (/[\u0400-\u04FF]/.test(text)) return 'ru-RU'
+  return ''
+}
 
 const speak = (text) => {
   if (!text) return
@@ -1379,8 +1407,7 @@ const speak = (text) => {
     return
   }
   const utter = new SpeechSynthesisUtterance(text)
-  // Auto-detect language
-  utter.lang = ''
+  utter.lang = detectLang(text)
   utter.rate = 0.9
   utter.pitch = 1
   utter.onend = () => { isSpeaking.value = false }
@@ -2085,8 +2112,31 @@ onUnmounted(() => {
 .tts-controls {
   display: flex;
   justify-content: center;
-  gap: 12px;
+  align-items: center;
+  gap: 16px;
   margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.tts-lang-select {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tts-lang-select select {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  color: white;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  cursor: pointer;
+  outline: none;
+}
+
+.tts-lang-select select:focus {
+  border-color: var(--primary);
 }
 
 .study-controls {
