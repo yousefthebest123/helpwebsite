@@ -379,16 +379,16 @@
               <label>🌐</label>
               <select v-model="ttsLang">
                 <option value="">Auto-detect</option>
-                <option value="he-IL">🇮🇱 Hebrew (עברית)</option>
-                <option value="en-US">🇺🇸 English</option>
-                <option value="es-ES">🇪🇸 Spanish</option>
-                <option value="fr-FR">🇫🇷 French</option>
-                <option value="de-DE">🇩🇪 German</option>
-                <option value="ar-SA">🇸🇦 Arabic</option>
-                <option value="zh-CN">🇨🇳 Chinese</option>
-                <option value="ja-JP">🇯🇵 Japanese</option>
-                <option value="ru-RU">🇷🇺 Russian</option>
-                <option value="pt-BR">🇧🇷 Portuguese</option>
+                <option value="he">🇮🇱 Hebrew (עברית)</option>
+                <option value="en">🇺🇸 English</option>
+                <option value="es">🇪🇸 Spanish</option>
+                <option value="fr">🇫🇷 French</option>
+                <option value="de">🇩🇪 German</option>
+                <option value="ar">🇸🇦 Arabic</option>
+                <option value="zh">🇨🇳 Chinese</option>
+                <option value="ja">🇯🇵 Japanese</option>
+                <option value="ru">🇷🇺 Russian</option>
+                <option value="pt">🇧🇷 Portuguese</option>
               </select>
             </div>
           </div>
@@ -1391,12 +1391,32 @@ const ttsLang = ref('')
 // Detect Hebrew characters in text
 const detectLang = (text) => {
   if (ttsLang.value) return ttsLang.value
-  if (/[\u0590-\u05FF]/.test(text)) return 'he-IL'
-  if (/[\u0600-\u06FF]/.test(text)) return 'ar-SA'
-  if (/[\u4E00-\u9FFF]/.test(text)) return 'zh-CN'
-  if (/[\u3040-\u309F\u30A0-\u30FF]/.test(text)) return 'ja-JP'
-  if (/[\u0400-\u04FF]/.test(text)) return 'ru-RU'
+  if (/[\u0590-\u05FF]/.test(text)) return 'he'
+  if (/[\u0600-\u06FF]/.test(text)) return 'ar'
+  if (/[\u4E00-\u9FFF]/.test(text)) return 'zh'
+  if (/[\u3040-\u309F\u30A0-\u30FF]/.test(text)) return 'ja'
+  if (/[\u0400-\u04FF]/.test(text)) return 'ru'
   return ''
+}
+
+// Find the best matching voice for a language code
+const findVoice = (lang) => {
+  if (!lang) return null
+  const voices = window.speechSynthesis.getVoices()
+  // Exact match first (e.g. "he-IL")
+  let voice = voices.find(v => v.lang.toLowerCase().startsWith(lang.toLowerCase()))
+  if (voice) return voice
+  // Try short code (e.g. "he")
+  const short = lang.split('-')[0]
+  voice = voices.find(v => v.lang.toLowerCase().startsWith(short))
+  return voice || null
+}
+
+// Ensure voices are loaded
+const voicesReady = ref(false)
+const loadVoices = () => {
+  const voices = window.speechSynthesis.getVoices()
+  if (voices.length > 0) voicesReady.value = true
 }
 
 const speak = (text) => {
@@ -1406,8 +1426,27 @@ const speak = (text) => {
     isSpeaking.value = false
     return
   }
+
+  // Make sure voices are loaded
+  const voices = window.speechSynthesis.getVoices()
+  if (voices.length === 0) {
+    // Voices not loaded yet, wait and retry
+    window.speechSynthesis.addEventListener('voiceschanged', () => speak(text), { once: true })
+    return
+  }
+
+  const lang = detectLang(text)
   const utter = new SpeechSynthesisUtterance(text)
-  utter.lang = detectLang(text)
+  
+  // Explicitly set a matching voice
+  const voice = findVoice(lang)
+  if (voice) {
+    utter.voice = voice
+    utter.lang = voice.lang
+  } else if (lang) {
+    utter.lang = lang
+  }
+  
   utter.rate = 0.9
   utter.pitch = 1
   utter.onend = () => { isSpeaking.value = false }
@@ -1470,6 +1509,9 @@ const handleKeydown = (e) => {
 onMounted(() => {
   loadAll()
   window.addEventListener('keydown', handleKeydown)
+  // Pre-load speech voices (some browsers load async)
+  loadVoices()
+  window.speechSynthesis.addEventListener('voiceschanged', loadVoices)
 })
 
 onUnmounted(() => {
