@@ -1403,13 +1403,49 @@ const detectLang = (text) => {
 const findVoice = (lang) => {
   if (!lang) return null
   const voices = window.speechSynthesis.getVoices()
-  // Exact match first (e.g. "he-IL")
   let voice = voices.find(v => v.lang.toLowerCase().startsWith(lang.toLowerCase()))
   if (voice) return voice
-  // Try short code (e.g. "he")
   const short = lang.split('-')[0]
   voice = voices.find(v => v.lang.toLowerCase().startsWith(short))
   return voice || null
+}
+
+// Google Translate TTS fallback for languages without native voices
+let ttsAudio = null
+const speakWithGoogleTTS = (text, lang) => {
+  // Split long text into chunks (~180 chars max per request)
+  const chunks = []
+  let remaining = text
+  while (remaining.length > 0) {
+    if (remaining.length <= 180) {
+      chunks.push(remaining)
+      break
+    }
+    // Find a good break point (period, comma, space)
+    let breakAt = remaining.lastIndexOf('.', 180)
+    if (breakAt < 50) breakAt = remaining.lastIndexOf(',', 180)
+    if (breakAt < 50) breakAt = remaining.lastIndexOf(' ', 180)
+    if (breakAt < 50) breakAt = 180
+    chunks.push(remaining.slice(0, breakAt + 1))
+    remaining = remaining.slice(breakAt + 1).trim()
+  }
+
+  let chunkIndex = 0
+  const playNext = () => {
+    if (chunkIndex >= chunks.length) {
+      isSpeaking.value = false
+      return
+    }
+    const encoded = encodeURIComponent(chunks[chunkIndex])
+    ttsAudio = new Audio(`https://translate.google.com/translate_tts?ie=UTF-8&tl=${lang}&client=tw-ob&q=${encoded}`)
+    ttsAudio.playbackRate = 0.9
+    ttsAudio.onended = () => { chunkIndex++; playNext() }
+    ttsAudio.onerror = () => { isSpeaking.value = false }
+    ttsAudio.play().catch(() => { isSpeaking.value = false })
+  }
+
+  isSpeaking.value = true
+  playNext()
 }
 
 // Ensure voices are loaded
@@ -1423,23 +1459,24 @@ const speak = (text) => {
   if (!text) return
   if (isSpeaking.value) {
     window.speechSynthesis.cancel()
+    if (ttsAudio) { ttsAudio.pause(); ttsAudio = null }
     isSpeaking.value = false
     return
   }
 
-  // Make sure voices are loaded
+  const lang = detectLang(text)
+
+  // Check if we have a native voice for this language
   const voices = window.speechSynthesis.getVoices()
-  if (voices.length === 0) {
-    // Voices not loaded yet, wait and retry
-    window.speechSynthesis.addEventListener('voiceschanged', () => speak(text), { once: true })
+  const voice = findVoice(lang)
+  
+  // If no native voice found for non-English text, use Google TTS fallback
+  if (lang && !voice) {
+    speakWithGoogleTTS(text, lang)
     return
   }
 
-  const lang = detectLang(text)
   const utter = new SpeechSynthesisUtterance(text)
-  
-  // Explicitly set a matching voice
-  const voice = findVoice(lang)
   if (voice) {
     utter.voice = voice
     utter.lang = voice.lang
@@ -1457,6 +1494,7 @@ const speak = (text) => {
 
 const stopSpeaking = () => {
   window.speechSynthesis.cancel()
+  if (ttsAudio) { ttsAudio.pause(); ttsAudio = null }
   isSpeaking.value = false
 }
 
